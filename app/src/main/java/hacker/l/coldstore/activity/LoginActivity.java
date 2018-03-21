@@ -2,6 +2,8 @@ package hacker.l.coldstore.activity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
@@ -30,46 +32,68 @@ import hacker.l.coldstore.database.DbHelper;
 import hacker.l.coldstore.model.MyPojo;
 import hacker.l.coldstore.model.Result;
 import hacker.l.coldstore.utility.Contants;
+import hacker.l.coldstore.utility.FontManager;
 import hacker.l.coldstore.utility.Utility;
 
 
 public class LoginActivity extends AppCompatActivity {
     Button id_bt_login;
-    TextView signUpText, forgot_password;
+    TextView tv_emptic, tv_admintic, tv_employee, tv_admin;
     EditText id_et_username, id_et_password;
     CheckBox showCheck;
-    LinearLayout layout_singup;
+    LinearLayout layout_employee, layout_admin;
     ProgressDialog pd;
+    int role = 1;
+    Typeface material;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        material = FontManager.getFontTypefaceMaterialDesignIcons(this, "fonts/materialdesignicons-webfont.otf");
         id_bt_login = findViewById(R.id.id_bt_login);
-        signUpText = findViewById(R.id.signUpText);
-        forgot_password = findViewById(R.id.forgot_password);
+        tv_emptic = findViewById(R.id.tv_emptic);
+        tv_admintic = findViewById(R.id.tv_admintic);
+        tv_employee = findViewById(R.id.tv_employee);
+        tv_admin = findViewById(R.id.tv_admin);
+//        forgot_password = findViewById(R.id.forgot_password);
         id_et_username = findViewById(R.id.id_et_username);
         id_et_password = findViewById(R.id.id_et_password);
         showCheck = findViewById(R.id.show_password);
-        layout_singup = findViewById(R.id.layout_singup);
+        layout_employee = findViewById(R.id.layout_employee);
+        layout_admin = findViewById(R.id.layout_admin);
+        tv_admintic.setTypeface(material);
+        tv_emptic.setTypeface(material);
+        tv_admintic.setText("3");
+        tv_emptic.setText("w");
         id_bt_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 loginFunction();
             }
         });
-        layout_singup.setOnClickListener(new View.OnClickListener() {
+        layout_employee.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this, SignupActivity.class);
-                startActivity(intent);
+                layout_employee.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+                layout_admin.setBackgroundColor(getResources().getColor(R.color.grey_color));
+                tv_admintic.setTextColor(getResources().getColor(R.color.grey_color));
+                tv_employee.setTextColor(getResources().getColor(R.color.white));
+                tv_emptic.setTextColor(getResources().getColor(R.color.white));
+                tv_admin.setTextColor(Color.BLACK);
+                role = 2;
             }
         });
-        forgot_password.setOnClickListener(new View.OnClickListener() {
+        layout_admin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this, ForgetPasswordActivity.class);
-                startActivity(intent);
+                layout_admin.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+                layout_employee.setBackgroundColor(getResources().getColor(R.color.grey_color));
+                tv_emptic.setTextColor(getResources().getColor(R.color.grey_color));
+                tv_admin.setTextColor(Color.WHITE);
+                tv_admintic.setTextColor(Color.WHITE);
+                tv_employee.setTextColor(getResources().getColor(R.color.black));
+                role = 1;
             }
         });
         showCheck.setOnClickListener(new View.OnClickListener() {
@@ -96,12 +120,20 @@ public class LoginActivity extends AppCompatActivity {
         } else if (userPass.length() == 0) {
             id_et_password.setError("Enter password");
         } else {
+            checkRole();
+        }
+    }
+
+    private void checkRole() {
+        if (role == 1) {
+            //admin login
+            Toast.makeText(this, "Admin", Toast.LENGTH_SHORT).show();
             if (Utility.isOnline(this)) {
                 pd = new ProgressDialog(LoginActivity.this);
                 pd.setMessage("Checking wait...");
                 pd.show();
                 pd.setCancelable(false);
-                StringRequest stringRequest = new StringRequest(Request.Method.POST, Contants.SERVICE_BASE_URL + Contants.login,
+                StringRequest stringRequest = new StringRequest(Request.Method.POST, Contants.SERVICE_BASE_URL + Contants.Admin,
                         new Response.Listener<String>() {
                             @Override
                             public void onResponse(String response) {
@@ -111,10 +143,10 @@ public class LoginActivity extends AppCompatActivity {
                                     if (myPojo != null) {
                                         for (Result result : myPojo.getResult()) {
                                             if (result != null) {
-                                                new DbHelper(LoginActivity.this).upsertUserData(result);
-                                                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                                                startActivity(intent);
+//                                                new DbHelper(LoginActivity.this).upsertUserData(result);
+//                                                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+//                                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+//                                                startActivity(intent);
                                             }
                                         }
                                     }
@@ -134,19 +166,68 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     protected Map<String, String> getParams() throws AuthFailureError {
                         Map<String, String> params = new HashMap<String, String>();
-                        params.put("UserPhone", userPhone);
-                        params.put("Password", userPass);
+//                        params.put("UserPhone", userPhone);
+//                        params.put("Password", userPass);
                         return params;
                     }
                 };
                 RequestQueue requestQueue = Volley.newRequestQueue(this);
                 requestQueue.add(stringRequest);
-            } else
-
-            {
-
+            } else {
                 Toast.makeText(this, "You are Offline. Please check your Internet Connection.", Toast.LENGTH_SHORT).show();
             }
+
+        } else {
+            if (Utility.isOnline(this)) {
+                pd = new ProgressDialog(LoginActivity.this);
+                pd.setMessage("Checking wait...");
+                pd.show();
+                pd.setCancelable(false);
+                StringRequest stringRequest = new StringRequest(Request.Method.POST, Contants.SERVICE_BASE_URL + Contants.employee,
+                        new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
+                                pd.dismiss();
+                                if (!response.equalsIgnoreCase("no")) {
+                                    MyPojo myPojo = new Gson().fromJson(response, MyPojo.class);
+                                    if (myPojo != null) {
+                                        for (Result result : myPojo.getResult()) {
+                                            if (result != null) {
+//                                                new DbHelper(LoginActivity.this).upsertUserData(result);
+//                                                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+//                                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+//                                                startActivity(intent);
+                                            }
+                                        }
+                                    }
+
+                                } else {
+                                    Toast.makeText(LoginActivity.this, "Invalid Information", Toast.LENGTH_SHORT).show();
+                                    id_et_username.setError("Invalid Information");
+                                }
+                            }
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                pd.dismiss();
+                            }
+                        }) {
+                    @Override
+                    protected Map<String, String> getParams() throws AuthFailureError {
+                        Map<String, String> params = new HashMap<String, String>();
+//                        params.put("UserPhone", userPhone);
+//                        params.put("Password", userPass);
+                        return params;
+                    }
+                };
+                RequestQueue requestQueue = Volley.newRequestQueue(this);
+                requestQueue.add(stringRequest);
+            } else {
+                Toast.makeText(this, "You are Offline. Please check your Internet Connection.", Toast.LENGTH_SHORT).show();
+            }
+            Toast.makeText(this, "empoloyyee", Toast.LENGTH_SHORT).show();
         }
     }
+
 }

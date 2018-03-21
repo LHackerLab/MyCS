@@ -39,9 +39,6 @@ public class Contants {
     public static final String Dont_GetAddress_MESSAGE = "Some Problem For Geting Address";
     public static final String No_DATA_FOUND_MESSAGE = "No Record Found";
 
-    public static final String usersingup = "usersingup.php";
-    public static final String login = "login.php";
-    public static final String forgetpassword = "forgetpassword.php";
-    public static final String getsurakshacavach = "getsurakshacavach.php";
-    public static final String surakshacavach = "surakshacavach.php";
+    public static final String Admin = "admin.php";
+    public static final String employee = "employee.php";
 }
