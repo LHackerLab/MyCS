@@ -11,6 +11,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="fitXY"
-        android:src="@drawable/ic_launcher_background" />
+        android:src="@android:drawable/star_big_on" />
 
 </android.support.design.widget.CoordinatorLayout>

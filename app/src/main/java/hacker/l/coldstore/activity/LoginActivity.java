@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Html;
 import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
@@ -64,12 +65,13 @@ public class LoginActivity extends AppCompatActivity {
         layout_admin = findViewById(R.id.layout_admin);
         tv_admintic.setTypeface(material);
         tv_emptic.setTypeface(material);
-        tv_admintic.setText("3");
-        tv_emptic.setText("w");
+        tv_admintic.setText(Html.fromHtml("&#xf12c;"));
+        tv_emptic.setText(Html.fromHtml("&#xf12c;"));
         id_bt_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loginFunction();
+                startActivity(new Intent(LoginActivity.this, MainActivity.class));
+//                loginFunction();
             }
         });
         layout_employee.setOnClickListener(new View.OnClickListener() {
