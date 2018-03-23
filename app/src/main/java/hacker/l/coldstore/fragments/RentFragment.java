@@ -7,6 +7,9 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import hacker.l.coldstore.R;
 import hacker.l.coldstore.activity.MainActivity;
@@ -42,6 +45,9 @@ public class RentFragment extends Fragment {
 
     View view;
     Context context;
+    TextView tv_price;
+    EditText edt_rent;
+    Button addRent;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -56,5 +62,14 @@ public class RentFragment extends Fragment {
     private void init() {
         MainActivity mainActivity = (MainActivity) context;
         mainActivity.setTitle("Rent");
+        tv_price = view.findViewById(R.id.tv_price);
+        edt_rent = view.findViewById(R.id.edt_rent);
+        addRent = view.findViewById(R.id.btn_add);
+        addRent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
 }

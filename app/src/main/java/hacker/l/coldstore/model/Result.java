@@ -157,6 +157,25 @@ public class Result {
     }
 
     private int varietyId;
+    private int floor;
+
+    public int getFloor() {
+        return floor;
+    }
+
+    public void setFloor(int floor) {
+        this.floor = floor;
+    }
+
+    public int getFloorId() {
+        return floorId;
+    }
+
+    public void setFloorId(int floorId) {
+        this.floorId = floorId;
+    }
+
+    private int floorId;
 
     public Result(String name, String phone) {
         this.name = name;
