@@ -41,4 +41,5 @@ public class Contants {
 
     public static final String Admin = "admin.php";
     public static final String employee = "employee.php";
+    public static final String deleteVariety = "deleteVariety.php";
 }

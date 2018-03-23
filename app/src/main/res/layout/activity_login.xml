@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/white">
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
@@ -173,13 +174,13 @@
 
                 <Button
                     android:id="@+id/id_bt_login"
-                    android:layout_width="170dp"
-                    android:layout_height="40dp"
+                    android:layout_width="210dp"
+                    android:layout_height="45dp"
                     android:layout_gravity="center"
                     android:layout_marginTop="@dimen/dimen_30_dp"
                     android:background="@drawable/capsule_button"
-                    android:foreground="?android:attr/selectableItemBackground"
                     android:text="LOGIN"
+                    android:textAllCaps="false"
                     android:textColor="@color/white"
                     android:textSize="@dimen/textSize14" />
 

@@ -10,6 +10,16 @@ public class Result {
     private String Username;
     private String UserPhone;
 
+    public String getVarietyName() {
+        return varietyName;
+    }
+
+    public void setVarietyName(String varietyName) {
+        this.varietyName = varietyName;
+    }
+
+    private String varietyName;
+
     public String getUsername() {
         return Username;
     }
@@ -137,6 +147,16 @@ public class Result {
     }
 
     private int scid;
+
+    public int getVarietyId() {
+        return varietyId;
+    }
+
+    public void setVarietyId(int varietyId) {
+        this.varietyId = varietyId;
+    }
+
+    private int varietyId;
 
     public Result(String name, String phone) {
         this.name = name;
