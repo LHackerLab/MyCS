@@ -98,6 +98,7 @@ public class FloorFragment extends Fragment {
 
     private void updateFloorDataServer() {
         setFloorAdapter();
+        add.setText("Add");
     }
 
     public void updateFloorData(Boolean aBoolean, int floor, int floorId) {

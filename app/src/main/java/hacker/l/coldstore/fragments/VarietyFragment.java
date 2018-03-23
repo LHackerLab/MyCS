@@ -97,6 +97,7 @@ public class VarietyFragment extends Fragment {
 
     private void updateVarietyDataServer() {
         setVarietyAdapter();
+        add.setText("Add");
     }
 
     public void updateVarietyData(Boolean aBoolean, String varietyName, int varietyId) {

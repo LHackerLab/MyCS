@@ -137,6 +137,34 @@ public class Result {
 
     private String socialUs;
     private int loginId;
+    private int rack;
+    private int rackId;
+
+    public int getRack() {
+        return rack;
+    }
+
+    public void setRack(int rack) {
+        this.rack = rack;
+    }
+
+    public int getRackId() {
+        return rackId;
+    }
+
+    public void setRackId(int rackId) {
+        this.rackId = rackId;
+    }
+
+    public int getCapacity() {
+        return capacity;
+    }
+
+    public void setCapacity(int capacity) {
+        this.capacity = capacity;
+    }
+
+    private int capacity;
 
     public int getScid() {
         return scid;
