@@ -27,7 +27,7 @@
                     android:layout_height="120dp"
                     android:layout_gravity="center"
                     android:layout_marginTop="@dimen/margin10"
-                    android:src="@drawable/ic_launcher_background" />
+                    android:src="@drawable/ic_menu_gallery" />
             </LinearLayout>
 
             <LinearLayout

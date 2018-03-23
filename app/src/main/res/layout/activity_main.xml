@@ -20,227 +20,255 @@
         android:layout_gravity="start"
         android:fitsSystemWindows="true">
 
-        <LinearLayout
+        <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <include layout="@layout/nav_header_main"></include>
+            android:layout_height="match_parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="@dimen/dimen_10_dp"
                 android:orientation="vertical">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dimen_10_dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight=".2"
-                        android:text="Icon"
-                        android:textColor="@color/red"
-                        android:textSize="@dimen/textSize18" />
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight=".8"
-                        android:text="Home"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/textSize16" />
-                </LinearLayout>
+                <include layout="@layout/nav_header_main"></include>
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dimen_10_dp"
-                    android:orientation="horizontal">
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
-                    <TextView
-                        android:layout_width="0dp"
+                    <LinearLayout
+                        android:id="@+id/layout_home"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight=".2"
-                        android:text="Icon"
-                        android:textColor="@color/red"
-                        android:textSize="@dimen/textSize18" />
+                        android:layout_marginTop="@dimen/dimen_15_dp"
+                        android:orientation="horizontal">
 
-                    <TextView
-                        android:layout_width="0dp"
+                        <ImageView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight=".2"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/ic_home_black_24dp" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight=".8"
+                            android:text="Home"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/textSize16" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/layout_inward"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight=".8"
-                        android:text="Inward "
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/textSize16" />
-                </LinearLayout>
+                        android:layout_marginTop="@dimen/dimen_15_dp"
+                        android:orientation="horizontal">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dimen_10_dp"
-                    android:orientation="horizontal">
+                        <ImageView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight=".2"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/ic_format_indent_decrease_black_24dp" />
 
-                    <TextView
-                        android:layout_width="0dp"
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight=".8"
+                            android:text="Inward Management"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/textSize16" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/layout_outward"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight=".2"
-                        android:text="Icon"
-                        android:textColor="@color/red"
-                        android:textSize="@dimen/textSize18" />
+                        android:layout_marginTop="@dimen/dimen_15_dp"
+                        android:orientation="horizontal">
 
-                    <TextView
-                        android:layout_width="0dp"
+                        <ImageView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight=".2"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/ic_format_indent_increase_black_24dp" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight=".8"
+                            android:text="Outward Management"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/textSize16" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/layout_employee"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight=".8"
-                        android:text="Outward"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/textSize16" />
-                </LinearLayout>
+                        android:layout_marginTop="@dimen/dimen_15_dp"
+                        android:orientation="horizontal">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dimen_10_dp"
-                    android:orientation="horizontal">
+                        <ImageView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight=".2"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/ic_person_add_black_24dp" />
 
-                    <TextView
-                        android:layout_width="0dp"
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight=".8"
+                            android:text="Employees Management"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/textSize16" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/layout_floor"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight=".2"
-                        android:text="Icon"
-                        android:textColor="@color/red"
-                        android:textSize="@dimen/textSize18" />
+                        android:layout_marginTop="@dimen/dimen_15_dp"
+                        android:orientation="horizontal">
 
-                    <TextView
-                        android:layout_width="0dp"
+                        <ImageView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight=".2"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/ic_developer_board_black_24dp" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight=".8"
+                            android:text="Floor Management"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/textSize16" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/layout_rack"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight=".8"
-                        android:text="Employees"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/textSize16" />
-                </LinearLayout>
+                        android:layout_marginTop="@dimen/dimen_15_dp"
+                        android:orientation="horizontal">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dimen_10_dp"
-                    android:orientation="horizontal">
+                        <ImageView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight=".2"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/ic_voicemail_black_24dp" />
 
-                    <TextView
-                        android:layout_width="0dp"
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight=".8"
+                            android:text="Rack Management"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/textSize16" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/layout_vareity"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight=".2"
-                        android:text="Icon"
-                        android:textColor="@color/red"
-                        android:textSize="@dimen/textSize18" />
+                        android:layout_marginTop="@dimen/dimen_15_dp"
+                        android:orientation="horizontal">
 
-                    <TextView
-                        android:layout_width="0dp"
+                        <ImageView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight=".2"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/ic_dns_black_24dp" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight=".8"
+                            android:text="Variety Management"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/textSize16" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/layout_rent"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight=".8"
-                        android:text="Floor"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/textSize16" />
-                </LinearLayout>
+                        android:layout_marginTop="@dimen/dimen_15_dp"
+                        android:orientation="horizontal">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dimen_10_dp"
-                    android:orientation="horizontal">
+                        <ImageView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight=".2"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/ic_location_city_black_24dp" />
 
-                    <TextView
-                        android:layout_width="0dp"
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight=".8"
+                            android:text="Rent Management"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/textSize16" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/layout_account"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight=".2"
-                        android:text="Icon"
-                        android:textColor="@color/red"
-                        android:textSize="@dimen/textSize18" />
+                        android:layout_marginTop="@dimen/dimen_15_dp"
+                        android:orientation="horizontal">
 
-                    <TextView
-                        android:layout_width="0dp"
+                        <ImageView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight=".2"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/ic_supervisor_account_black_24dp" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight=".8"
+                            android:text="Account Management"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/textSize16" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/layout_profile"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight=".8"
-                        android:text="Rack"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/textSize16" />
-                </LinearLayout>
+                        android:layout_marginTop="@dimen/dimen_15_dp"
+                        android:orientation="horizontal">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dimen_10_dp"
-                    android:orientation="horizontal">
+                        <ImageView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight=".2"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/ic_account_circle_black_24dp" />
 
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight=".2"
-                        android:text="Icon"
-                        android:textColor="@color/red"
-                        android:textSize="@dimen/textSize18" />
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight=".8"
-                        android:text="Variety"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/textSize16" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dimen_10_dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight=".2"
-                        android:text="Icon"
-                        android:textColor="@color/red"
-                        android:textSize="@dimen/textSize18" />
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight=".8"
-                        android:text="Account management"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/textSize16" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dimen_10_dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight=".2"
-                        android:text="Icon"
-                        android:textColor="@color/red"
-                        android:textSize="@dimen/textSize18" />
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight=".8"
-                        android:text="My Profile"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/textSize16" />
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight=".8"
+                            android:text="My Profile"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/textSize16" />
+                    </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
-        </LinearLayout>
+
+        </android.support.v4.widget.NestedScrollView>
     </android.support.design.widget.NavigationView>
 
 </android.support.v4.widget.DrawerLayout>
