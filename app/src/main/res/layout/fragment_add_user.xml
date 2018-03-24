@@ -2,18 +2,87 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    tools:context="hacker.l.coldstore.fragments.OutwardFragment">
+    tools:context="hacker.l.coldstore.fragments.AddUserFragment">
 
+    <!-- TODO: Update blank fragment layout -->
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin5"
+                android:layout_marginTop="@dimen/margin5"
+                android:text="Employee Type*"
+                android:textColor="@color/purple"
+                android:textSize="@dimen/textSize16" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin5"
+                android:orientation="horizontal">
+
+                <RadioGroup
+                    android:id="@+id/radiogroupUser"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/radio_admin"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/margin30"
+                        android:checked="true"
+                        android:text="Admin"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/textSize16" />
+
+                    <RadioButton
+                        android:id="@+id/radio_user"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin30"
+                        android:text="User"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/textSize16" />
+                </RadioGroup>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin10"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin5"
+                    android:layout_weight=".5"
+                    android:text="Joining Date*"
+                    android:textColor="@color/purple"
+                    android:textSize="@dimen/textSize16" />
+
+                <TextView
+                    android:id="@+id/tv_datePicker"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".5"
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/textSize16">
+
+                </TextView>
+            </LinearLayout>
 
             <TextView
                 android:layout_width="match_parent"
@@ -30,7 +99,7 @@
                 android:layout_height="@dimen/dimen_40_dp"
                 android:layout_margin="@dimen/margin5"
                 android:background="@drawable/done_corner_round"
-                android:hint="Enter  Name"
+                android:hint="Enter Employee Name"
                 android:inputType="text"
                 android:paddingLeft="@dimen/margin5"
                 android:textColor="@color/black"
@@ -51,11 +120,81 @@
                 android:layout_height="@dimen/dimen_40_dp"
                 android:layout_margin="@dimen/margin5"
                 android:background="@drawable/done_corner_round"
-                android:hint="Enter Father Name"
+                android:hint="Enter Employee Father Name"
                 android:inputType="text"
                 android:paddingLeft="@dimen/margin5"
                 android:textColor="@color/black"
                 android:textSize="@dimen/textSize16" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin5"
+                android:layout_marginTop="@dimen/margin5"
+                android:text="Gender*"
+                android:textColor="@color/purple"
+                android:textSize="@dimen/textSize16" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin5"
+                android:orientation="horizontal">
+
+                <RadioGroup
+                    android:id="@+id/radiogroupGender"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/radio_male"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/margin30"
+                        android:checked="true"
+                        android:text="Male"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/textSize16" />
+
+                    <RadioButton
+                        android:id="@+id/radio_female"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin30"
+                        android:text="Female"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/textSize16" />
+                </RadioGroup>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin10"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin5"
+                    android:layout_weight=".5"
+                    android:text="Date Of Birth*"
+                    android:textColor="@color/purple"
+                    android:textSize="@dimen/textSize16" />
+
+                <TextView
+                    android:id="@+id/tv_datePickerDob"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".5"
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/textSize16">
+
+                </TextView>
+            </LinearLayout>
 
             <TextView
                 android:layout_width="match_parent"
@@ -83,18 +222,18 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/margin5"
                 android:layout_marginTop="@dimen/margin10"
-                android:text="Whole Sale Number*"
+                android:text="Qualification"
                 android:textColor="@color/purple"
                 android:textSize="@dimen/textSize16" />
 
             <EditText
-                android:id="@+id/edt_wholeSaleNo"
+                android:id="@+id/edt_qualification"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dimen_40_dp"
                 android:layout_margin="@dimen/margin5"
                 android:background="@drawable/done_corner_round"
-                android:hint="Enter Whole Sale Number"
-                android:inputType="number"
+                android:hint="Enter Qualification"
+                android:inputType="text"
                 android:paddingLeft="@dimen/margin5"
                 android:textColor="@color/black"
                 android:textSize="@dimen/textSize16" />
@@ -104,124 +243,19 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/margin5"
                 android:layout_marginTop="@dimen/margin10"
-                android:text="Variety*"
-                android:textColor="@color/purple"
-                android:textSize="@dimen/textSize16" />
-
-            <TextView
-                android:id="@+id/tv_variety"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dimen_40_dp"
-                android:layout_marginLeft="@dimen/margin5"
-                android:layout_marginTop="@dimen/margin10"
-                android:background="@drawable/done_corner_round"
-                android:gravity="center"
-                android:text="Variety"
-                android:textColor="@color/black"
-                android:textSize="@dimen/textSize16" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/margin5"
-                android:layout_marginTop="@dimen/margin10"
-                android:text="Floor No*"
-                android:textColor="@color/purple"
-                android:textSize="@dimen/textSize16" />
-
-            <TextView
-                android:id="@+id/tv_floor"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dimen_40_dp"
-                android:layout_marginLeft="@dimen/margin5"
-                android:layout_marginTop="@dimen/margin10"
-                android:background="@drawable/done_corner_round"
-                android:gravity="center"
-                android:text="floor"
-                android:textColor="@color/black"
-                android:textSize="@dimen/textSize16" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/margin5"
-                android:layout_marginTop="@dimen/margin10"
-                android:text="Rack No*"
-                android:textColor="@color/purple"
-                android:textSize="@dimen/textSize16" />
-
-            <TextView
-                android:id="@+id/tv_rack"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dimen_40_dp"
-                android:layout_marginLeft="@dimen/margin5"
-                android:layout_marginTop="@dimen/margin10"
-                android:background="@drawable/done_corner_round"
-                android:gravity="center"
-                android:text="rack"
-                android:textColor="@color/black"
-                android:textSize="@dimen/textSize16" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/margin5"
-                android:layout_marginTop="@dimen/margin10"
-                android:text="Quantity*"
-                android:textColor="@color/purple"
-                android:textSize="@dimen/textSize16" />
-
-            <TextView
-                android:id="@+id/tv_qty"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dimen_40_dp"
-                android:layout_marginLeft="@dimen/margin5"
-                android:layout_marginTop="@dimen/margin10"
-                android:background="@drawable/done_corner_round"
-                android:gravity="center"
-                android:text="20"
-                android:textColor="@color/black"
-                android:textSize="@dimen/textSize16" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/margin5"
-                android:layout_marginTop="@dimen/margin10"
-                android:text="Departure*"
+                android:text="Salary"
                 android:textColor="@color/purple"
                 android:textSize="@dimen/textSize16" />
 
             <EditText
-                android:id="@+id/edt_departure"
+                android:id="@+id/edt_salary"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dimen_40_dp"
                 android:layout_margin="@dimen/margin5"
                 android:background="@drawable/done_corner_round"
-                android:hint="Enter  Number"
-                android:inputType="number"
+                android:hint="Enter Salary"
+                android:inputType="numberDecimal"
                 android:paddingLeft="@dimen/margin5"
-                android:textColor="@color/black"
-                android:textSize="@dimen/textSize16" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/margin5"
-                android:layout_marginTop="@dimen/margin10"
-                android:text="Remaining Quantity*"
-                android:textColor="@color/purple"
-                android:textSize="@dimen/textSize16" />
-
-            <TextView
-                android:id="@+id/tv_Rqty"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dimen_40_dp"
-                android:layout_marginLeft="@dimen/margin5"
-                android:layout_marginTop="@dimen/margin10"
-                android:background="@drawable/done_corner_round"
-                android:gravity="center"
-                android:text="10"
                 android:textColor="@color/black"
                 android:textSize="@dimen/textSize16" />
 
@@ -237,25 +271,68 @@
             <EditText
                 android:id="@+id/edt_address"
                 android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_margin="@dimen/margin5"
+                android:background="@drawable/done_corner_round"
+                android:hint="Enter Address"
+                android:inputType="text"
+                android:paddingLeft="@dimen/margin5"
+                android:textColor="@color/black"
+                android:textSize="@dimen/textSize16" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin5"
+                android:layout_marginTop="@dimen/margin10"
+                android:text="Password*"
+                android:textColor="@color/purple"
+                android:textSize="@dimen/textSize16" />
+
+            <EditText
+                android:id="@+id/edt_password"
+                android:layout_width="match_parent"
                 android:layout_height="@dimen/dimen_40_dp"
                 android:layout_margin="@dimen/margin5"
                 android:background="@drawable/done_corner_round"
-                android:hint="Enter  Address"
+                android:hint="Enter Password"
+                android:inputType="text"
+                android:paddingLeft="@dimen/margin5"
+                android:textColor="@color/black"
+                android:textSize="@dimen/textSize16" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin5"
+                android:layout_marginTop="@dimen/margin10"
+                android:text="Comfirm Paaword"
+                android:textColor="@color/purple"
+                android:textSize="@dimen/textSize16" />
+
+            <EditText
+                android:id="@+id/edt_cPassword"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_40_dp"
+                android:layout_margin="@dimen/margin5"
+                android:background="@drawable/done_corner_round"
+                android:hint="Enter Comfirm Paaword"
                 android:inputType="text"
                 android:paddingLeft="@dimen/margin5"
                 android:textColor="@color/black"
                 android:textSize="@dimen/textSize16" />
 
             <Button
-                android:id="@+id/btn_proced"
+                android:id="@+id/btn_add"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_margin="@dimen/margin10"
                 android:background="@drawable/capsule_button"
-                android:text="Submit Outward"
+                android:text="Add User"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
                 android:textSize="@dimen/textSize16" />
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
+
 </FrameLayout>

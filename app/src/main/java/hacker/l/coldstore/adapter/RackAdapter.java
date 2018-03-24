@@ -94,8 +94,8 @@ public class RackAdapter extends RecyclerView.Adapter<RackAdapter.MyViewHolder> 
             pd.show();
             pd.setCancelable(false);
             DbHelper dbHelper = new DbHelper(mContext);
-            final Result result = dbHelper.getUserData();
-            if (result != null) {
+//            final Result result = dbHelper.getUserData();
+//            if (result != null) {
                 StringRequest stringRequest = new StringRequest(Request.Method.POST, Contants.SERVICE_BASE_URL + Contants.deleteflor,
                         new Response.Listener<String>() {
                             @Override
@@ -121,7 +121,7 @@ public class RackAdapter extends RecyclerView.Adapter<RackAdapter.MyViewHolder> 
                 };
                 RequestQueue requestQueue = Volley.newRequestQueue(mContext);
                 requestQueue.add(stringRequest);
-            }
+//            }
         } else {
             Toast.makeText(mContext, "Enable Internet Connection.", Toast.LENGTH_SHORT).show();
         }

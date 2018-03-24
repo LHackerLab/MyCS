@@ -5,10 +5,131 @@ package hacker.l.coldstore.model;
  */
 
 public class Result {
-    private String name;
-    private String phone;
-    private String Username;
-    private String UserPhone;
+    private String empPhone;
+
+    public String getEmpPhone() {
+        return empPhone;
+    }
+
+    public void setEmpPhone(String empPhone) {
+        this.empPhone = empPhone;
+    }
+
+    public String getEmpName() {
+        return empName;
+    }
+
+    public void setEmpName(String empName) {
+        this.empName = empName;
+    }
+
+    public String getEmpFName() {
+        return empFName;
+    }
+
+    public void setEmpFName(String empFName) {
+        this.empFName = empFName;
+    }
+
+    public String getEmpAddress() {
+        return empAddress;
+    }
+
+    public void setEmpAddress(String empAddress) {
+        this.empAddress = empAddress;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getConfirlPassword() {
+        return confirlPassword;
+    }
+
+    public void setConfirlPassword(String confirlPassword) {
+        this.confirlPassword = confirlPassword;
+    }
+
+    public String getEmpType() {
+        return empType;
+    }
+
+    public void setEmpType(String empType) {
+        this.empType = empType;
+    }
+
+    public String getEmpjoindate() {
+        return empjoindate;
+    }
+
+    public void setEmpjoindate(String empjoindate) {
+        this.empjoindate = empjoindate;
+    }
+
+    public String getEmpdob() {
+        return empdob;
+    }
+
+    public void setEmpdob(String empdob) {
+        this.empdob = empdob;
+    }
+
+    public String getEmpQly() {
+        return empQly;
+    }
+
+    public void setEmpQly(String empQly) {
+        this.empQly = empQly;
+    }
+
+    public double getEmpsalary() {
+        return empsalary;
+    }
+
+    public void setEmpsalary(double empsalary) {
+        this.empsalary = empsalary;
+    }
+
+    private String empName;
+    private String empFName;
+    private String empAddress;
+    private String password;
+    private String confirlPassword;
+    private String empType;
+    private String empjoindate;
+    private String empdob;
+    private String empQly;
+
+    public String getEmpProfile() {
+        return empProfile;
+    }
+
+    public void setEmpProfile(String empProfile) {
+        this.empProfile = empProfile;
+    }
+
+    private String empProfile;
+
+    public String getEmpGender() {
+        return empGender;
+    }
+
+    public void setEmpGender(String empGender) {
+        this.empGender = empGender;
+    }
+
+    private String empGender;
+    private double empsalary;
+    private String varietyName;
+    private int rack;
+    private int rackId;
+    private int capacity;
+    private int floorId;
 
     public String getVarietyName() {
         return varietyName;
@@ -18,127 +139,6 @@ public class Result {
         this.varietyName = varietyName;
     }
 
-    private String varietyName;
-
-    public String getUsername() {
-        return Username;
-    }
-
-    public void setUsername(String username) {
-        Username = username;
-    }
-
-    public String getUserPhone() {
-        return UserPhone;
-    }
-
-    public void setUserPhone(String userPhone) {
-        UserPhone = userPhone;
-    }
-
-    public String getEmailId() {
-        return EmailId;
-    }
-
-    public void setEmailId(String emailId) {
-        EmailId = emailId;
-    }
-
-    public String getPassword() {
-        return Password;
-    }
-
-    public void setPassword(String password) {
-        Password = password;
-    }
-
-    public int getLoginId() {
-        return loginId;
-    }
-
-    public void setLoginId(int loginId) {
-        this.loginId = loginId;
-    }
-
-    private String EmailId;
-    private String Address;
-    private String City;
-    private String PinCode;
-    private String EmergencyOne;
-    private String EmergencyTwo;
-    private String EmergencyThree;
-
-    public String getAddress() {
-        return Address;
-    }
-
-    public void setAddress(String address) {
-        Address = address;
-    }
-
-    public String getCity() {
-        return City;
-    }
-
-    public void setCity(String city) {
-        City = city;
-    }
-
-    public String getPinCode() {
-        return PinCode;
-    }
-
-    public void setPinCode(String pinCode) {
-        PinCode = pinCode;
-    }
-
-    public String getEmergencyOne() {
-        return EmergencyOne;
-    }
-
-    public void setEmergencyOne(String emergencyOne) {
-        EmergencyOne = emergencyOne;
-    }
-
-    public String getEmergencyTwo() {
-        return EmergencyTwo;
-    }
-
-    public void setEmergencyTwo(String emergencyTwo) {
-        EmergencyTwo = emergencyTwo;
-    }
-
-    public String getEmergencyThree() {
-        return EmergencyThree;
-    }
-
-    public void setEmergencyThree(String emergencyThree) {
-        EmergencyThree = emergencyThree;
-    }
-
-    public String getBarCode() {
-        return barCode;
-    }
-
-    public void setBarCode(String barCode) {
-        this.barCode = barCode;
-    }
-
-    private String barCode;
-    private String Password;
-
-    public String getSocialUs() {
-        return socialUs;
-    }
-
-    public void setSocialUs(String socialUs) {
-        this.socialUs = socialUs;
-    }
-
-    private String socialUs;
-    private int loginId;
-    private int rack;
-    private int rackId;
 
     public int getRack() {
         return rack;
@@ -163,18 +163,6 @@ public class Result {
     public void setCapacity(int capacity) {
         this.capacity = capacity;
     }
-
-    private int capacity;
-
-    public int getScid() {
-        return scid;
-    }
-
-    public void setScid(int scid) {
-        this.scid = scid;
-    }
-
-    private int scid;
 
     public int getVarietyId() {
         return varietyId;
@@ -203,32 +191,7 @@ public class Result {
         this.floorId = floorId;
     }
 
-    private int floorId;
-
-    public Result(String name, String phone) {
-        this.name = name;
-        this.phone = phone;
-    }
-
     public Result() {
 
     }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-
 }

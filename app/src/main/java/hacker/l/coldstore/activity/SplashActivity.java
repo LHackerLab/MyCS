@@ -26,14 +26,14 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void run() {
                 DbHelper dbHelper = new DbHelper(SplashActivity.this);
-                Result result = dbHelper.getUserData();
-                if (result == null) {
+//                Result result = dbHelper.getUserData();
+//                if (result == null) {
                     SplashActivity.this.startActivity(new Intent(SplashActivity.this, LoginActivity.class));
                     SplashActivity.this.finish();
-                } else {
-                    SplashActivity.this.startActivity(new Intent(SplashActivity.this, MainActivity.class));
-                    SplashActivity.this.finish();
-                }
+//                } else {
+//                    SplashActivity.this.startActivity(new Intent(SplashActivity.this, MainActivity.class));
+//                    SplashActivity.this.finish();
+//                }
             }
         }, SPLASH_TIME_OUT);
     }

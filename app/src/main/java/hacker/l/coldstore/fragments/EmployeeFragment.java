@@ -4,9 +4,11 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import hacker.l.coldstore.R;
 import hacker.l.coldstore.activity.MainActivity;
@@ -20,6 +22,7 @@ public class EmployeeFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
     // TODO: Rename and change types and number of parameters
     public static EmployeeFragment newInstance(String param1, String param2) {
         EmployeeFragment fragment = new EmployeeFragment();
@@ -29,6 +32,7 @@ public class EmployeeFragment extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +58,29 @@ public class EmployeeFragment extends Fragment {
     private void init() {
         MainActivity mainActivity = (MainActivity) context;
         mainActivity.setTitle("Employee");
+        Button btn_addUser = view.findViewById(R.id.btn_addUser);
+        Button btn_getAlluser = view.findViewById(R.id.btn_getAllUser);
+        btn_addUser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AddUserFragment addUserFragment = AddUserFragment.newInstance("", "");
+                moveragment(addUserFragment);
+            }
+        });
+        btn_getAlluser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                GetAllUsersFragment getAllUsersFragment = GetAllUsersFragment.newInstance("", "");
+                moveragment(getAllUsersFragment);
+            }
+        });
     }
 
+    private void moveragment(Fragment fragment) {
+        android.support.v4.app.FragmentManager fragmentManager = ((FragmentActivity) context).getSupportFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.container, fragment)
+                .addToBackStack(null)
+                .commit();
+    }
 }

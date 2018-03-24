@@ -97,8 +97,8 @@ public class VarietyAdapter extends RecyclerView.Adapter<VarietyAdapter.MyViewHo
             pd.show();
             pd.setCancelable(false);
             DbHelper dbHelper = new DbHelper(mContext);
-            final Result result = dbHelper.getUserData();
-            if (result != null) {
+//            final Result result = dbHelper.getUserData();
+//            if (result != null) {
                 StringRequest stringRequest = new StringRequest(Request.Method.POST, Contants.SERVICE_BASE_URL + Contants.deleteVariety,
                         new Response.Listener<String>() {
                             @Override
@@ -124,7 +124,7 @@ public class VarietyAdapter extends RecyclerView.Adapter<VarietyAdapter.MyViewHo
                 };
                 RequestQueue requestQueue = Volley.newRequestQueue(mContext);
                 requestQueue.add(stringRequest);
-            }
+//            }
         } else {
             Toast.makeText(mContext, "Enable Internet Connection.", Toast.LENGTH_SHORT).show();
         }

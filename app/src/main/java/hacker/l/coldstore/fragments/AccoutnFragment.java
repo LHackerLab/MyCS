@@ -4,9 +4,12 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.Toast;
 
 import hacker.l.coldstore.R;
 import hacker.l.coldstore.activity.MainActivity;
@@ -41,6 +44,7 @@ public class AccoutnFragment extends Fragment {
 
     View view;
     Context context;
+    Button btn_proced;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -55,6 +59,20 @@ public class AccoutnFragment extends Fragment {
     private void init() {
         MainActivity mainActivity = (MainActivity) context;
         mainActivity.setTitle("Accounts");
+        btn_proced=view.findViewById(R.id.btn_proced);
+        btn_proced.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(context, "Print Report", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
+    private void moveragment(Fragment fragment) {
+        android.support.v4.app.FragmentManager fragmentManager = ((FragmentActivity) context).getSupportFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.container, fragment)
+                .addToBackStack(null)
+                .commit();
+    }
 }

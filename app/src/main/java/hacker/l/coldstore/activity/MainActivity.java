@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity
         layout_floor = findViewById(R.id.layout_floor);
         layout_rack = findViewById(R.id.layout_rack);
         layout_vareity = findViewById(R.id.layout_vareity);
-        layout_account = findViewById(R.id.layout_account);
+//        layout_account = findViewById(R.id.layout_account);
         layout_profile = findViewById(R.id.layout_profile);
         layout_rent = findViewById(R.id.layout_rent);
         layout_home.setOnClickListener(this);
@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity
         layout_floor.setOnClickListener(this);
         layout_rack.setOnClickListener(this);
         layout_vareity.setOnClickListener(this);
-        layout_account.setOnClickListener(this);
+//        layout_account.setOnClickListener(this);
         layout_profile.setOnClickListener(this);
         layout_rent.setOnClickListener(this);
         HomeFragment homeFragment = HomeFragment.newInstance("", "");
@@ -199,11 +199,11 @@ public class MainActivity extends AppCompatActivity
                 moveragment(rentFragment);
                 navHide();
                 break;
-            case R.id.layout_account:
-                AccoutnFragment accoutnFragment = AccoutnFragment.newInstance("", "");
-                moveragment(accoutnFragment);
-                navHide();
-                break;
+//            case R.id.layout_account:
+//                AccoutnFragment accoutnFragment = AccoutnFragment.newInstance("", "");
+//                moveragment(accoutnFragment);
+//                navHide();
+//                break;
             case R.id.layout_profile:
                 ProfileFragment profileFragment = ProfileFragment.newInstance("", "");
                 moveragment(profileFragment);
