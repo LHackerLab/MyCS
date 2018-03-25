@@ -11,9 +11,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import hacker.l.coldstore.R;
 import hacker.l.coldstore.activity.MainActivity;
+import hacker.l.coldstore.database.DbHelper;
+import hacker.l.coldstore.model.Result;
 
 public class UpdateProfileFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
@@ -47,7 +50,7 @@ public class UpdateProfileFragment extends Fragment {
     View view;
     Context context;
     Button btn_proced;
-    EditText edt_cPassword, edt_password;
+    EditText edt_cPassword, edt_password, edt_name, edt_phone, edt_email;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -64,7 +67,19 @@ public class UpdateProfileFragment extends Fragment {
         mainActivity.setTitle("Update Profile");
         edt_cPassword = view.findViewById(R.id.edt_cPassword);
         edt_password = view.findViewById(R.id.edt_password);
+        edt_name = view.findViewById(R.id.edt_name);
+        edt_phone = view.findViewById(R.id.edt_phone);
+        edt_email = view.findViewById(R.id.edt_email);
         btn_proced = view.findViewById(R.id.btn_proced);
+        DbHelper dbHelper = new DbHelper(context);
+        Result result = dbHelper.getAdminData();
+        if (result != null) {
+            edt_name.setText(result.getAdminName());
+            edt_phone.setText(result.getAdminPhone());
+            edt_email.setText(result.getAdminEmail());
+            edt_password.setText(result.getAdminPassword());
+            edt_cPassword.setText(result.getAdminPassword());
+        }
         edt_cPassword.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -87,6 +102,7 @@ public class UpdateProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 getFragmentManager().popBackStack();
+                Toast.makeText(context, "Update Profile Successfully", Toast.LENGTH_SHORT).show();
             }
         });
     }

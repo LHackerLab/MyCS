@@ -20,7 +20,7 @@ import hacker.l.coldstore.utility.Contants;
 public class DbHelper extends SQLiteOpenHelper {
 
     // If you change the database schema, you must increment the database version.
-    public static final int DATABASE_VERSION = 2;
+    public static final int DATABASE_VERSION = 3;
     public static final String DATABASE_NAME = Contants.DATABASE_NAME;
 
     public DbHelper(Context context) {
@@ -30,6 +30,7 @@ public class DbHelper extends SQLiteOpenHelper {
 
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS userData");
+        db.execSQL("DROP TABLE IF EXISTS AdminData");
         db.execSQL("DROP TABLE IF EXISTS surakshacavach");
         onCreate(db);
 
@@ -42,11 +43,147 @@ public class DbHelper extends SQLiteOpenHelper {
 
     public void onCreate(SQLiteDatabase db) {
         String CREATE_UserData_TABLE = "CREATE TABLE userData(loginId INTEGER,Username TEXT,UserPhone TEXT,EmailId TEXT,Password TEXT)";
+        String CREATE_AdminData_TABLE = "CREATE TABLE AdminData(AdminId INTEGER,AdminName TEXT,AdminPhone TEXT,AdminEmail TEXT,AdminPassword TEXT,AdminProfile TEXT)";
         String CREATE_surakshacavach_TABLE = "CREATE TABLE surakshacavach(scid INTEGER,loginId INTEGER,Username TEXT,UserPhone TEXT,EmailId TEXT,Address TEXT,City TEXT ,PinCode TEXT, EmergencyOne TEXT, EmergencyTwo TEXT, EmergencyThree TEXT,barCode TEXT, socialUs TEXT)";
+        db.execSQL(CREATE_AdminData_TABLE);
         db.execSQL(CREATE_UserData_TABLE);
         db.execSQL(CREATE_surakshacavach_TABLE);
     }
 
+    //    // --------------------------Admin Data---------------
+    public boolean upsertAdminData(Result ob) {
+        boolean done = false;
+        Result data = null;
+        if (ob.getAdminId() != 0) {
+            data = getAdminDataByAdminId(ob.getAdminId());
+            if (data == null) {
+                done = insertAdminData(ob);
+            } else {
+                done = updateAdminData(ob);
+            }
+        }
+        return done;
+    }
+
+
+    //    // for Admin data..........
+    private void populateAdminData(Cursor cursor, Result ob) {
+        ob.setAdminId(cursor.getInt(0));
+        ob.setAdminName(cursor.getString(1));
+        ob.setAdminPhone(cursor.getString(2));
+        ob.setAdminEmail(cursor.getString(3));
+        ob.setAdminPassword(cursor.getString(4));
+        ob.setAdminProfile(cursor.getString(5));
+    }
+
+    // insert Admin data.............
+    public boolean insertAdminData(Result ob) {
+        ContentValues values = new ContentValues();
+        values.put("AdminId", ob.getAdminId());
+        values.put("AdminName", ob.getAdminName());
+        values.put("AdminPhone", ob.getAdminPhone());
+        values.put("AdminEmail", ob.getAdminEmail());
+        values.put("AdminPassword", ob.getAdminPassword());
+        values.put("AdminProfile", ob.getAdminProfile());
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        long i = db.insert("AdminData", null, values);
+        db.close();
+        return i > 0;
+    }
+
+    //    Admin data
+    public Result getAdminData() {
+
+        String query = "Select * FROM AdminData";
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+        Result data = new Result();
+
+        if (cursor.moveToFirst()) {
+            cursor.moveToFirst();
+            populateAdminData(cursor, data);
+
+            cursor.close();
+        } else {
+            data = null;
+        }
+        db.close();
+        return data;
+    }
+
+    //
+//    //show  Admin list data
+    public List<Result> getAllAdminData() {
+        ArrayList list = new ArrayList<>();
+        String query = "Select * FROM AdminData";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+        if (cursor.moveToFirst()) {
+
+            while (cursor.isAfterLast() == false) {
+                Result ob = new Result();
+                populateAdminData(cursor, ob);
+                list.add(ob);
+                cursor.moveToNext();
+            }
+        }
+        db.close();
+        return list;
+    }
+
+
+    //  get Admin data
+    public Result getAdminDataByAdminId(int id) {
+
+        String query = "Select * FROM AdminData WHERE AdminId = " + id + " ";
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+        Result data = new Result();
+
+        if (cursor.moveToFirst()) {
+            cursor.moveToFirst();
+            populateAdminData(cursor, data);
+
+            cursor.close();
+        } else {
+            data = null;
+        }
+        db.close();
+        return data;
+    }
+
+    //    update  Admin data
+    public boolean updateAdminData(Result ob) {
+        ContentValues values = new ContentValues();
+        values.put("AdminId", ob.getAdminId());
+        values.put("AdminName", ob.getAdminName());
+        values.put("AdminPhone", ob.getAdminPhone());
+        values.put("AdminEmail", ob.getAdminEmail());
+        values.put("AdminPassword", ob.getAdminPassword());
+        values.put("AdminProfile", ob.getAdminProfile());
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        long i = 0;
+        i = db.update("AdminData", values, "AdminId = " + ob.getAdminId() + " ", null);
+
+        db.close();
+        return i > 0;
+    }
+
+    // delete Admin Data
+    public boolean deleteAdminData() {
+        boolean result = false;
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete("AdminData", null, null);
+        db.close();
+        return result;
+    }
+
+//
 //    //    // --------------------------user Data---------------
 //    public boolean upsertUserData(Result ob) {
 //        boolean done = false;
@@ -176,159 +313,5 @@ public class DbHelper extends SQLiteOpenHelper {
 //        db.close();
 //        return result;
 //    }
-//
-//
-//    //    // --------------------------suraksha cavach Data---------------
-//    public boolean upsertsurakshaData(Result ob) {
-//        boolean done = false;
-//        Result data = null;
-//        if (ob.getLoginId() != 0) {
-//            data = getsurakshaDataByScId(ob.getScid());
-//            if (data == null) {
-//                done = insertsurakshaData(ob);
-//            } else {
-//                done = updatesurakshaData(ob);
-//            }
-//        }
-//        return done;
-//    }
-//
-//
-//    //    // for suraksha data..........
-//    private void populatesurakshaData(Cursor cursor, Result ob) {
-//        ob.setScid(cursor.getInt(0));
-//        ob.setLoginId(cursor.getInt(1));
-//        ob.setUsername(cursor.getString(2));
-//        ob.setUserPhone(cursor.getString(3));
-//        ob.setEmailId(cursor.getString(4));
-//        ob.setAddress(cursor.getString(5));
-//        ob.setCity(cursor.getString(6));
-//        ob.setPinCode(cursor.getString(7));
-//        ob.setEmergencyOne(cursor.getString(8));
-//        ob.setEmergencyTwo(cursor.getString(9));
-//        ob.setEmergencyThree(cursor.getString(10));
-//        ob.setBarCode(cursor.getString(11));
-//        ob.setSocialUs(cursor.getString(12));
-//    }
-//
-//    // insert suraksha data.............
-//    public boolean insertsurakshaData(Result ob) {
-//        ContentValues values = new ContentValues();
-//        values.put("scid", ob.getScid());
-//        values.put("loginId", ob.getLoginId());
-//        values.put("Username", ob.getUsername());
-//        values.put("UserPhone", ob.getUserPhone());
-//        values.put("EmailId", ob.getEmailId());
-//        values.put("Address", ob.getAddress());
-//        values.put("City", ob.getCity());
-//        values.put("PinCode", ob.getPinCode());
-//        values.put("EmergencyOne", ob.getEmergencyOne());
-//        values.put("EmergencyTwo", ob.getEmergencyTwo());
-//        values.put("EmergencyThree", ob.getEmergencyThree());
-//        values.put("barCode", ob.getBarCode());
-//        values.put("socialUs", ob.getSocialUs());
-//
-//        SQLiteDatabase db = this.getWritableDatabase();
-//
-//        long i = db.insert("surakshacavach", null, values);
-//        db.close();
-//        return i > 0;
-//    }
-//
-//    //    suraksha data
-//    public Result getsurakshaData() {
-//
-//        String query = "Select * FROM surakshacavach";
-//
-//        SQLiteDatabase db = this.getReadableDatabase();
-//        Cursor cursor = db.rawQuery(query, null);
-//        Result data = new Result();
-//
-//        if (cursor.moveToFirst()) {
-//            cursor.moveToFirst();
-//            populatesurakshaData(cursor, data);
-//
-//            cursor.close();
-//        } else {
-//            data = null;
-//        }
-//        db.close();
-//        return data;
-//    }
-//
-//    //
-////    //show  suraksha list data
-//    public List<Result> getAllsurakshaData() {
-//        ArrayList list = new ArrayList<>();
-//        String query = "Select * FROM surakshacavach";
-//        SQLiteDatabase db = this.getReadableDatabase();
-//        Cursor cursor = db.rawQuery(query, null);
-//        if (cursor.moveToFirst()) {
-//
-//            while (cursor.isAfterLast() == false) {
-//                Result ob = new Result();
-//                populatesurakshaData(cursor, ob);
-//                list.add(ob);
-//                cursor.moveToNext();
-//            }
-//        }
-//        db.close();
-//        return list;
-//    }
-//
-//
-//    //  get user data
-//    public Result getsurakshaDataByScId(int id) {
-//
-//        String query = "Select * FROM surakshacavach WHERE scid = " + id + " ";
-//
-//        SQLiteDatabase db = this.getReadableDatabase();
-//        Cursor cursor = db.rawQuery(query, null);
-//        Result data = new Result();
-//
-//        if (cursor.moveToFirst()) {
-//            cursor.moveToFirst();
-//            populatesurakshaData(cursor, data);
-//
-//            cursor.close();
-//        } else {
-//            data = null;
-//        }
-//        db.close();
-//        return data;
-//    }
-//
-//    //    update  data
-//    public boolean updatesurakshaData(Result ob) {
-//        ContentValues values = new ContentValues();
-//        values.put("scid", ob.getScid());
-//        values.put("loginId", ob.getLoginId());
-//        values.put("Username", ob.getUsername());
-//        values.put("UserPhone", ob.getUserPhone());
-//        values.put("EmailId", ob.getEmailId());
-//        values.put("Address", ob.getAddress());
-//        values.put("City", ob.getCity());
-//        values.put("PinCode", ob.getPinCode());
-//        values.put("EmergencyOne", ob.getEmergencyOne());
-//        values.put("EmergencyTwo", ob.getEmergencyTwo());
-//        values.put("EmergencyThree", ob.getEmergencyThree());
-//        values.put("barCode", ob.getBarCode());
-//        values.put("socialUs", ob.getSocialUs());
-//
-//        SQLiteDatabase db = this.getWritableDatabase();
-//        long i = 0;
-//        i = db.update("surakshacavach", values, "scid = " + ob.getScid() + " ", null);
-//
-//        db.close();
-//        return i > 0;
-//    }
-//
-//    // delete suraksha Data
-//    public boolean deletesurakshaData() {
-//        boolean result = false;
-//        SQLiteDatabase db = this.getWritableDatabase();
-//        db.delete("surakshacavach", null, null);
-//        db.close();
-//        return result;
-//    }
+
 }

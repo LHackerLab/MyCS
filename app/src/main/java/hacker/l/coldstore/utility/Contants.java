@@ -16,7 +16,7 @@ public class Contants {
     public static final String APP_DIRECTORY = "/E" + DEFAULT_APPLICATION_NAME + "Directory/";
     public static final String DATABASE_NAME = "emergency.db";// Environment.getExternalStorageDirectory() +  APP_DIRECTORY + "evergreen.db";
 
-    public static String SERVICE_BASE_URL = "http://lalitsingh2.esy.es/emergency-help/";
+    public static String SERVICE_BASE_URL = "http://lalitsingh2.esy.es/coldstore/";
 
     public static String outputBasePath = Environment.getExternalStorageDirectory().getAbsolutePath();
     public static String outputDirectoryLocation = outputBasePath + "/evergreenUnzipped/";
@@ -39,7 +39,7 @@ public class Contants {
     public static final String Dont_GetAddress_MESSAGE = "Some Problem For Geting Address";
     public static final String No_DATA_FOUND_MESSAGE = "No Record Found";
 
-    public static final String Admin = "admin.php";
+    public static final String Admin = "FetchAdmin.php";
     public static final String employee = "employee.php";
     public static final String deleteVariety = "deleteVariety.php";
     public static final String deleteflor = "deleteflor.php";

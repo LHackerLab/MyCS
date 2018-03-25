@@ -9,9 +9,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import hacker.l.coldstore.R;
 import hacker.l.coldstore.activity.MainActivity;
+import hacker.l.coldstore.database.DbHelper;
+import hacker.l.coldstore.model.Result;
 
 public class ProfileFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
@@ -45,6 +49,8 @@ public class ProfileFragment extends Fragment {
     View view;
     Context context;
     Button btn_proced;
+    TextView tv_name, tv_phone, tv_email;
+    ImageView image_profile;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -60,6 +66,17 @@ public class ProfileFragment extends Fragment {
         MainActivity mainActivity = (MainActivity) context;
         mainActivity.setTitle("Profile");
         btn_proced = view.findViewById(R.id.btn_proced);
+        tv_name = view.findViewById(R.id.tv_name);
+        tv_phone = view.findViewById(R.id.tv_phone);
+        tv_email = view.findViewById(R.id.tv_email);
+        image_profile = view.findViewById(R.id.image_profile);
+        DbHelper dbHelper = new DbHelper(context);
+        Result result = dbHelper.getAdminData();
+        if (result != null) {
+            tv_name.setText(result.getAdminName());
+            tv_phone.setText(result.getAdminPhone());
+            tv_email.setText(result.getAdminEmail());
+        }
         btn_proced.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -75,8 +75,8 @@ public class LoginActivity extends AppCompatActivity {
         id_bt_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(LoginActivity.this, MainActivity.class));
-//                loginFunction();
+//                startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                checkRole();
             }
         });
         layout_employee.setOnClickListener(new View.OnClickListener() {
@@ -117,24 +117,34 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private void loginFunction() {
-        final String userPhone = id_et_username.getText().toString();
-        final String userPass = id_et_password.getText().toString();
-        if (userPhone.length() == 0) {
-            id_et_username.setError("Enter  Phone Number ");
-        } else if (userPhone.length() != 10) {
-            id_et_username.setError("Enter  Valid Phone");
-        } else if (userPass.length() == 0) {
-            id_et_password.setError("Enter password");
-        } else {
-            checkRole();
+    private void adminLoginFunction() {
+        DbHelper dbHelper = new DbHelper(this);
+        Result result = dbHelper.getAdminData();
+        if (result != null) {
+            final String adminPhone = id_et_username.getText().toString();
+            final String userPass = id_et_password.getText().toString();
+            if (adminPhone.length() == 0) {
+                id_et_username.setError("Enter  Phone Number ");
+            } else if (adminPhone.length() != 10) {
+                id_et_username.setError("Enter  Valid Phone");
+            } else if (!result.getAdminPhone().equalsIgnoreCase(adminPhone)) {
+                id_et_username.setError("Enter  Valid Phone");
+            } else if (userPass.length() == 0) {
+                id_et_password.setError("Enter password");
+            } else if (!userPass.equalsIgnoreCase(result.getAdminPassword())) {
+                id_et_password.setError("Enter Valid password");
+            } else {
+                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+                Toast.makeText(this, "Successfully Login", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
     private void checkRole() {
         if (role == 1) {
             //admin login
-            Toast.makeText(this, "Admin", Toast.LENGTH_SHORT).show();
             if (Utility.isOnline(this)) {
                 pd = new ProgressDialog(LoginActivity.this);
                 pd.setMessage("Checking wait...");
@@ -150,10 +160,8 @@ public class LoginActivity extends AppCompatActivity {
                                     if (myPojo != null) {
                                         for (Result result : myPojo.getResult()) {
                                             if (result != null) {
-//                                                new DbHelper(LoginActivity.this).upsertUserData(result);
-//                                                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-//                                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-//                                                startActivity(intent);
+                                                new DbHelper(LoginActivity.this).upsertAdminData(result);
+                                                adminLoginFunction();
                                             }
                                         }
                                     }
@@ -173,8 +181,6 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     protected Map<String, String> getParams() throws AuthFailureError {
                         Map<String, String> params = new HashMap<String, String>();
-//                        params.put("UserPhone", userPhone);
-//                        params.put("Password", userPass);
                         return params;
                     }
                 };
@@ -201,6 +207,7 @@ public class LoginActivity extends AppCompatActivity {
                                         for (Result result : myPojo.getResult()) {
                                             if (result != null) {
 //                                                new DbHelper(LoginActivity.this).upsertUserData(result);
+                                                userLoginFunction();
 //                                                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
 //                                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
 //                                                startActivity(intent);
@@ -236,6 +243,32 @@ public class LoginActivity extends AppCompatActivity {
             Toast.makeText(this, "empoloyyee", Toast.LENGTH_SHORT).show();
         }
     }
+
+    private void userLoginFunction() {
+        DbHelper dbHelper = new DbHelper(this);
+        Result result = dbHelper.getAdminData();//user data....
+        if (result != null) {
+            final String phone = id_et_username.getText().toString();
+            final String userPass = id_et_password.getText().toString();
+            if (phone.length() == 0) {
+                id_et_username.setError("Enter  Phone Number ");
+            } else if (phone.length() != 10) {
+                id_et_username.setError("Enter  Valid Phone");
+            } else if (!result.getAdminPhone().equalsIgnoreCase(phone)) {
+                id_et_username.setError("Enter  Valid Phone");
+            } else if (userPass.length() == 0) {
+                id_et_password.setError("Enter password");
+            } else if (!userPass.equalsIgnoreCase(result.getAdminPassword())) {
+                id_et_password.setError("Enter Valid password");
+            } else {
+                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+                Toast.makeText(this, "Successfully Login", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
     //for hid keyboard when tab outside edittext box
     @Override
     public boolean dispatchTouchEvent(MotionEvent event) {

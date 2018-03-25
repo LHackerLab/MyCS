@@ -1,6 +1,7 @@
 package hacker.l.coldstore.activity;
 
 import android.app.FragmentManager;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -15,10 +16,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import hacker.l.coldstore.R;
+import hacker.l.coldstore.database.DbHelper;
 import hacker.l.coldstore.fragments.AccoutnFragment;
 import hacker.l.coldstore.fragments.EmployeeFragment;
 import hacker.l.coldstore.fragments.FloorFragment;
@@ -29,12 +32,14 @@ import hacker.l.coldstore.fragments.ProfileFragment;
 import hacker.l.coldstore.fragments.RackFragment;
 import hacker.l.coldstore.fragments.RentFragment;
 import hacker.l.coldstore.fragments.VarietyFragment;
+import hacker.l.coldstore.model.Result;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
     LinearLayout layout_home, layout_inward, layout_outward, layout_employee, layout_floor, layout_rack, layout_vareity, layout_account, layout_rent, layout_profile;
     DrawerLayout drawer;
-    TextView tv_title;
+    TextView tv_title, tv_admin, tv_email;
+    ImageView image_profile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +77,9 @@ public class MainActivity extends AppCompatActivity
         layout_floor = findViewById(R.id.layout_floor);
         layout_rack = findViewById(R.id.layout_rack);
         layout_vareity = findViewById(R.id.layout_vareity);
+        tv_admin = findViewById(R.id.tv_admin);
+        tv_email = findViewById(R.id.tv_email);
+        image_profile = findViewById(R.id.image_profile);
 //        layout_account = findViewById(R.id.layout_account);
         layout_profile = findViewById(R.id.layout_profile);
         layout_rent = findViewById(R.id.layout_rent);
@@ -87,6 +95,12 @@ public class MainActivity extends AppCompatActivity
         layout_rent.setOnClickListener(this);
         HomeFragment homeFragment = HomeFragment.newInstance("", "");
         moverHagment(homeFragment);
+        DbHelper dbHelper = new DbHelper(this);
+        Result result = dbHelper.getAdminData();
+        if (result != null) {
+            tv_admin.setText(result.getAdminName() + "/" + result.getAdminPhone());
+            tv_email.setText(result.getAdminEmail());
+        }
     }
 
     public void setTitle(String title) {
@@ -119,6 +133,11 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.logout) {
+            DbHelper dbHelper = new DbHelper(this);
+            dbHelper.deleteAdminData();
+            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
             return true;
         }
         if (id == R.id.action_aboutus) {
@@ -219,6 +238,7 @@ public class MainActivity extends AppCompatActivity
                 .addToBackStack(null)
                 .commit();
     }
+
     private void moverHagment(Fragment fragment) {
         android.support.v4.app.FragmentManager fragmentManager = ((FragmentActivity) this).getSupportFragmentManager();
         fragmentManager.beginTransaction()

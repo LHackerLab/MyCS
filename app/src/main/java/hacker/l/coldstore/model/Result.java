@@ -105,6 +105,62 @@ public class Result {
     private String empdob;
     private String empQly;
 
+    public String getAdminName() {
+        return AdminName;
+    }
+
+    public void setAdminName(String adminName) {
+        AdminName = adminName;
+    }
+
+    public String getAdminEmail() {
+        return AdminEmail;
+    }
+
+    public void setAdminEmail(String adminEmail) {
+        AdminEmail = adminEmail;
+    }
+
+    public String getAdminPassword() {
+        return AdminPassword;
+    }
+
+    public void setAdminPassword(String adminPassword) {
+        AdminPassword = adminPassword;
+    }
+
+    public String getAdminProfile() {
+        return AdminProfile;
+    }
+
+    public void setAdminProfile(String adminProfile) {
+        AdminProfile = adminProfile;
+    }
+
+    public int getAdminId() {
+        return AdminId;
+    }
+
+    public void setAdminId(int adminId) {
+        AdminId = adminId;
+    }
+
+    private String AdminName;
+    private String AdminEmail;
+    private String AdminPassword;
+    private String AdminProfile;
+
+    public String getAdminPhone() {
+        return AdminPhone;
+    }
+
+    public void setAdminPhone(String adminPhone) {
+        AdminPhone = adminPhone;
+    }
+
+    private String AdminPhone;
+    private int AdminId;
+
     public String getEmpProfile() {
         return empProfile;
     }
