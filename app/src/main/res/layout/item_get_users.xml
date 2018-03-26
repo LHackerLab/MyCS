@@ -71,6 +71,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/margin5"
+        android:layout_marginTop="@dimen/margin5"
         android:gravity="center|left"
         android:textColor="@color/black"
         android:textSize="@dimen/textSize14" />
@@ -111,9 +112,34 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/margin5"
         android:layout_marginTop="@dimen/margin5"
-        android:text="addreesasdsd"
+        android:text=""
         android:textColor="@color/black"
         android:textSize="@dimen/textSize14" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin5"
+            android:layout_marginTop="@dimen/margin5"
+            android:text="Active :-"
+            android:textColor="@color/black"
+            android:textSize="@dimen/textSize14" />
+
+        <TextView
+            android:id="@+id/tv_active"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin5"
+            android:layout_marginTop="@dimen/margin5"
+            android:text=""
+            android:textColor="@color/green"
+            android:textSize="@dimen/textSize14" />
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -126,7 +152,7 @@
             android:layout_height="match_parent"
             android:layout_marginLeft="@dimen/margin5"
             android:layout_marginTop="@dimen/margin5"
-            android:layout_weight=".34"
+            android:layout_weight=".5"
             android:gravity="center|left"
             android:textColor="@color/black"
             android:textSize="@dimen/textSize14" />
@@ -135,7 +161,7 @@
             android:id="@+id/tv_edit"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight=".33"
+            android:layout_weight=".25"
             android:gravity="center"
             android:text="Edit"
             android:textColor="@color/colorPrimaryDark"
@@ -145,7 +171,7 @@
             android:id="@+id/tv_delete"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight=".33"
+            android:layout_weight=".25"
             android:gravity="center"
             android:text="Delete"
             android:textColor="@color/red"

@@ -196,7 +196,7 @@ public class LoginActivity extends AppCompatActivity {
                 pd.setMessage("Checking wait...");
                 pd.show();
                 pd.setCancelable(false);
-                StringRequest stringRequest = new StringRequest(Request.Method.POST, Contants.SERVICE_BASE_URL + Contants.employee,
+                StringRequest stringRequest = new StringRequest(Request.Method.POST, Contants.SERVICE_BASE_URL + Contants.User,
                         new Response.Listener<String>() {
                             @Override
                             public void onResponse(String response) {

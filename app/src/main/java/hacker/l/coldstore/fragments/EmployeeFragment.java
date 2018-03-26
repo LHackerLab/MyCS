@@ -63,7 +63,7 @@ public class EmployeeFragment extends Fragment {
         btn_addUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AddUserFragment addUserFragment = AddUserFragment.newInstance("", "");
+                AddUserFragment addUserFragment = AddUserFragment.newInstance(false, "", "", "", "", "", "", "", "", "", "", "");
                 moveragment(addUserFragment);
             }
         });

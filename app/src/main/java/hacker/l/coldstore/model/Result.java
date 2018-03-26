@@ -7,6 +7,26 @@ package hacker.l.coldstore.model;
 public class Result {
     private String empPhone;
 
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    private int userId;
+
+    public String getIsActive() {
+        return isActive;
+    }
+
+    public void setIsActive(String isActive) {
+        this.isActive = isActive;
+    }
+
+    private String isActive;
+
     public String getEmpPhone() {
         return empPhone;
     }
@@ -39,21 +59,6 @@ public class Result {
         this.empAddress = empAddress;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getConfirlPassword() {
-        return confirlPassword;
-    }
-
-    public void setConfirlPassword(String confirlPassword) {
-        this.confirlPassword = confirlPassword;
-    }
 
     public String getEmpType() {
         return empType;
@@ -87,23 +92,34 @@ public class Result {
         this.empQly = empQly;
     }
 
-    public double getEmpsalary() {
+    public String getEmpsalary() {
         return empsalary;
     }
 
-    public void setEmpsalary(double empsalary) {
+    public void setEmpsalary(String empsalary) {
         this.empsalary = empsalary;
     }
 
     private String empName;
     private String empFName;
     private String empAddress;
-    private String password;
-    private String confirlPassword;
     private String empType;
     private String empjoindate;
     private String empdob;
     private String empQly;
+    private String empGender;
+    private String empsalary;
+    private String empProfile;
+
+    public String getEmpPassword() {
+        return empPassword;
+    }
+
+    public void setEmpPassword(String empPassword) {
+        this.empPassword = empPassword;
+    }
+
+    private String empPassword;
 
     public String getAdminName() {
         return AdminName;
@@ -169,7 +185,6 @@ public class Result {
         this.empProfile = empProfile;
     }
 
-    private String empProfile;
 
     public String getEmpGender() {
         return empGender;
@@ -179,8 +194,7 @@ public class Result {
         this.empGender = empGender;
     }
 
-    private String empGender;
-    private double empsalary;
+
     private String varietyName;
     private int rack;
     private int rackId;

@@ -40,7 +40,11 @@ public class Contants {
     public static final String No_DATA_FOUND_MESSAGE = "No Record Found";
 
     public static final String Admin = "FetchAdmin.php";
-    public static final String employee = "employee.php";
+    public static final String User = "FetchUser.php";
+    public static final String AddUser = "addUser.php";
+    public static final String updateUser = "updateUser.php";
+    public static final String getAllUsers = "getAllUsers.php";
     public static final String deleteVariety = "deleteVariety.php";
     public static final String deleteflor = "deleteflor.php";
+    public static final String deleteUser = "deleteUser.php";
 }

@@ -1,5 +1,6 @@
 package hacker.l.coldstore.fragments;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
@@ -9,15 +10,31 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import hacker.l.coldstore.R;
 import hacker.l.coldstore.activity.MainActivity;
 import hacker.l.coldstore.adapter.GetUserAdapter;
 import hacker.l.coldstore.adapter.RackAdapter;
+import hacker.l.coldstore.model.MyPojo;
 import hacker.l.coldstore.model.Result;
+import hacker.l.coldstore.utility.Contants;
+import hacker.l.coldstore.utility.Utility;
 import retrofit2.http.GET;
 
 
@@ -56,6 +73,7 @@ public class GetAllUsersFragment extends Fragment {
     LinearLayoutManager linearLayoutManager;
     RecyclerView recyclerView;
     List<Result> resultList;
+    ProgressDialog pd;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -75,53 +93,42 @@ public class GetAllUsersFragment extends Fragment {
         linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
         resultList = new ArrayList<>();
-        Result result = new Result();
-        result.setEmpName("Lalit Singh");
-//        resultList.add(result);
-        result.setEmpFName("Rakesh Singh");
-//        resultList.add(result);
-        result.setEmpType("Admin");
-//        resultList.add(result);
-        result.setEmpPhone("9917218408");
-//        resultList.add(result);
-        result.setEmpGender("Male");
-//        resultList.add(result);
-        result.setEmpQly("Mca");
-//        resultList.add(result);
-        result.setEmpdob("10/02/1996");
-//        resultList.add(result);
-        result.setEmpsalary(300000);
-//        resultList.add(result);
-        result.setEmpAddress("Bareilly  bisalpur pilibhit up india.");
-//        resultList.add(result);
-        result.setEmpjoindate("24/03/2018");
-//        resultList.add(result);
-        result.setEmpProfile("https://static.pexels.com/photos/248797/pexels-photo-248797.jpeg");
-        resultList.add(result);
-        result.setEmpName("Lalit Chauhan");
-//        resultList.add(result);
-        result.setEmpFName("Mr. Singh");
-//        resultList.add(result);
-        result.setEmpType("User");
-//        resultList.add(result);
-        result.setEmpPhone("7895349408");
-//        resultList.add(result);
-        result.setEmpGender("Male");
-//        resultList.add(result);
-        result.setEmpQly("Mca final");
-//        resultList.add(result);
-        result.setEmpdob("10/02/1996");
-//        resultList.add(result);
-        result.setEmpsalary(200000);
-//        resultList.add(result);
-        result.setEmpAddress("Shajahapur  pilibhit up india.");
-//        resultList.add(result);
-        result.setEmpjoindate("24/03/2018");
-//        resultList.add(result);
-        result.setEmpProfile("https://static.pexels.com/photos/248797/pexels-photo-248797.jpeg");
-        resultList.add(result);
-        GetUserAdapter rackAdapter = new GetUserAdapter(context, resultList, GetAllUsersFragment.this);
-        recyclerView.setAdapter(rackAdapter);
+        if (Utility.isOnline(context)) {
+            pd = new ProgressDialog(context);
+            pd.setMessage("Get Users wait...");
+            pd.show();
+            pd.setCancelable(false);
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, Contants.SERVICE_BASE_URL + Contants.getAllUsers,
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            pd.dismiss();
+                            MyPojo myPojo = new Gson().fromJson(response, MyPojo.class);
+                            resultList.addAll(Arrays.asList(myPojo.getResult()));
+                            if (resultList != null && resultList.size() != 0) {
+                                GetUserAdapter rackAdapter = new GetUserAdapter(context, resultList, GetAllUsersFragment.this);
+                                recyclerView.setAdapter(rackAdapter);
+                            }
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            pd.dismiss();
+                        }
+                    }) {
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    Map<String, String> params = new HashMap<String, String>();
+                    return params;
+                }
+            };
+            RequestQueue requestQueue = Volley.newRequestQueue(context);
+            requestQueue.add(stringRequest);
+        } else
 
+        {
+            Toast.makeText(context, "You are Offline. Please check your Internet Connection.", Toast.LENGTH_SHORT).show();
+        }
     }
 }
