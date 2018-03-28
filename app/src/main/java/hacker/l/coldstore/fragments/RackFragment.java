@@ -1,5 +1,6 @@
 package hacker.l.coldstore.fragments;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
@@ -13,15 +14,32 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import hacker.l.coldstore.R;
 import hacker.l.coldstore.activity.MainActivity;
 import hacker.l.coldstore.adapter.RackAdapter;
 import hacker.l.coldstore.adapter.VarietyAdapter;
+import hacker.l.coldstore.model.MyPojo;
 import hacker.l.coldstore.model.Result;
+import hacker.l.coldstore.utility.Contants;
+import hacker.l.coldstore.utility.Utility;
 
 public class RackFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
@@ -61,6 +79,8 @@ public class RackFragment extends Fragment {
     EditText edt_rack, edt_capacity;
     List<Result> resultList;
     AppCompatSpinner spinner;
+    ProgressDialog pd;
+    int rackId,floor;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -69,7 +89,54 @@ public class RackFragment extends Fragment {
         context = getActivity();
         view = inflater.inflate(R.layout.fragment_rack, container, false);
         init();
+        setFloorInSpinner();
         return view;
+    }
+
+    private void setFloorInSpinner() {
+        if (Utility.isOnline(context)) {
+            pd = new ProgressDialog(context);
+            pd.setMessage("Getting Floor wait...");
+            pd.show();
+            pd.setCancelable(false);
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, Contants.SERVICE_BASE_URL + Contants.getAllFloor,
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            pd.dismiss();
+                            MyPojo myPojo = new Gson().fromJson(response, MyPojo.class);
+                            List<Integer> spinnerList = new ArrayList<>();
+                            for (Result result : myPojo.getResult()) {
+                                spinnerList.addAll(Arrays.asList(result.getFloor()));
+                            }
+                            if (spinnerList != null) {
+                                ArrayAdapter<Integer> integerArrayAdapter = new ArrayAdapter<Integer>(context, android.R.layout.simple_spinner_dropdown_item, spinnerList);
+                                spinner.setAdapter(integerArrayAdapter);
+                                integerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                            }
+                        }
+                    },
+                    new Response.ErrorListener()
+
+                    {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            pd.dismiss();
+                        }
+                    })
+
+            {
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    Map<String, String> params = new HashMap<String, String>();
+                    return params;
+                }
+            };
+            RequestQueue requestQueue = Volley.newRequestQueue(context);
+            requestQueue.add(stringRequest);
+        } else {
+            Toast.makeText(context, "You are Offline. Please check your Internet Connection.", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void init() {
@@ -80,15 +147,6 @@ public class RackFragment extends Fragment {
         edt_capacity = view.findViewById(R.id.edt_rackCapacity);
         recyclerView = view.findViewById(R.id.recycleView);
         spinner = view.findViewById(R.id.spinner);
-        List<Integer> spinnerList = new ArrayList<>();
-        spinnerList.add(1);
-        spinnerList.add(2);
-        spinnerList.add(3);
-        spinnerList.add(4);
-        spinnerList.add(5);
-        ArrayAdapter<Integer> integerArrayAdapter = new ArrayAdapter<Integer>(context, android.R.layout.simple_spinner_dropdown_item, spinnerList);
-        spinner.setAdapter(integerArrayAdapter);
-        integerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
         resultList = new ArrayList<>();
@@ -106,31 +164,134 @@ public class RackFragment extends Fragment {
     }
 
     private void addRackDataServer() {
-        setRackAdapter();
+        final String rack = edt_rack.getText().toString();
+        final String capacity = edt_capacity.getText().toString();
+        if (Utility.isOnline(context)) {
+            pd = new ProgressDialog(context);
+            pd.setMessage("Uploading wait...");
+            pd.show();
+            pd.setCancelable(false);
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, Contants.SERVICE_BASE_URL + Contants.addRack,
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            pd.dismiss();
+                            Toast.makeText(context, "Add Successfully", Toast.LENGTH_SHORT).show();
+                            setRackAdapter();
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            pd.dismiss();
+                        }
+                    }) {
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    Map<String, String> params = new HashMap<String, String>();
+                    params.put("floor", String.valueOf(floor));
+                    params.put("rack", rack);
+                    params.put("capacity", capacity);
+                    return params;
+                }
+            };
+            RequestQueue requestQueue = Volley.newRequestQueue(context);
+            requestQueue.add(stringRequest);
+        } else {
+            Toast.makeText(context, "You are Offline. Please check your Internet Connection.", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void updateRackDataServer() {
-        setRackAdapter();
-        add.setText("Add");
+        final String rack = edt_rack.getText().toString();
+        final String capacity = edt_capacity.getText().toString();
+        if (Utility.isOnline(context)) {
+            pd = new ProgressDialog(context);
+            pd.setMessage("Uploading wait...");
+            pd.show();
+            pd.setCancelable(false);
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, Contants.SERVICE_BASE_URL + Contants.updateRack,
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            pd.dismiss();
+                            Toast.makeText(context, "Update Successfully", Toast.LENGTH_SHORT).show();
+                            setRackAdapter();
+                            add.setText("Add");
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            pd.dismiss();
+                        }
+                    }) {
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    Map<String, String> params = new HashMap<String, String>();
+                    params.put("rackId", String.valueOf(rackId));
+                    params.put("floor", String.valueOf(floor));
+                    params.put("rack", rack);
+                    params.put("capacity", capacity);
+                    return params;
+                }
+            };
+            RequestQueue requestQueue = Volley.newRequestQueue(context);
+            requestQueue.add(stringRequest);
+        } else {
+            Toast.makeText(context, "You are Offline. Please check your Internet Connection.", Toast.LENGTH_SHORT).show();
+        }
     }
 
-    public void updateRackData(Boolean aBoolean, int rack, int capacity, int rackId) {
+    public void updateRackData(Boolean aBoolean, String rack, String capacity, int rackId) {
         this.aBoolean = aBoolean;
-        edt_rack.setText(String.valueOf(rack));
-        edt_capacity.setText(String.valueOf(capacity));
+        this.rackId = rackId;
+        edt_rack.setText(rack);
+        edt_capacity.setText(capacity);
         edt_rack.setSelection(edt_rack.length());
         edt_capacity.setSelection(edt_capacity.length());
         add.setText("Update");
     }
 
     public void setRackAdapter() {
-        String rack = edt_rack.getText().toString();
-        String capacity = edt_capacity.getText().toString();
-        Result result = new Result();
-        result.setRack(Integer.parseInt(rack));
-        result.setCapacity(Integer.parseInt(capacity));
-        resultList.add(result);
-        RackAdapter rackAdapter = new RackAdapter(context, resultList, RackFragment.this);
-        recyclerView.setAdapter(rackAdapter);
+        if (Utility.isOnline(context)) {
+            pd = new ProgressDialog(context);
+            pd.setMessage("Getting Rack wait...");
+            pd.show();
+            pd.setCancelable(false);
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, Contants.SERVICE_BASE_URL + Contants.getAllRack,
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            pd.dismiss();
+                            MyPojo myPojo = new Gson().fromJson(response, MyPojo.class);
+                            resultList.clear();
+                            resultList.addAll(Arrays.asList(myPojo.getResult()));
+                            if (resultList != null) {
+                                Collections.reverse(resultList);
+                                RackAdapter rackAdapter = new RackAdapter(context, resultList, RackFragment.this);
+                                recyclerView.setAdapter(rackAdapter);
+                                edt_rack.setText("");
+                                edt_capacity.setText("");
+                            }
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            pd.dismiss();
+                        }
+                    }) {
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    Map<String, String> params = new HashMap<String, String>();
+                    return params;
+                }
+            };
+            RequestQueue requestQueue = Volley.newRequestQueue(context);
+            requestQueue.add(stringRequest);
+        } else {
+            Toast.makeText(context, "You are Offline. Please check your Internet Connection.", Toast.LENGTH_SHORT).show();
+        }
     }
 }

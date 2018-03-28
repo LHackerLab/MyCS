@@ -78,24 +78,24 @@
                 android:textColor="@color/black"
                 android:textSize="@dimen/textSize16" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/margin5"
-                android:layout_marginTop="@dimen/margin10"
-                android:text="Whole Sale Number*"
-                android:textColor="@color/purple"
-                android:textSize="@dimen/textSize16" />
+            <!--<TextView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginLeft="@dimen/margin5"-->
+                <!--android:layout_marginTop="@dimen/margin10"-->
+                <!--android:text="Whole Sale Number*"-->
+                <!--android:textColor="@color/purple"-->
+                <!--android:textSize="@dimen/textSize16" />-->
 
-            <TextView
-                android:id="@+id/tv_wholeSaleNo"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/margin5"
-                android:layout_marginTop="@dimen/margin10"
-                android:text="Number"
-                android:textColor="@color/black"
-                android:textSize="@dimen/textSize16" />
+            <!--<TextView-->
+                <!--android:id="@+id/tv_wholeSaleNo"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginLeft="@dimen/margin5"-->
+                <!--android:layout_marginTop="@dimen/margin10"-->
+                <!--android:text="Number"-->
+                <!--android:textColor="@color/black"-->
+                <!--android:textSize="@dimen/textSize16" />-->
 
             <TextView
                 android:layout_width="match_parent"
@@ -132,6 +132,27 @@
                 android:layout_margin="@dimen/margin5"
                 android:background="@drawable/done_corner_round"
                 android:hint="Enter Quantiry"
+                android:inputType="numberDecimal"
+                android:paddingLeft="@dimen/margin5"
+                android:textColor="@color/black"
+                android:textSize="@dimen/textSize16" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin5"
+                android:layout_marginTop="@dimen/margin10"
+                android:text="Rent*"
+                android:textColor="@color/purple"
+                android:textSize="@dimen/textSize16" />
+
+            <EditText
+                android:id="@+id/edt_rent"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_40_dp"
+                android:layout_margin="@dimen/margin5"
+                android:background="@drawable/done_corner_round"
+                android:hint="Enter Rent"
                 android:inputType="numberDecimal"
                 android:paddingLeft="@dimen/margin5"
                 android:textColor="@color/black"

@@ -70,13 +70,13 @@ public class RackAdapter extends RecyclerView.Adapter<RackAdapter.MyViewHolder> 
         } else {
             holder.linearLayout.setBackgroundColor(Color.parseColor("#33A5DC86"));
         }
-        holder.tv_rack.setText(String.valueOf(FilteruserList.get(position).getRack()));
-        holder.tv_capacity.setText(String.valueOf(FilteruserList.get(position).getCapacity()));
+        holder.tv_rack.setText(FilteruserList.get(position).getRack());
+        holder.tv_capacity.setText(FilteruserList.get(position).getCapacity());
         holder.tv_edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 fragment.updateRackData(true, FilteruserList.get(position).getRack(), FilteruserList.get(position).getCapacity(), FilteruserList.get(position).getRackId());
-                fragment.setRackAdapter();
+//                fragment.setRackAdapter();
             }
         });
         holder.tv_delete.setOnClickListener(new View.OnClickListener() {
@@ -96,7 +96,7 @@ public class RackAdapter extends RecyclerView.Adapter<RackAdapter.MyViewHolder> 
             DbHelper dbHelper = new DbHelper(mContext);
 //            final Result result = dbHelper.getUserData();
 //            if (result != null) {
-                StringRequest stringRequest = new StringRequest(Request.Method.POST, Contants.SERVICE_BASE_URL + Contants.deleteflor,
+                StringRequest stringRequest = new StringRequest(Request.Method.POST, Contants.SERVICE_BASE_URL + Contants.deleteRack,
                         new Response.Listener<String>() {
                             @Override
                             public void onResponse(String response) {
@@ -115,7 +115,7 @@ public class RackAdapter extends RecyclerView.Adapter<RackAdapter.MyViewHolder> 
                     @Override
                     protected Map<String, String> getParams() throws AuthFailureError {
                         Map<String, String> params = new HashMap<String, String>();
-                        params.put("floorId", String.valueOf(FilteruserList.get(position).getFloorId()));
+                        params.put("rackId", String.valueOf(FilteruserList.get(position).getRackId()));
                         return params;
                     }
                 };

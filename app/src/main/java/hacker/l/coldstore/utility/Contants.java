@@ -42,9 +42,20 @@ public class Contants {
     public static final String Admin = "FetchAdmin.php";
     public static final String User = "FetchUser.php";
     public static final String AddUser = "addUser.php";
+    public static final String AddInward = "AddInward.php";
+    public static final String AddFloor = "AddFloor.php";
+    public static final String getAllFloor = "getAllFloor.php";
+    public static final String updateFloor = "updateFloor.php";
+    public static final String deleteflor = "deleteFloor.php";
     public static final String updateUser = "updateUser.php";
     public static final String getAllUsers = "getAllUsers.php";
-    public static final String deleteVariety = "deleteVariety.php";
-    public static final String deleteflor = "deleteflor.php";
     public static final String deleteUser = "deleteUser.php";
+    public static final String addVariety = "addVariety.php";
+    public static final String getAllVariety = "getAllVariety.php";
+    public static final String updateVariety = "updateVariety.php";
+    public static final String deleteVariety = "deleteVariety.php";
+    public static final String addRack = "addRack.php";
+    public static final String getAllRack = "getAllRack.php";
+    public static final String updateRack = "updateRack.php";
+    public static final String deleteRack = "deleteRack.php";
 }

@@ -79,7 +79,7 @@ public class VarietyAdapter extends RecyclerView.Adapter<VarietyAdapter.MyViewHo
             @Override
             public void onClick(View v) {
                 varietyFragment.updateVarietyData(true, FilteruserList.get(position).getVarietyName(), FilteruserList.get(position).getVarietyId());
-                varietyFragment.setVarietyAdapter();
+//                varietyFragment.setVarietyAdapter();
             }
         });
         holder.tv_delete.setOnClickListener(new View.OnClickListener() {

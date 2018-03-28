@@ -1,5 +1,6 @@
 package hacker.l.coldstore.fragments;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
@@ -11,15 +12,32 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import hacker.l.coldstore.R;
 import hacker.l.coldstore.activity.MainActivity;
 import hacker.l.coldstore.adapter.FloorAdapter;
 import hacker.l.coldstore.adapter.VarietyAdapter;
+import hacker.l.coldstore.model.MyPojo;
 import hacker.l.coldstore.model.Result;
+import hacker.l.coldstore.utility.Contants;
+import hacker.l.coldstore.utility.Utility;
 
 public class FloorFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
@@ -58,6 +76,8 @@ public class FloorFragment extends Fragment {
     LinearLayoutManager linearLayoutManager;
     List<Result> resultList;
     Boolean aBoolean = false;
+    ProgressDialog pd;
+    int floorId;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -78,6 +98,7 @@ public class FloorFragment extends Fragment {
         linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
         resultList = new ArrayList<>();
+        setFloorAdapter();
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -92,28 +113,126 @@ public class FloorFragment extends Fragment {
 
     }
 
-    private void addFloorDataServer() {
-        setFloorAdapter();
+    public void setFloorAdapter() {
+        if (Utility.isOnline(context)) {
+            pd = new ProgressDialog(context);
+            pd.setMessage("Getting Floor wait...");
+            pd.show();
+            pd.setCancelable(false);
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, Contants.SERVICE_BASE_URL + Contants.getAllFloor,
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            pd.dismiss();
+                            MyPojo myPojo = new Gson().fromJson(response, MyPojo.class);
+                            resultList.clear();
+                            resultList.addAll(Arrays.asList(myPojo.getResult()));
+                            if (resultList != null) {
+                                Collections.reverse(resultList);
+                                FloorAdapter varietyAdapter = new FloorAdapter(context, resultList, FloorFragment.this);
+                                recyclerView.setAdapter(varietyAdapter);
+                                edt_floor.setText("");
+                            }
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            pd.dismiss();
+                        }
+                    }) {
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    Map<String, String> params = new HashMap<String, String>();
+                    return params;
+                }
+            };
+            RequestQueue requestQueue = Volley.newRequestQueue(context);
+            requestQueue.add(stringRequest);
+        } else {
+            Toast.makeText(context, "You are Offline. Please check your Internet Connection.", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void updateFloorDataServer() {
-        setFloorAdapter();
-        add.setText("Add");
+        final String floor = edt_floor.getText().toString();
+        if (Utility.isOnline(context)) {
+            pd = new ProgressDialog(context);
+            pd.setMessage("Uploading wait...");
+            pd.show();
+            pd.setCancelable(false);
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, Contants.SERVICE_BASE_URL + Contants.updateFloor,
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            pd.dismiss();
+                            Toast.makeText(context, "Update Successfully", Toast.LENGTH_SHORT).show();
+                            setFloorAdapter();
+                            add.setText("Add");
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            pd.dismiss();
+                        }
+                    }) {
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    Map<String, String> params = new HashMap<String, String>();
+                    params.put("floorId", String.valueOf(floorId));
+                    params.put("floor", floor);
+                    return params;
+                }
+            };
+            RequestQueue requestQueue = Volley.newRequestQueue(context);
+            requestQueue.add(stringRequest);
+        } else {
+            Toast.makeText(context, "You are Offline. Please check your Internet Connection.", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void updateFloorData(Boolean aBoolean, int floor, int floorId) {
         this.aBoolean = aBoolean;
+        this.floorId = floorId;
         edt_floor.setText(String.valueOf(floor));
         edt_floor.setSelection(edt_floor.length());
         add.setText("Update");
     }
 
-    public void setFloorAdapter() {
-        String variety = edt_floor.getText().toString();
-        Result result = new Result();
-        result.setFloor(Integer.parseInt(variety));
-        resultList.add(result);
-        FloorAdapter varietyAdapter = new FloorAdapter(context, resultList, FloorFragment.this);
-        recyclerView.setAdapter(varietyAdapter);
+    public void addFloorDataServer() {
+        final String floor = edt_floor.getText().toString();
+        if (Utility.isOnline(context)) {
+            pd = new ProgressDialog(context);
+            pd.setMessage("Adding wait...");
+            pd.show();
+            pd.setCancelable(false);
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, Contants.SERVICE_BASE_URL + Contants.AddFloor,
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            pd.dismiss();
+                            Toast.makeText(context, "Add Successfully", Toast.LENGTH_SHORT).show();
+                            setFloorAdapter();
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            pd.dismiss();
+                        }
+                    }) {
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    Map<String, String> params = new HashMap<String, String>();
+                    params.put("floor", floor);
+                    return params;
+                }
+            };
+            RequestQueue requestQueue = Volley.newRequestQueue(context);
+            requestQueue.add(stringRequest);
+        } else {
+            Toast.makeText(context, "You are Offline. Please check your Internet Connection.", Toast.LENGTH_SHORT).show();
+        }
     }
 }

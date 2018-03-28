@@ -1,5 +1,6 @@
 package hacker.l.coldstore.fragments;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
@@ -11,14 +12,32 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import hacker.l.coldstore.R;
 import hacker.l.coldstore.activity.MainActivity;
+import hacker.l.coldstore.adapter.FloorAdapter;
 import hacker.l.coldstore.adapter.VarietyAdapter;
+import hacker.l.coldstore.model.MyPojo;
 import hacker.l.coldstore.model.Result;
+import hacker.l.coldstore.utility.Contants;
+import hacker.l.coldstore.utility.Utility;
 
 public class VarietyFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
@@ -57,6 +76,8 @@ public class VarietyFragment extends Fragment {
     LinearLayoutManager linearLayoutManager;
     List<Result> resultList;
     Boolean aBoolean = false;
+    int varietyId;
+    ProgressDialog pd;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -77,6 +98,7 @@ public class VarietyFragment extends Fragment {
         linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
         resultList = new ArrayList<>();
+        setVarietyAdapter();
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -92,27 +114,125 @@ public class VarietyFragment extends Fragment {
     }
 
     private void addVarietyDataServer() {
-        setVarietyAdapter();
+        final String variety = edt_varietyName.getText().toString();
+        if (Utility.isOnline(context)) {
+            pd = new ProgressDialog(context);
+            pd.setMessage("Adding wait...");
+            pd.show();
+            pd.setCancelable(false);
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, Contants.SERVICE_BASE_URL + Contants.addVariety,
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            pd.dismiss();
+                            Toast.makeText(context, "Add Successfully", Toast.LENGTH_SHORT).show();
+                            setVarietyAdapter();
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            pd.dismiss();
+                        }
+                    }) {
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    Map<String, String> params = new HashMap<String, String>();
+                    params.put("variety", variety);
+                    return params;
+                }
+            };
+            RequestQueue requestQueue = Volley.newRequestQueue(context);
+            requestQueue.add(stringRequest);
+        } else {
+            Toast.makeText(context, "You are Offline. Please check your Internet Connection.", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void updateVarietyDataServer() {
-        setVarietyAdapter();
-        add.setText("Add");
+        final String variety = edt_varietyName.getText().toString();
+        if (Utility.isOnline(context)) {
+            pd = new ProgressDialog(context);
+            pd.setMessage("Uploading wait...");
+            pd.show();
+            pd.setCancelable(false);
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, Contants.SERVICE_BASE_URL + Contants.updateVariety,
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            pd.dismiss();
+                            Toast.makeText(context, "Update Successfully", Toast.LENGTH_SHORT).show();
+                            setVarietyAdapter();
+                            add.setText("Add");
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            pd.dismiss();
+                        }
+                    }) {
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    Map<String, String> params = new HashMap<String, String>();
+                    params.put("varietyId", String.valueOf(varietyId));
+                    params.put("variety", variety);
+                    return params;
+                }
+            };
+            RequestQueue requestQueue = Volley.newRequestQueue(context);
+            requestQueue.add(stringRequest);
+        } else {
+            Toast.makeText(context, "You are Offline. Please check your Internet Connection.", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void updateVarietyData(Boolean aBoolean, String varietyName, int varietyId) {
         this.aBoolean = aBoolean;
+        this.varietyId = varietyId;
         edt_varietyName.setText(varietyName);
         edt_varietyName.setSelection(edt_varietyName.length());
         add.setText("Update");
     }
 
     public void setVarietyAdapter() {
-        String variety = edt_varietyName.getText().toString();
-        Result result = new Result();
-        result.setVarietyName(variety);
-        resultList.add(result);
-        VarietyAdapter varietyAdapter = new VarietyAdapter(context, resultList, VarietyFragment.this);
-        recyclerView.setAdapter(varietyAdapter);
+        if (Utility.isOnline(context)) {
+            pd = new ProgressDialog(context);
+            pd.setMessage("Getting Variety wait...");
+            pd.show();
+            pd.setCancelable(false);
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, Contants.SERVICE_BASE_URL + Contants.getAllVariety,
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            pd.dismiss();
+                            MyPojo myPojo = new Gson().fromJson(response, MyPojo.class);
+                            resultList.clear();
+                            resultList.addAll(Arrays.asList(myPojo.getResult()));
+                            if (resultList != null) {
+                                Collections.reverse(resultList);
+                                VarietyAdapter varietyAdapter = new VarietyAdapter(context, resultList, VarietyFragment.this);
+                                recyclerView.setAdapter(varietyAdapter);
+                                edt_varietyName.setText("");
+                            }
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            pd.dismiss();
+                        }
+                    }) {
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    Map<String, String> params = new HashMap<String, String>();
+                    return params;
+                }
+            };
+            RequestQueue requestQueue = Volley.newRequestQueue(context);
+            requestQueue.add(stringRequest);
+        } else {
+            Toast.makeText(context, "You are Offline. Please check your Internet Connection.", Toast.LENGTH_SHORT).show();
+        }
     }
 }

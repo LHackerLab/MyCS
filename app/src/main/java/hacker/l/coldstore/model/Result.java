@@ -195,26 +195,26 @@ public class Result {
     }
 
 
-    private String varietyName;
-    private int rack;
+    private String variety;
+    private String rack;
     private int rackId;
-    private int capacity;
+    private String capacity;
     private int floorId;
 
     public String getVarietyName() {
-        return varietyName;
+        return variety;
     }
 
     public void setVarietyName(String varietyName) {
-        this.varietyName = varietyName;
+        this.variety = varietyName;
     }
 
 
-    public int getRack() {
+    public String getRack() {
         return rack;
     }
 
-    public void setRack(int rack) {
+    public void setRack(String rack) {
         this.rack = rack;
     }
 
@@ -226,11 +226,11 @@ public class Result {
         this.rackId = rackId;
     }
 
-    public int getCapacity() {
+    public String getCapacity() {
         return capacity;
     }
 
-    public void setCapacity(int capacity) {
+    public void setCapacity(String capacity) {
         this.capacity = capacity;
     }
 

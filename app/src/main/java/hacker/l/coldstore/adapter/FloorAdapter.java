@@ -78,7 +78,7 @@ public class FloorAdapter extends RecyclerView.Adapter<FloorAdapter.MyViewHolder
             @Override
             public void onClick(View v) {
                 fragment.updateFloorData(true, FilteruserList.get(position).getFloor(), FilteruserList.get(position).getFloorId());
-                fragment.setFloorAdapter();
+//                fragment.setFloorAdapter();
             }
         });
         holder.tv_delete.setOnClickListener(new View.OnClickListener() {
