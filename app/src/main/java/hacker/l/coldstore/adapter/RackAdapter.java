@@ -71,6 +71,7 @@ public class RackAdapter extends RecyclerView.Adapter<RackAdapter.MyViewHolder> 
             holder.linearLayout.setBackgroundColor(Color.parseColor("#33A5DC86"));
         }
         holder.tv_rack.setText(FilteruserList.get(position).getRack());
+        holder.tv_floor.setText(String.valueOf(FilteruserList.get(position).getFloor()));
         holder.tv_capacity.setText(FilteruserList.get(position).getCapacity());
         holder.tv_edit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,31 +97,31 @@ public class RackAdapter extends RecyclerView.Adapter<RackAdapter.MyViewHolder> 
             DbHelper dbHelper = new DbHelper(mContext);
 //            final Result result = dbHelper.getUserData();
 //            if (result != null) {
-                StringRequest stringRequest = new StringRequest(Request.Method.POST, Contants.SERVICE_BASE_URL + Contants.deleteRack,
-                        new Response.Listener<String>() {
-                            @Override
-                            public void onResponse(String response) {
-                                pd.dismiss();
-                                FilteruserList.remove(position);
-                                fragment.setRackAdapter();
-                                Toast.makeText(mContext, "Delete Successully", Toast.LENGTH_LONG).show();
-                            }
-                        },
-                        new Response.ErrorListener() {
-                            @Override
-                            public void onErrorResponse(VolleyError error) {
-                                pd.dismiss();
-                            }
-                        }) {
-                    @Override
-                    protected Map<String, String> getParams() throws AuthFailureError {
-                        Map<String, String> params = new HashMap<String, String>();
-                        params.put("rackId", String.valueOf(FilteruserList.get(position).getRackId()));
-                        return params;
-                    }
-                };
-                RequestQueue requestQueue = Volley.newRequestQueue(mContext);
-                requestQueue.add(stringRequest);
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, Contants.SERVICE_BASE_URL + Contants.deleteRack,
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            pd.dismiss();
+                            FilteruserList.remove(position);
+                            fragment.setRackAdapter();
+                            Toast.makeText(mContext, "Delete Successully", Toast.LENGTH_LONG).show();
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            pd.dismiss();
+                        }
+                    }) {
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    Map<String, String> params = new HashMap<String, String>();
+                    params.put("rackId", String.valueOf(FilteruserList.get(position).getRackId()));
+                    return params;
+                }
+            };
+            RequestQueue requestQueue = Volley.newRequestQueue(mContext);
+            requestQueue.add(stringRequest);
 //            }
         } else {
             Toast.makeText(mContext, "Enable Internet Connection.", Toast.LENGTH_SHORT).show();
@@ -134,7 +135,7 @@ public class RackAdapter extends RecyclerView.Adapter<RackAdapter.MyViewHolder> 
 
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView tv_rack, tv_capacity, tv_edit, tv_delete;
+        TextView tv_rack, tv_capacity, tv_edit, tv_delete, tv_floor;
         LinearLayout linearLayout;
 
         public MyViewHolder(View itemView) {
@@ -143,9 +144,10 @@ public class RackAdapter extends RecyclerView.Adapter<RackAdapter.MyViewHolder> 
             tv_capacity = (TextView) itemView.findViewById(R.id.tv_capacity);
             tv_edit = (TextView) itemView.findViewById(R.id.tv_edit);
             tv_delete = (TextView) itemView.findViewById(R.id.tv_delete);
+            tv_floor = (TextView) itemView.findViewById(R.id.tv_floor);
             linearLayout = (LinearLayout) itemView.findViewById(R.id.linearLayout);
-            tv_rack.setTypeface(ProximaNovaRegular);
-            tv_capacity.setTypeface(ProximaNovaRegular);
+//            tv_rack.setTypeface(ProximaNovaRegular);
+//            tv_capacity.setTypeface(ProximaNovaRegular);
             tv_edit.setTypeface(materialdesignicons_font);
             tv_delete.setTypeface(materialdesignicons_font);
             tv_edit.setText(Html.fromHtml("&#xf64f;"));

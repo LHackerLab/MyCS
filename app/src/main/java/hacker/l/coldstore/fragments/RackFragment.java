@@ -80,7 +80,8 @@ public class RackFragment extends Fragment {
     List<Result> resultList;
     AppCompatSpinner spinner;
     ProgressDialog pd;
-    int rackId,floor;
+    int rackId;
+    String floor;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -95,15 +96,15 @@ public class RackFragment extends Fragment {
 
     private void setFloorInSpinner() {
         if (Utility.isOnline(context)) {
-            pd = new ProgressDialog(context);
-            pd.setMessage("Getting Floor wait...");
-            pd.show();
-            pd.setCancelable(false);
+//            pd = new ProgressDialog(context);
+//            pd.setMessage("Getting Floor wait...");
+//            pd.show();
+//            pd.setCancelable(false);
             StringRequest stringRequest = new StringRequest(Request.Method.POST, Contants.SERVICE_BASE_URL + Contants.getAllFloor,
                     new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
-                            pd.dismiss();
+//                            pd.dismiss();
                             MyPojo myPojo = new Gson().fromJson(response, MyPojo.class);
                             List<Integer> spinnerList = new ArrayList<>();
                             for (Result result : myPojo.getResult()) {
@@ -113,6 +114,7 @@ public class RackFragment extends Fragment {
                                 ArrayAdapter<Integer> integerArrayAdapter = new ArrayAdapter<Integer>(context, android.R.layout.simple_spinner_dropdown_item, spinnerList);
                                 spinner.setAdapter(integerArrayAdapter);
                                 integerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                                floor = spinner.getItemAtPosition(spinner.getSelectedItemPosition()).toString();
                             }
                         }
                     },
@@ -121,7 +123,7 @@ public class RackFragment extends Fragment {
                     {
                         @Override
                         public void onErrorResponse(VolleyError error) {
-                            pd.dismiss();
+//                            pd.dismiss();
                         }
                     })
 
@@ -150,6 +152,7 @@ public class RackFragment extends Fragment {
         linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
         resultList = new ArrayList<>();
+        setRackAdapter();
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -168,7 +171,7 @@ public class RackFragment extends Fragment {
         final String capacity = edt_capacity.getText().toString();
         if (Utility.isOnline(context)) {
             pd = new ProgressDialog(context);
-            pd.setMessage("Uploading wait...");
+            pd.setMessage("Adding wait...");
             pd.show();
             pd.setCancelable(false);
             StringRequest stringRequest = new StringRequest(Request.Method.POST, Contants.SERVICE_BASE_URL + Contants.addRack,
@@ -189,7 +192,7 @@ public class RackFragment extends Fragment {
                 @Override
                 protected Map<String, String> getParams() throws AuthFailureError {
                     Map<String, String> params = new HashMap<String, String>();
-                    params.put("floor", String.valueOf(floor));
+                    params.put("floor", floor);
                     params.put("rack", rack);
                     params.put("capacity", capacity);
                     return params;
@@ -230,7 +233,7 @@ public class RackFragment extends Fragment {
                 protected Map<String, String> getParams() throws AuthFailureError {
                     Map<String, String> params = new HashMap<String, String>();
                     params.put("rackId", String.valueOf(rackId));
-                    params.put("floor", String.valueOf(floor));
+                    params.put("floor", floor);
                     params.put("rack", rack);
                     params.put("capacity", capacity);
                     return params;

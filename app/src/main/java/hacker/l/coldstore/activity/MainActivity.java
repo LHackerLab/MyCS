@@ -22,6 +22,7 @@ import android.widget.TextView;
 
 import hacker.l.coldstore.R;
 import hacker.l.coldstore.database.DbHelper;
+import hacker.l.coldstore.fragments.AboutUsFragment;
 import hacker.l.coldstore.fragments.AccoutnFragment;
 import hacker.l.coldstore.fragments.EmployeeFragment;
 import hacker.l.coldstore.fragments.FloorFragment;
@@ -141,6 +142,8 @@ public class MainActivity extends AppCompatActivity
             return true;
         }
         if (id == R.id.action_aboutus) {
+            AboutUsFragment aboutUsFragment = AboutUsFragment.newInstance("", "");
+            moveragment(aboutUsFragment);
             return true;
         }
         return super.onOptionsItemSelected(item);
