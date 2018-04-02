@@ -194,7 +194,6 @@ public class VarietyFragment extends Fragment {
         edt_varietyName.setSelection(edt_varietyName.length());
         add.setText("Update");
     }
-
     public void setVarietyAdapter() {
         if (Utility.isOnline(context)) {
             pd = new ProgressDialog(context);

@@ -27,6 +27,7 @@ public class MyPagerAdapter extends FragmentStatePagerAdapter {
         stringList.add(s);
     }
 
+
     @Override
     public int getCount() {
         return fragmentList.size();

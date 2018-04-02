@@ -20,7 +20,7 @@ import hacker.l.coldstore.utility.Contants;
 public class DbHelper extends SQLiteOpenHelper {
 
     // If you change the database schema, you must increment the database version.
-    public static final int DATABASE_VERSION = 3;
+    public static final int DATABASE_VERSION = 2;
     public static final String DATABASE_NAME = Contants.DATABASE_NAME;
 
     public DbHelper(Context context) {
@@ -31,7 +31,8 @@ public class DbHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS userData");
         db.execSQL("DROP TABLE IF EXISTS AdminData");
-        db.execSQL("DROP TABLE IF EXISTS surakshacavach");
+        db.execSQL("DROP TABLE IF EXISTS rackData");
+        db.execSQL("DROP TABLE IF EXISTS inwardData");
         onCreate(db);
 
     }
@@ -44,8 +45,10 @@ public class DbHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String CREATE_UserData_TABLE = "CREATE TABLE userData(loginId INTEGER,Username TEXT,UserPhone TEXT,EmailId TEXT,Password TEXT)";
         String CREATE_AdminData_TABLE = "CREATE TABLE AdminData(AdminId INTEGER,AdminName TEXT,AdminPhone TEXT,AdminEmail TEXT,AdminPassword TEXT,AdminProfile TEXT)";
-        String CREATE_surakshacavach_TABLE = "CREATE TABLE surakshacavach(scid INTEGER,loginId INTEGER,Username TEXT,UserPhone TEXT,EmailId TEXT,Address TEXT,City TEXT ,PinCode TEXT, EmergencyOne TEXT, EmergencyTwo TEXT, EmergencyThree TEXT,barCode TEXT, socialUs TEXT)";
+        String CREATE_surakshacavach_TABLE = "CREATE TABLE rackData(rackId INTEGER,floor TEXT,rack TEXT,capacity TEXT)";
+        String CREATE_inwardData_TABLE = "CREATE TABLE inwardData(inwardId INTEGER,userName TEXT,fatherName TEXT,userPhone TEXT,address TEXT,quantity TEXT,rent TEXT,variety TEXT,floor INTEGER,rack TEXT,advanced TEXT,caseType TEXT,grandTotal TEXT,byUser TEXT,time TEXT,date TEXT)";
         db.execSQL(CREATE_AdminData_TABLE);
+        db.execSQL(CREATE_inwardData_TABLE);
         db.execSQL(CREATE_UserData_TABLE);
         db.execSQL(CREATE_surakshacavach_TABLE);
     }
@@ -183,135 +186,445 @@ public class DbHelper extends SQLiteOpenHelper {
         return result;
     }
 
-//
-//    //    // --------------------------user Data---------------
-//    public boolean upsertUserData(Result ob) {
-//        boolean done = false;
-//        Result data = null;
-//        if (ob.getLoginId() != 0) {
-//            data = getUserDataByLoginId(ob.getLoginId());
-//            if (data == null) {
-//                done = insertUserData(ob);
-//            } else {
-//                done = updateUserData(ob);
-//            }
-//        }
-//        return done;
-//    }
-//
-//
-//    //    // for user data..........
-//    private void populateUserData(Cursor cursor, Result ob) {
-//        ob.setLoginId(cursor.getInt(0));
-//        ob.setUsername(cursor.getString(1));
-//        ob.setUserPhone(cursor.getString(2));
-//        ob.setEmailId(cursor.getString(3));
-//        ob.setPassword(cursor.getString(4));
-//    }
-//
-//    // insert userData data.............
-//    public boolean insertUserData(Result ob) {
-//        ContentValues values = new ContentValues();
-//        values.put("loginId", ob.getLoginId());
-//        values.put("Username", ob.getUsername());
-//        values.put("UserPhone", ob.getUserPhone());
-//        values.put("EmailId", ob.getEmailId());
-//        values.put("Password", ob.getPassword());
-//
-//        SQLiteDatabase db = this.getWritableDatabase();
-//
-//        long i = db.insert("userData", null, values);
-//        db.close();
-//        return i > 0;
-//    }
-//
-//    //    user data
-//    public Result getUserData() {
-//
-//        String query = "Select * FROM userData";
-//
-//        SQLiteDatabase db = this.getReadableDatabase();
-//        Cursor cursor = db.rawQuery(query, null);
-//        Result data = new Result();
-//
-//        if (cursor.moveToFirst()) {
-//            cursor.moveToFirst();
-//            populateUserData(cursor, data);
-//
-//            cursor.close();
-//        } else {
-//            data = null;
-//        }
-//        db.close();
-//        return data;
-//    }
-//
-//    //
-////    //show  user list data
-//    public List<Result> getAllUserData() {
-//        ArrayList list = new ArrayList<>();
-//        String query = "Select * FROM userData";
-//        SQLiteDatabase db = this.getReadableDatabase();
-//        Cursor cursor = db.rawQuery(query, null);
-//        if (cursor.moveToFirst()) {
-//
-//            while (cursor.isAfterLast() == false) {
-//                Result ob = new Result();
-//                populateUserData(cursor, ob);
-//                list.add(ob);
-//                cursor.moveToNext();
-//            }
-//        }
-//        db.close();
-//        return list;
-//    }
-//
-//
-//    //  get user data
-//    public Result getUserDataByLoginId(int id) {
-//
-//        String query = "Select * FROM userData WHERE loginId = " + id + " ";
-//
-//        SQLiteDatabase db = this.getReadableDatabase();
-//        Cursor cursor = db.rawQuery(query, null);
-//        Result data = new Result();
-//
-//        if (cursor.moveToFirst()) {
-//            cursor.moveToFirst();
-//            populateUserData(cursor, data);
-//
-//            cursor.close();
-//        } else {
-//            data = null;
-//        }
-//        db.close();
-//        return data;
-//    }
-//
-//    //    update  data
-//    public boolean updateUserData(Result ob) {
-//        ContentValues values = new ContentValues();
-//        values.put("loginId", ob.getLoginId());
-//        values.put("Username", ob.getUsername());
-//        values.put("UserPhone", ob.getUserPhone());
-//        values.put("EmailId", ob.getEmailId());
-//        values.put("Password", ob.getPassword());
-//
-//        SQLiteDatabase db = this.getWritableDatabase();
-//        long i = 0;
-//        i = db.update("userData", values, "loginId = " + ob.getLoginId() + " ", null);
-//
-//        db.close();
-//        return i > 0;
-//    }
-//
-//    // delete user Data
-//    public boolean deleteUserData() {
-//        boolean result = false;
-//        SQLiteDatabase db = this.getWritableDatabase();
-//        db.delete("userData", null, null);
-//        db.close();
-//        return result;
-//    }
 
+    //    // --------------------------user Data---------------
+    public boolean upsertUserData(Result ob) {
+        boolean done = false;
+        Result data = null;
+        if (ob.getUserId() != 0) {
+            data = getUserDataByLoginId(ob.getUserId());
+            if (data == null) {
+                done = insertUserData(ob);
+            } else {
+                done = updateUserData(ob);
+            }
+        }
+        return done;
+    }
+
+
+    //    // for user data..........
+    private void populateUserData(Cursor cursor, Result ob) {
+        ob.setUserId(cursor.getInt(0));
+        ob.setUserName(cursor.getString(1));
+        ob.setUserPhone(cursor.getString(2));
+        ob.setEmpPassword(cursor.getString(4));
+    }
+
+    // insert userData data.............
+    public boolean insertUserData(Result ob) {
+        ContentValues values = new ContentValues();
+        values.put("loginId", ob.getUserId());
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        long i = db.insert("userData", null, values);
+        db.close();
+        return i > 0;
+    }
+
+    //    user data
+    public Result getUserData() {
+
+        String query = "Select * FROM userData";
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+        Result data = new Result();
+
+        if (cursor.moveToFirst()) {
+            cursor.moveToFirst();
+            populateUserData(cursor, data);
+
+            cursor.close();
+        } else {
+            data = null;
+        }
+        db.close();
+        return data;
+    }
+
+    //
+//    //show  user list data
+    public List<Result> getAllUserData() {
+        ArrayList list = new ArrayList<>();
+        String query = "Select * FROM userData";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+        if (cursor.moveToFirst()) {
+
+            while (cursor.isAfterLast() == false) {
+                Result ob = new Result();
+                populateUserData(cursor, ob);
+                list.add(ob);
+                cursor.moveToNext();
+            }
+        }
+        db.close();
+        return list;
+    }
+
+
+    //  get user data
+    public Result getUserDataByLoginId(int id) {
+
+        String query = "Select * FROM userData WHERE loginId = " + id + " ";
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+        Result data = new Result();
+
+        if (cursor.moveToFirst()) {
+            cursor.moveToFirst();
+            populateUserData(cursor, data);
+
+            cursor.close();
+        } else {
+            data = null;
+        }
+        db.close();
+        return data;
+    }
+
+    //    update  data
+    public boolean updateUserData(Result ob) {
+        ContentValues values = new ContentValues();
+        values.put("loginId", ob.getUserId());
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        long i = 0;
+        i = db.update("userData", values, "loginId = " + ob.getUserId() + " ", null);
+
+        db.close();
+        return i > 0;
+    }
+
+    // delete user Data
+    public boolean deleteUserData() {
+        boolean result = false;
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete("userData", null, null);
+        db.close();
+        return result;
+    }
+//    // --------------------------rack Data---------------
+    public boolean upsertRackData(Result ob) {
+        boolean done = false;
+        Result data = null;
+        if (ob.getRackId() != 0) {
+            data = getRackDataByRackId(ob.getRackId());
+            if (data == null) {
+                done = insertRackData(ob);
+            } else {
+                done = updateRackData(ob);
+            }
+        }
+        return done;
+    }
+
+
+    //    // for rack data..........
+    private void populateRackData(Cursor cursor, Result ob) {
+        ob.setRackId(cursor.getInt(0));
+        ob.setFloor(cursor.getInt(1));
+        ob.setRack(cursor.getString(2));
+        ob.setCapacity(cursor.getString(3));
+    }
+
+    // insert rack data.............
+    public boolean insertRackData(Result ob) {
+        ContentValues values = new ContentValues();
+        values.put("rackId", ob.getRackId());
+        values.put("floor", ob.getFloor());
+        values.put("rack", ob.getRack());
+        values.put("capacity", ob.getCapacity());
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        long i = db.insert("rackData", null, values);
+        db.close();
+        return i > 0;
+    }
+
+    //    rack data
+    public Result getRackData() {
+
+        String query = "Select * FROM rackData";
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+        Result data = new Result();
+
+        if (cursor.moveToFirst()) {
+            cursor.moveToFirst();
+            populateRackData(cursor, data);
+
+            cursor.close();
+        } else {
+            data = null;
+        }
+        db.close();
+        return data;
+    }
+
+    //
+//    //show  rack list data
+    public List<Result> getAllRackData() {
+        ArrayList list = new ArrayList<>();
+        String query = "Select * FROM rackData";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+        if (cursor.moveToFirst()) {
+
+            while (cursor.isAfterLast() == false) {
+                Result ob = new Result();
+                populateRackData(cursor, ob);
+                list.add(ob);
+                cursor.moveToNext();
+            }
+        }
+        db.close();
+        return list;
+    }
+
+
+    //  get rack data
+    public Result getRackDataByRackId(int id) {
+
+        String query = "Select * FROM rackData WHERE rackId = " + id + " ";
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+        Result data = new Result();
+
+        if (cursor.moveToFirst()) {
+            cursor.moveToFirst();
+            populateRackData(cursor, data);
+
+            cursor.close();
+        } else {
+            data = null;
+        }
+        db.close();
+        return data;
+    }
+
+    //  get rack data
+    public Result getRackDataByFloor(int floor) {
+
+        String query = "Select * FROM rackData WHERE floor = " + floor + " ";
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+        Result data = new Result();
+
+        if (cursor.moveToFirst()) {
+            cursor.moveToFirst();
+            populateRackData(cursor, data);
+
+            cursor.close();
+        } else {
+            data = null;
+        }
+        db.close();
+        return data;
+    }
+
+    //    update  rack data
+    public boolean updateRackData(Result ob) {
+        ContentValues values = new ContentValues();
+        values.put("rackId", ob.getRackId());
+        values.put("floor", ob.getFloor());
+        values.put("rack", ob.getRack());
+        values.put("capacity", ob.getCapacity());
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        long i = 0;
+        i = db.update("rackData", values, "rackId = " + ob.getRackId() + " ", null);
+
+        db.close();
+        return i > 0;
+    }
+
+    // delete rack Data
+    public boolean deleteRackData() {
+        boolean result = false;
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete("rackData", null, null);
+        db.close();
+        return result;
+    }
+
+
+    // --------------------------inward Data-------------------------------------------------------
+    public boolean upsertInwardData(Result ob) {
+        boolean done = false;
+        Result data = null;
+        if (ob.getInwardId() != 0) {
+            data = getInwardDataByInwardId(ob.getInwardId());
+            if (data == null) {
+                done = insertInwardData(ob);
+            } else {
+                done = updateInwardData(ob);
+            }
+        }
+        return done;
+    }
+
+
+    //    // for Inward data..........
+    private void populateInwardData(Cursor cursor, Result ob) {
+        ob.setInwardId(cursor.getInt(0));
+        ob.setUserName(cursor.getString(1));
+        ob.setFatherName(cursor.getString(2));
+        ob.setUserPhone(cursor.getString(3));
+        ob.setAddress(cursor.getString(4));
+        ob.setQuantity(cursor.getString(5));
+        ob.setRent(cursor.getString(6));
+        ob.setVarietyName(cursor.getString(7));
+        ob.setFloor(cursor.getInt(8));
+        ob.setRack(cursor.getString(9));
+        ob.setAdvanced(cursor.getString(10));
+        ob.setCaseType(cursor.getString(11));
+        ob.setGrandTotal(cursor.getString(12));
+        ob.setByUser(cursor.getString(13));
+        ob.setTime(cursor.getString(14));
+        ob.setDay(cursor.getString(15));
+    }
+
+    // insert Inward data.............
+    public boolean insertInwardData(Result ob) {
+        ContentValues values = new ContentValues();
+        values.put("inwardId", ob.getInwardId());
+        values.put("userName", ob.getUserName());
+        values.put("fatherName", ob.getFatherName());
+        values.put("userPhone", ob.getUserPhone());
+        values.put("address", ob.getAddress());
+        values.put("quantity", ob.getQuantity());
+        values.put("rent", ob.getRent());
+        values.put("variety", ob.getVarietyName());
+        values.put("floor", ob.getFloor());
+        values.put("rack", ob.getRack());
+        values.put("advanced", ob.getAdvanced());
+        values.put("caseType", ob.getCaseType());
+        values.put("grandTotal", ob.getGrandTotal());
+        values.put("byUser", ob.getByUser());
+        values.put("time", ob.getTime());
+        values.put("date", ob.getDay());
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        long i = db.insert("inwardData", null, values);
+        db.close();
+        return i > 0;
+    }
+
+    //    Inward data
+    public Result getInwardData() {
+
+        String query = "Select * FROM inwardData";
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+        Result data = new Result();
+
+        if (cursor.moveToFirst()) {
+            cursor.moveToFirst();
+            populateInwardData(cursor, data);
+
+            cursor.close();
+        } else {
+            data = null;
+        }
+        db.close();
+        return data;
+    }
+
+    //
+//    //show  Inward list data
+    public List<Result> getAllInwardData() {
+        ArrayList list = new ArrayList<>();
+        String query = "Select * FROM inwardData";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+        if (cursor.moveToFirst()) {
+
+            while (cursor.isAfterLast() == false) {
+                Result ob = new Result();
+                populateInwardData(cursor, ob);
+                list.add(ob);
+                cursor.moveToNext();
+            }
+        }
+        db.close();
+        return list;
+    }
+
+
+    //  get Inward data
+    public Result getInwardDataByInwardId(int id) {
+
+        String query = "Select * FROM inwardData WHERE inwardId = " + id + " ";
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+        Result data = new Result();
+
+        if (cursor.moveToFirst()) {
+            cursor.moveToFirst();
+            populateInwardData(cursor, data);
+
+            cursor.close();
+        } else {
+            data = null;
+        }
+        db.close();
+        return data;
+    }
+
+
+    //    update  Inward data
+    public boolean updateInwardData(Result ob) {
+        ContentValues values = new ContentValues();
+        values.put("inwardId", ob.getInwardId());
+        values.put("userName", ob.getUserName());
+        values.put("fatherName", ob.getFatherName());
+        values.put("userPhone", ob.getUserPhone());
+        values.put("address", ob.getAddress());
+        values.put("quantity", ob.getQuantity());
+        values.put("rent", ob.getRent());
+        values.put("variety", ob.getVarietyName());
+        values.put("floor", ob.getFloor());
+        values.put("rack", ob.getRack());
+        values.put("advanced", ob.getAdvanced());
+        values.put("caseType", ob.getCaseType());
+        values.put("grandTotal", ob.getGrandTotal());
+        values.put("byUser", ob.getByUser());
+        values.put("time", ob.getTime());
+        values.put("date", ob.getDay());
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        long i = 0;
+        i = db.update("inwardData", values, "inwardId = " + ob.getInwardId() + " ", null);
+
+        db.close();
+        return i > 0;
+    }
+
+    // delete Inward Data
+    public boolean deleteInwardData() {
+        boolean result = false;
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete("inwardData", null, null);
+        db.close();
+        return result;
+    }
+    // delete Inward Data
+    public boolean deleteInwardData(int id) {
+        boolean result = false;
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete("inwardData", "inwardId"+"="+id, null);
+        db.close();
+        return result;
+    }
 }

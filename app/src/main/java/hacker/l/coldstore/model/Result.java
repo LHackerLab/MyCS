@@ -6,6 +6,161 @@ package hacker.l.coldstore.model;
 
 public class Result {
     private String empPhone;
+    private int userId;
+    private String isActive;
+
+    private String empName;
+    private String empFName;
+    private String empAddress;
+    private String empType;
+    private String empjoindate;
+    private String empdob;
+    private String empQly;
+    private String empGender;
+    private String empsalary;
+    private String empProfile;
+    private String empPassword;
+
+
+    private String AdminName;
+    private String AdminEmail;
+    private String AdminPassword;
+    private String AdminProfile;
+    private String AdminPhone;
+    private int AdminId;
+
+
+    private String variety;
+    private String rack;
+    private int rackId;
+    private String capacity;
+    private int floorId;
+    private int varietyId;
+    private int floor;
+// for inward data....
+
+    private String userName;
+    private String fatherName;
+    private String userPhone;
+    private String address;
+    private String quantity;
+    private String rent;
+    private String byUser;
+    private String advanced;
+    private String caseType;
+    private String grandTotal;
+    private String time;
+    private String date;
+    private int inwardId;
+
+    public String getAdvanced() {
+        return advanced;
+    }
+
+    public void setAdvanced(String advanced) {
+        this.advanced = advanced;
+    }
+
+    public String getCaseType() {
+        return caseType;
+    }
+
+    public void setCaseType(String caseType) {
+        this.caseType = caseType;
+    }
+
+    public String getGrandTotal() {
+        return grandTotal;
+    }
+
+    public void setGrandTotal(String grandTotal) {
+        this.grandTotal = grandTotal;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public String getDay() {
+        return date;
+    }
+
+    public void setDay(String date) {
+        this.date = date;
+    }
+
+    public int getInwardId() {
+        return inwardId;
+    }
+
+    public void setInwardId(int inwardId) {
+        this.inwardId = inwardId;
+    }
+
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getFatherName() {
+        return fatherName;
+    }
+
+    public void setFatherName(String fatherName) {
+        this.fatherName = fatherName;
+    }
+
+    public String getUserPhone() {
+        return userPhone;
+    }
+
+    public void setUserPhone(String userPhone) {
+        this.userPhone = userPhone;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(String quantity) {
+        this.quantity = quantity;
+    }
+
+    public String getRent() {
+        return rent;
+    }
+
+    public void setRent(String rent) {
+        this.rent = rent;
+    }
+
+    public String getByUser() {
+        return byUser;
+    }
+
+    public void setByUser(String byUser) {
+        this.byUser = byUser;
+    }
+
+
+
+
 
     public int getUserId() {
         return userId;
@@ -15,7 +170,7 @@ public class Result {
         this.userId = userId;
     }
 
-    private int userId;
+
 
     public String getIsActive() {
         return isActive;
@@ -25,7 +180,7 @@ public class Result {
         this.isActive = isActive;
     }
 
-    private String isActive;
+
 
     public String getEmpPhone() {
         return empPhone;
@@ -100,16 +255,7 @@ public class Result {
         this.empsalary = empsalary;
     }
 
-    private String empName;
-    private String empFName;
-    private String empAddress;
-    private String empType;
-    private String empjoindate;
-    private String empdob;
-    private String empQly;
-    private String empGender;
-    private String empsalary;
-    private String empProfile;
+
 
     public String getEmpPassword() {
         return empPassword;
@@ -119,7 +265,6 @@ public class Result {
         this.empPassword = empPassword;
     }
 
-    private String empPassword;
 
     public String getAdminName() {
         return AdminName;
@@ -161,10 +306,6 @@ public class Result {
         AdminId = adminId;
     }
 
-    private String AdminName;
-    private String AdminEmail;
-    private String AdminPassword;
-    private String AdminProfile;
 
     public String getAdminPhone() {
         return AdminPhone;
@@ -174,8 +315,7 @@ public class Result {
         AdminPhone = adminPhone;
     }
 
-    private String AdminPhone;
-    private int AdminId;
+
 
     public String getEmpProfile() {
         return empProfile;
@@ -195,11 +335,6 @@ public class Result {
     }
 
 
-    private String variety;
-    private String rack;
-    private int rackId;
-    private String capacity;
-    private int floorId;
 
     public String getVarietyName() {
         return variety;
@@ -242,8 +377,7 @@ public class Result {
         this.varietyId = varietyId;
     }
 
-    private int varietyId;
-    private int floor;
+
 
     public int getFloor() {
         return floor;

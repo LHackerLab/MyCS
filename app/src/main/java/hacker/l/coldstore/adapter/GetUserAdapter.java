@@ -129,6 +129,7 @@ public class GetUserAdapter extends RecyclerView.Adapter<GetUserAdapter.MyViewHo
                 .commit();
     }
 
+
     private void deleteData(final int position) {
         if (Utility.isOnline(mContext)) {
             pd = new ProgressDialog(mContext);

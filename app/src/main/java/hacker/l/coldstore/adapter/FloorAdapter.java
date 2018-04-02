@@ -66,6 +66,7 @@ public class FloorAdapter extends RecyclerView.Adapter<FloorAdapter.MyViewHolder
         return new FloorAdapter.MyViewHolder(itemView);
     }
 
+
     @Override
     public void onBindViewHolder(FloorAdapter.MyViewHolder holder, final int position) {
         if (position % 2 == 1) {

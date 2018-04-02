@@ -112,7 +112,6 @@ public class FloorFragment extends Fragment {
         });
 
     }
-
     public void setFloorAdapter() {
         if (Utility.isOnline(context)) {
             pd = new ProgressDialog(context);

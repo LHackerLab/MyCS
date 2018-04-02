@@ -106,5 +106,4 @@ public class UpdateProfileFragment extends Fragment {
             }
         });
     }
-
 }

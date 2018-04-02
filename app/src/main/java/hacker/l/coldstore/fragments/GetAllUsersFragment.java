@@ -68,6 +68,7 @@ public class GetAllUsersFragment extends Fragment {
         }
     }
 
+
     View view;
     Context context;
     LinearLayoutManager linearLayoutManager;

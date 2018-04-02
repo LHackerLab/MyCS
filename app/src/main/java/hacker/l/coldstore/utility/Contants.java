@@ -42,7 +42,9 @@ public class Contants {
     public static final String Admin = "FetchAdmin.php";
     public static final String User = "FetchUser.php";
     public static final String AddUser = "addUser.php";
-    public static final String AddInward = "AddInward.php";
+    public static final String AddInward = "addInward.php";
+    public static final String getAlInward = "getAllInward.php";
+    public static final String deleteInward = "deleteInward.php";
     public static final String AddFloor = "AddFloor.php";
     public static final String getAllFloor = "getAllFloor.php";
     public static final String updateFloor = "updateFloor.php";

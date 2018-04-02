@@ -379,6 +379,7 @@ public class AddUserFragment extends Fragment {
         }
     }
 
+
     private void moveragment(Fragment fragment) {
         android.support.v4.app.FragmentManager fragmentManager = ((FragmentActivity) context).getSupportFragmentManager();
         fragmentManager.beginTransaction()

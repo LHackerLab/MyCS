@@ -75,6 +75,7 @@
                 android:hint="Enter Mobile Number"
                 android:inputType="number"
                 android:paddingLeft="@dimen/margin5"
+                android:maxLength="10"
                 android:textColor="@color/black"
                 android:textSize="@dimen/textSize16" />
 
@@ -142,7 +143,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/margin5"
                 android:layout_marginTop="@dimen/margin10"
-                android:text="Rent*"
+                android:text="Rent Per unit*"
                 android:textColor="@color/purple"
                 android:textSize="@dimen/textSize16" />
 

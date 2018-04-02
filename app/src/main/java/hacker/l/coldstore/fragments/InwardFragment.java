@@ -11,6 +11,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -23,12 +25,23 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.gson.Gson;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import hacker.l.coldstore.R;
 import hacker.l.coldstore.activity.MainActivity;
+import hacker.l.coldstore.adapter.FloorAdapter;
+import hacker.l.coldstore.adapter.RackAdapter;
+import hacker.l.coldstore.adapter.VarietyAdapter;
+import hacker.l.coldstore.database.DbHelper;
+import hacker.l.coldstore.model.MyPojo;
+import hacker.l.coldstore.model.Result;
 import hacker.l.coldstore.utility.Contants;
 import hacker.l.coldstore.utility.Utility;
 
@@ -68,7 +81,8 @@ public class InwardFragment extends Fragment {
     TextView tv_wholeSaleNo;
     AppCompatSpinner spinnerVariety, spinnerFloor, spinnerRack;
     ProgressDialog pd;
-    String empName, empFName, phone, qty, rent, address;
+    int floor;
+    String empName, empFName, phone, qty, rent, address, vareity, rack;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -94,6 +108,9 @@ public class InwardFragment extends Fragment {
         spinnerRack = view.findViewById(R.id.spinnerRack);
         edt_address = view.findViewById(R.id.edt_address);
         btn_add = view.findViewById(R.id.btn_add);
+//        getVariety();
+//        getFloor();
+//        getRack();
         btn_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -112,72 +129,97 @@ public class InwardFragment extends Fragment {
         if (empName.length() == 0) {
             requestFocus(edt_empName);
             edt_empName.setError("Enter Name");
+            return false;
         } else if (empFName.length() == 0) {
             requestFocus(edt_empFName);
             edt_empFName.setError("Enter Father Name");
+            return false;
         } else if (phone.length() == 0) {
             requestFocus(edt_phone);
             edt_phone.setError("Enter Phone");
+            return false;
         } else if (phone.length() != 10) {
             requestFocus(edt_phone);
             edt_phone.setError("Enter valid Phone");
+            return false;
         } else if (qty.length() == 0) {
             edt_qty.setError("Enter Quantity");
             requestFocus(edt_qty);
+            return false;
         } else if (rent.length() == 0) {
             requestFocus(edt_rent);
             edt_rent.setError("Enter Rent Price");
+            return false;
         } else if (address.length() == 0) {
             requestFocus(edt_address);
             edt_address.setError("Enter Address");
+            return false;
+        } else if (vareity != null && vareity.length() == 0) {
+            Toast.makeText(context, "Select Vareity", Toast.LENGTH_SHORT).show();
+            return false;
+        } else if (floor == 0) {
+            Toast.makeText(context, "Select Floor", Toast.LENGTH_SHORT).show();
+            return false;
+        } else if (rack != null && rack.length() == 0) {
+            Toast.makeText(context, "Select Rack", Toast.LENGTH_SHORT).show();
+            return false;
         }
         return true;
     }
 
     private void uploadInwardData() {
-        if (Utility.isOnline(context)) {
-            if (validation()) {
-                pd = new ProgressDialog(context);
-                pd.setMessage("Adding wait...");
-                pd.show();
-                pd.setCancelable(false);
-                StringRequest stringRequest = new StringRequest(Request.Method.POST, Contants.SERVICE_BASE_URL + Contants.AddInward,
-                        new Response.Listener<String>() {
-                            @Override
-                            public void onResponse(String response) {
-                                pd.dismiss();
-                                Toast.makeText(context, "Add Successfully", Toast.LENGTH_SHORT).show();
-                                AccoutnFragment accoutnFragment = AccoutnFragment.newInstance("", "");
-                                moveragment(accoutnFragment);
-                            }
-                        },
-                        new Response.ErrorListener() {
-                            @Override
-                            public void onErrorResponse(VolleyError error) {
-                                pd.dismiss();
-                            }
-                        }) {
-                    @Override
-                    protected Map<String, String> getParams() throws AuthFailureError {
-                        Map<String, String> params = new HashMap<String, String>();
-                        params.put("name", empName);
-                        params.put("Fname", empFName);
-                        params.put("phone", phone);
-                        params.put("address", address);
-                        params.put("Qty", qty);
-                        params.put("rent", rent);
-                        params.put("variety", "");
-                        params.put("floor", "");
-                        params.put("rack", "");
-                        return params;
-                    }
-                };
-                RequestQueue requestQueue = Volley.newRequestQueue(context);
-                requestQueue.add(stringRequest);
-            }
-        } else {
-            Toast.makeText(context, "You are Offline. Please check your Internet Connection.", Toast.LENGTH_SHORT).show();
+//        if (Utility.isOnline(context)) {
+        if (validation()) {
+//                pd = new ProgressDialog(context);
+//                pd.setMessage("Adding wait...");
+//                pd.show();
+//                pd.setCancelable(false);
+//                StringRequest stringRequest = new StringRequest(Request.Method.POST, Contants.SERVICE_BASE_URL + Contants.AddInward,
+//                        new Response.Listener<String>() {
+//                            @Override
+//                            public void onResponse(String response) {
+//                                pd.dismiss();
+//                                Toast.makeText(context, "Add Successfully", Toast.LENGTH_SHORT).show();
+            AccoutnFragment accoutnFragment = AccoutnFragment.newInstance("inward", empName, empFName, phone, address, qty, rent, vareity, rack, floor);
+            moveragment(accoutnFragment);
         }
+//                        },
+//                        new Response.ErrorListener() {
+//                            @Override
+//                            public void onErrorResponse(VolleyError error) {
+//                                pd.dismiss();
+//                            }
+//                        }) {
+//                    @Override
+//                    protected Map<String, String> getParams() throws AuthFailureError {
+//                        Map<String, String> params = new HashMap<String, String>();
+//                        params.put("userName", empName);
+//                        params.put("fatherName", empFName);
+//                        params.put("userPhone", phone);
+//                        params.put("address", address);
+//                        params.put("quantity", qty);
+//                        params.put("rent", rent);
+//                        params.put("variety", "1");
+//                        params.put("floor", "2");
+//                        params.put("rack", "3");
+//                        return params;
+//                    }
+//                };
+//                RequestQueue requestQueue = Volley.newRequestQueue(context);
+//                requestQueue.add(stringRequest);
+//            }
+//        } else {
+//            Toast.makeText(context, "You are Offline. Please check your Internet Connection.", Toast.LENGTH_SHORT).show();
+//        }
+    }
+
+    @Override
+    public void onStart() {
+        getRack();
+        getFloor();
+        getVariety();
+        super.onStart();
+
     }
 
     private void moveragment(Fragment fragment) {
@@ -192,5 +234,152 @@ public class InwardFragment extends Fragment {
         if (view.requestFocus()) {
             getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
         }
+    }
+
+    private void getVariety() {
+        final List<String> stringList = new ArrayList<>();
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Contants.SERVICE_BASE_URL + Contants.getAllVariety,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        MyPojo myPojo = new Gson().fromJson(response, MyPojo.class);
+                        for (Result result : myPojo.getResult()) {
+                            stringList.addAll(Arrays.asList(result.getVarietyName()));
+                        }
+                        if (stringList != null) {
+                            ArrayAdapter<String> adapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_dropdown_item, stringList);
+                            spinnerVariety.setAdapter(adapter);
+                            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                            spinnerVariety.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                                @Override
+                                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                                    vareity = parent.getSelectedItem().toString();
+                                }
+
+                                @Override
+                                public void onNothingSelected(AdapterView<?> parent) {
+
+                                }
+                            });
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                    }
+                }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                return params;
+            }
+        };
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+        requestQueue.add(stringRequest);
+    }
+
+    private void getFloor() {
+        final List<Integer> stringList = new ArrayList<>();
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Contants.SERVICE_BASE_URL + Contants.getAllFloor,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        MyPojo myPojo = new Gson().fromJson(response, MyPojo.class);
+                        for (Result result : myPojo.getResult()) {
+                            stringList.addAll(Arrays.asList(result.getFloor()));
+                        }
+                        if (stringList != null) {
+                            ArrayAdapter<Integer> adapter = new ArrayAdapter<Integer>(context, android.R.layout.simple_spinner_dropdown_item, stringList);
+                            spinnerFloor.setAdapter(adapter);
+                            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                            spinnerFloor.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                                @Override
+                                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                                    floor = Integer.parseInt(parent.getSelectedItem().toString());
+                                    setRackSpinner();
+                                }
+
+                                @Override
+                                public void onNothingSelected(AdapterView<?> parent) {
+
+                                }
+                            });
+
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                    }
+                }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                return params;
+            }
+        };
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+        requestQueue.add(stringRequest);
+    }
+
+    private void getRack() {
+        final List<String> stringList = new ArrayList<>();
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Contants.SERVICE_BASE_URL + Contants.getAllRack,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        MyPojo myPojo = new Gson().fromJson(response, MyPojo.class);
+                        for (Result result : myPojo.getResult()) {
+                            new DbHelper(context).upsertRackData(result);
+//                            stringList.addAll(Arrays.asList(result.getRack()));
+                        }
+                        setRackSpinner();
+//                        if (stringList != null) {
+//                            ArrayAdapter<String> adapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_dropdown_item, stringList);
+//                            spinnerRack.setAdapter(adapter);
+//                            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//                            rack = spinnerRack.getSelectedItem().toString();
+//                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                    }
+                }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                return params;
+            }
+        };
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+        requestQueue.add(stringRequest);
+    }
+
+    private void setRackSpinner() {
+        DbHelper dbHelper = new DbHelper(context);
+        Result result = dbHelper.getRackDataByFloor(floor);
+        if (result != null) {
+            List<String> stringList = new ArrayList<>();
+            stringList.addAll(Arrays.asList(result.getRack()));
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_dropdown_item, stringList);
+            spinnerRack.setAdapter(adapter);
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            spinnerRack.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    rack = parent.getSelectedItem().toString();
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+
+                }
+            });
+        }
+
     }
 }

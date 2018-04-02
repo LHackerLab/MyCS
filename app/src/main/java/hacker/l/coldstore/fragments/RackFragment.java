@@ -255,7 +255,6 @@ public class RackFragment extends Fragment {
         edt_capacity.setSelection(edt_capacity.length());
         add.setText("Update");
     }
-
     public void setRackAdapter() {
         if (Utility.isOnline(context)) {
             pd = new ProgressDialog(context);

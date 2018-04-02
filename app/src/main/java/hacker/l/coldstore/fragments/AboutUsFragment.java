@@ -20,6 +20,7 @@ public class AboutUsFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
+
     // TODO: Rename and change types and number of parameters
     public static AboutUsFragment newInstance(String param1, String param2) {
         AboutUsFragment fragment = new AboutUsFragment();

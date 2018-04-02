@@ -22,6 +22,7 @@ public class AccountDetailsFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
+
     // TODO: Rename and change types and number of parameters
     public static AccountDetailsFragment newInstance(String param1, String param2) {
         AccountDetailsFragment fragment = new AccountDetailsFragment();

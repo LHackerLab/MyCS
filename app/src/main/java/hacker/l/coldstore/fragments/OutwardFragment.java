@@ -63,7 +63,7 @@ public class OutwardFragment extends Fragment {
         btn_proced.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AccoutnFragment accoutnFragment = AccoutnFragment.newInstance("", "");
+                AccoutnFragment accoutnFragment = AccoutnFragment.newInstance("", "","","","","","","","",0);
                 moveragment(accoutnFragment);
             }
         });

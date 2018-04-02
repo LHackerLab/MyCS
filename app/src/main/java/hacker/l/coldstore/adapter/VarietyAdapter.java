@@ -90,6 +90,7 @@ public class VarietyAdapter extends RecyclerView.Adapter<VarietyAdapter.MyViewHo
         });
     }
 
+
     private void deleteVariety(final int position) {
         if (Utility.isOnline(mContext)) {
             pd = new ProgressDialog(mContext);

@@ -63,6 +63,7 @@ public class RackAdapter extends RecyclerView.Adapter<RackAdapter.MyViewHolder> 
         return new RackAdapter.MyViewHolder(itemView);
     }
 
+
     @Override
     public void onBindViewHolder(RackAdapter.MyViewHolder holder, final int position) {
         if (position % 2 == 1) {

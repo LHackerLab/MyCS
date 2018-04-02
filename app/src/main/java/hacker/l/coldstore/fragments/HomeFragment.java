@@ -69,6 +69,9 @@ public class HomeFragment extends Fragment {
         myPagerAdapter.addFragment(new OutwardDetailsFragment(), "Outward Details");
         myPagerAdapter.addFragment(new AccountDetailsFragment(), "Account Details");
         viewpager.setAdapter(myPagerAdapter);
+//        if (mParam1.equalsIgnoreCase("inward")) {
+//            viewpager.setCurrentItem(0);
+//        }
     }
 
 }

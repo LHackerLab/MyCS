@@ -244,6 +244,7 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
+
     private void userLoginFunction() {
         DbHelper dbHelper = new DbHelper(this);
         Result result = dbHelper.getAdminData();//user data....

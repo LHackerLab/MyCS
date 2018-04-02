@@ -55,6 +55,7 @@ public class EmployeeFragment extends Fragment {
         return view;
     }
 
+
     private void init() {
         MainActivity mainActivity = (MainActivity) context;
         mainActivity.setTitle("Employee");

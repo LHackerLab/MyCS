@@ -52,6 +52,7 @@ public class ProfileFragment extends Fragment {
     TextView tv_name, tv_phone, tv_email;
     ImageView image_profile;
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
