@@ -32,14 +32,17 @@ import hacker.l.coldstore.fragments.OutwardFragment;
 import hacker.l.coldstore.fragments.ProfileFragment;
 import hacker.l.coldstore.fragments.RackFragment;
 import hacker.l.coldstore.fragments.RentFragment;
+import hacker.l.coldstore.fragments.SettingsFragment;
+import hacker.l.coldstore.fragments.StoreRoomFragment;
+import hacker.l.coldstore.fragments.VardanaFragment;
 import hacker.l.coldstore.fragments.VarietyFragment;
 import hacker.l.coldstore.model.Result;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
-    LinearLayout layout_home, layout_inward, layout_outward, layout_employee, layout_floor, layout_rack, layout_vareity, layout_account, layout_rent, layout_profile;
+    LinearLayout layout_home, layout_inward, layout_vardana, layout_storeRoom, layout_outward, layout_settings, layout_employee, layout_floor, layout_rack, layout_vareity, layout_profile;
     DrawerLayout drawer;
-    TextView tv_title, tv_admin, tv_email;
+    public TextView tv_title, tv_admin, tv_email;
     ImageView image_profile;
 
     @Override
@@ -69,7 +72,7 @@ public class MainActivity extends AppCompatActivity
         init();
     }
 
-    private void init() {
+    public void init() {
         tv_title = findViewById(R.id.tv_title);
         layout_home = findViewById(R.id.layout_home);
         layout_inward = findViewById(R.id.layout_inward);
@@ -81,9 +84,11 @@ public class MainActivity extends AppCompatActivity
         tv_admin = findViewById(R.id.tv_admin);
         tv_email = findViewById(R.id.tv_email);
         image_profile = findViewById(R.id.image_profile);
+        layout_storeRoom = findViewById(R.id.layout_storeRoom);
+        layout_vardana = findViewById(R.id.layout_vardana);
+        layout_settings = findViewById(R.id.layout_settings);
 //        layout_account = findViewById(R.id.layout_account);
         layout_profile = findViewById(R.id.layout_profile);
-        layout_rent = findViewById(R.id.layout_rent);
         layout_home.setOnClickListener(this);
         layout_inward.setOnClickListener(this);
         layout_outward.setOnClickListener(this);
@@ -91,9 +96,11 @@ public class MainActivity extends AppCompatActivity
         layout_floor.setOnClickListener(this);
         layout_rack.setOnClickListener(this);
         layout_vareity.setOnClickListener(this);
+        layout_storeRoom.setOnClickListener(this);
+        layout_vardana.setOnClickListener(this);
+        layout_settings.setOnClickListener(this);
 //        layout_account.setOnClickListener(this);
         layout_profile.setOnClickListener(this);
-        layout_rent.setOnClickListener(this);
         HomeFragment homeFragment = HomeFragment.newInstance("", "");
         moverHagment(homeFragment);
         DbHelper dbHelper = new DbHelper(this);
@@ -218,11 +225,6 @@ public class MainActivity extends AppCompatActivity
                 moveragment(varietyFragment);
                 navHide();
                 break;
-            case R.id.layout_rent:
-                RentFragment rentFragment = RentFragment.newInstance("", "");
-                moveragment(rentFragment);
-                navHide();
-                break;
 //            case R.id.layout_account:
 //                AccoutnFragment accoutnFragment = AccoutnFragment.newInstance("", "");
 //                moveragment(accoutnFragment);
@@ -231,6 +233,21 @@ public class MainActivity extends AppCompatActivity
             case R.id.layout_profile:
                 ProfileFragment profileFragment = ProfileFragment.newInstance("", "");
                 moveragment(profileFragment);
+                navHide();
+                break;
+            case R.id.layout_storeRoom:
+                StoreRoomFragment storeFragment = StoreRoomFragment.newInstance("", "");
+                moveragment(storeFragment);
+                navHide();
+                break;
+            case R.id.layout_vardana:
+                VardanaFragment vardanaFragment = VardanaFragment.newInstance("", "");
+                moveragment(vardanaFragment);
+                navHide();
+                break;
+            case R.id.layout_settings:
+                SettingsFragment settingsFragment = SettingsFragment.newInstance("", "");
+                moveragment(settingsFragment);
                 navHide();
                 break;
         }

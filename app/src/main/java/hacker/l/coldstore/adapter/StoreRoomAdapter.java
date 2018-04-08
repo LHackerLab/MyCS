@@ -27,8 +27,8 @@ import java.util.Map;
 
 import hacker.l.coldstore.R;
 import hacker.l.coldstore.database.DbHelper;
-import hacker.l.coldstore.fragments.FloorFragment;
-import hacker.l.coldstore.fragments.RackFragment;
+import hacker.l.coldstore.fragments.StoreRoomFragment;
+import hacker.l.coldstore.fragments.VardanaFragment;
 import hacker.l.coldstore.model.Result;
 import hacker.l.coldstore.utility.Contants;
 import hacker.l.coldstore.utility.FontManager;
@@ -38,14 +38,14 @@ import hacker.l.coldstore.utility.Utility;
  * Created by lalitsingh on 23/03/18.
  */
 
-public class RackAdapter extends RecyclerView.Adapter<RackAdapter.MyViewHolder> {
+public class StoreRoomAdapter extends RecyclerView.Adapter<StoreRoomAdapter.MyViewHolder> {
     private Typeface materialdesignicons_font, ProximaNovaRegular;
     private Context mContext;
     private List<Result> userList, FilteruserList;
-    RackFragment fragment;
+    StoreRoomFragment fragment;
     ProgressDialog pd;
 
-    public RackAdapter(Context mContext, List<Result> userList, RackFragment fragment) {
+    public StoreRoomAdapter(Context mContext, List<Result> userList, StoreRoomFragment fragment) {
         this.mContext = mContext;
         this.userList = userList;
         this.FilteruserList = userList;
@@ -55,43 +55,33 @@ public class RackAdapter extends RecyclerView.Adapter<RackAdapter.MyViewHolder> 
     }
 
     @Override
-    public RackAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public StoreRoomAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_rack, parent, false);
+                .inflate(R.layout.item_store_room, parent, false);
 
-        return new RackAdapter.MyViewHolder(itemView);
+        return new StoreRoomAdapter.MyViewHolder(itemView);
     }
 
 
     @Override
-    public void onBindViewHolder(RackAdapter.MyViewHolder holder, final int position) {
+    public void onBindViewHolder(StoreRoomAdapter.MyViewHolder holder, final int position) {
         if (position % 2 == 1) {
             holder.linearLayout.setBackgroundColor(Color.parseColor("#ffffff"));
         } else {
             holder.linearLayout.setBackgroundColor(Color.parseColor("#33A5DC86"));
         }
-        String rack = FilteruserList.get(position).getRack();
-        String capacity = FilteruserList.get(position).getCapacity();
-        int floor = FilteruserList.get(position).getFloor();
-        holder.tv_rack.setText(rack);
-        holder.tv_floor.setText(String.valueOf(floor));
-        holder.tv_capacity.setText(capacity);
-        DbHelper dbHelper = new DbHelper(mContext);
-        Result result = dbHelper.getInwardDataByRackFloor(rack, floor);
-        if (result != null) {//get inward and send in outward data  and get remaing qty(fill capacity)
-            String qty = result.getQuantity();
-            holder.tv_Fillcapacity.setText(qty);
-            holder.tv_Freecapacity.setText(Integer.parseInt(capacity) - Integer.parseInt(qty) + "");
-        } else {
-            holder.tv_Fillcapacity.setText("0");
-            holder.tv_Freecapacity.setText(capacity);
-        }
+        holder.tv_name.setText(FilteruserList.get(position).getName());
+        holder.tv_phone.setText(FilteruserList.get(position).getPhone());
+        holder.tv_qty.setText(FilteruserList.get(position).getQty());
+        holder.tv_type.setText(FilteruserList.get(position).getType());
+        holder.tv_date.setText(FilteruserList.get(position).getDate());
+        holder.tv_amount.setText(FilteruserList.get(position).getAmount());
         holder.tv_edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                fragment.updateRackData(true, FilteruserList.get(position).getRack(), FilteruserList.get(position).getCapacity(), FilteruserList.get(position).getRackId());
-//                fragment.setRackAdapter();
+                fragment.updateStoreRoomData(true, FilteruserList.get(position).getName(), FilteruserList.get(position).getPhone(), FilteruserList.get(position).getQty(), FilteruserList.get(position).getType(), FilteruserList.get(position).getsRoomId(), FilteruserList.get(position).getAmount());
+//                fragment.setFloorAdapter();
             }
         });
         holder.tv_delete.setOnClickListener(new View.OnClickListener() {
@@ -108,18 +98,16 @@ public class RackAdapter extends RecyclerView.Adapter<RackAdapter.MyViewHolder> 
             pd.setMessage("Deleting wait......");
             pd.show();
             pd.setCancelable(false);
-            final DbHelper dbHelper = new DbHelper(mContext);
+            DbHelper dbHelper = new DbHelper(mContext);
 //            final Result result = dbHelper.getUserData();
 //            if (result != null) {
-            StringRequest stringRequest = new StringRequest(Request.Method.POST, Contants.SERVICE_BASE_URL + Contants.deleteRack,
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, Contants.SERVICE_BASE_URL + Contants.deleteStoreRoom,
                     new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
                             pd.dismiss();
-                            dbHelper.deleteRackData(FilteruserList.get(position).getRackId());
                             FilteruserList.remove(position);
-//                            fragment.setRackAdapter();
-                            notifyDataSetChanged();
+                            fragment.setAdapter();
                             Toast.makeText(mContext, "Delete Successully", Toast.LENGTH_LONG).show();
                         }
                     },
@@ -132,7 +120,7 @@ public class RackAdapter extends RecyclerView.Adapter<RackAdapter.MyViewHolder> 
                 @Override
                 protected Map<String, String> getParams() throws AuthFailureError {
                     Map<String, String> params = new HashMap<String, String>();
-                    params.put("rackId", String.valueOf(FilteruserList.get(position).getRackId()));
+                    params.put("sRoomId", String.valueOf(FilteruserList.get(position).getsRoomId()));
                     return params;
                 }
             };
@@ -151,21 +139,20 @@ public class RackAdapter extends RecyclerView.Adapter<RackAdapter.MyViewHolder> 
 
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView tv_rack, tv_capacity, tv_edit, tv_delete, tv_floor, tv_Fillcapacity, tv_Freecapacity;
+        TextView tv_name, tv_phone, tv_amount, tv_date, tv_qty, tv_type, tv_edit, tv_delete;
         LinearLayout linearLayout;
 
         public MyViewHolder(View itemView) {
             super(itemView);
-            tv_rack = (TextView) itemView.findViewById(R.id.tv_rack);
-            tv_capacity = (TextView) itemView.findViewById(R.id.tv_capacity);
+            tv_name = (TextView) itemView.findViewById(R.id.tv_name);
+            tv_phone = (TextView) itemView.findViewById(R.id.tv_phone);
+            tv_qty = (TextView) itemView.findViewById(R.id.tv_qty);
+            tv_type = (TextView) itemView.findViewById(R.id.tv_type);
+            tv_date = (TextView) itemView.findViewById(R.id.tv_date);
+            tv_amount = (TextView) itemView.findViewById(R.id.tv_amount);
             tv_edit = (TextView) itemView.findViewById(R.id.tv_edit);
             tv_delete = (TextView) itemView.findViewById(R.id.tv_delete);
-            tv_floor = (TextView) itemView.findViewById(R.id.tv_floor);
-            tv_Fillcapacity = (TextView) itemView.findViewById(R.id.tv_Fillcapacity);
-            tv_Freecapacity = (TextView) itemView.findViewById(R.id.tv_Freecapacity);
             linearLayout = (LinearLayout) itemView.findViewById(R.id.linearLayout);
-//            tv_rack.setTypeface(ProximaNovaRegular);
-//            tv_capacity.setTypeface(ProximaNovaRegular);
             tv_edit.setTypeface(materialdesignicons_font);
             tv_delete.setTypeface(materialdesignicons_font);
             tv_edit.setText(Html.fromHtml("&#xf64f;"));

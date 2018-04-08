@@ -60,4 +60,18 @@ public class Contants {
     public static final String getAllRack = "getAllRack.php";
     public static final String updateRack = "updateRack.php";
     public static final String deleteRack = "deleteRack.php";
+
+    public static final String addVardana = "addVardana.php";
+    public static final String getAllVardana = "getAllVardana.php";
+    public static final String updateVardana = "updateVardana.php";
+    public static final String deleteVardana = "deleteVardana.php";
+
+    public static final String addStoreRoom = "addStoreRoom.php";
+    public static final String getAllStoreRoom = "getAllStoreRoom.php";
+    public static final String updateStoreRoom = "updateStoreRoom.php";
+    public static final String deleteStoreRoom = "deleteStoreRoom.php";
+
+    public static final String addPayment = "addPayment.php";
+    public static final String getAllPayment = "getAllPayment.php";
+    public static final String deletePayment = "deletePayment.php";
 }

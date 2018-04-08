@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/linearLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/margin5"
+            android:layout_weight=".5"
+            android:gravity="center|left"
+            android:text="Name"
+            android:textColor="@color/grey_hard"
+            android:textSize="@dimen/textSize16" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/margin5"
+            android:layout_weight=".5"
+            android:gravity="center|left"
+            android:text="Phone"
+            android:textColor="@color/grey_hard"
+            android:textSize="@dimen/textSize16" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/margin5"
+            android:layout_weight=".5"
+            android:gravity="center|left"
+            android:textColor="@color/purple"
+            android:textSize="@dimen/textSize16" />
+
+        <TextView
+            android:id="@+id/tv_phone"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/margin5"
+            android:layout_weight=".5"
+            android:gravity="center|left"
+            android:textColor="@color/black"
+            android:textSize="@dimen/textSize16" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/margin5"
+            android:layout_weight=".33"
+            android:gravity="center|left"
+            android:text="Amount"
+            android:textColor="@color/grey_hard"
+            android:textSize="@dimen/textSize16" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/margin5"
+            android:layout_weight=".33"
+            android:gravity="center|left"
+            android:text="Quantity"
+            android:textColor="@color/grey_hard"
+            android:textSize="@dimen/textSize16" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/margin5"
+            android:layout_weight=".34"
+            android:gravity="center|left"
+            android:text="Material"
+            android:textColor="@color/grey_hard"
+            android:textSize="@dimen/textSize16" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_amount"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/margin5"
+            android:layout_weight=".33"
+            android:gravity="center|left"
+            android:textColor="@color/purple"
+            android:textSize="@dimen/textSize16" />
+
+        <TextView
+            android:id="@+id/tv_qty"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/margin5"
+            android:layout_weight=".33"
+            android:gravity="center|left"
+            android:textColor="@color/purple"
+            android:textSize="@dimen/textSize16" />
+
+        <TextView
+            android:id="@+id/tv_type"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/margin5"
+            android:layout_weight=".34"
+            android:gravity="center|left"
+            android:textColor="@color/black"
+            android:textSize="@dimen/textSize16" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_date"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight=".34"
+            android:gravity="center"
+            android:singleLine="true"
+            android:textColor="@color/black"
+            android:textSize="@dimen/textSize16" />
+
+        <TextView
+            android:id="@+id/tv_edit"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight=".33"
+            android:background="@drawable/done_corner_round"
+            android:gravity="center"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="@dimen/textSize25" />
+
+        <TextView
+            android:id="@+id/tv_delete"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight=".33"
+            android:background="@drawable/done_corner_round"
+            android:gravity="center"
+            android:textColor="@color/red"
+            android:textSize="@dimen/textSize25" />
+
+    </LinearLayout>
+
+</LinearLayout>

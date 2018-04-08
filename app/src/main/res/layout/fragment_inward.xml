@@ -74,29 +74,29 @@
                 android:background="@drawable/done_corner_round"
                 android:hint="Enter Mobile Number"
                 android:inputType="number"
-                android:paddingLeft="@dimen/margin5"
                 android:maxLength="10"
+                android:paddingLeft="@dimen/margin5"
                 android:textColor="@color/black"
                 android:textSize="@dimen/textSize16" />
 
             <!--<TextView-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginLeft="@dimen/margin5"-->
-                <!--android:layout_marginTop="@dimen/margin10"-->
-                <!--android:text="Whole Sale Number*"-->
-                <!--android:textColor="@color/purple"-->
-                <!--android:textSize="@dimen/textSize16" />-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginLeft="@dimen/margin5"-->
+            <!--android:layout_marginTop="@dimen/margin10"-->
+            <!--android:text="Whole Sale Number*"-->
+            <!--android:textColor="@color/purple"-->
+            <!--android:textSize="@dimen/textSize16" />-->
 
             <!--<TextView-->
-                <!--android:id="@+id/tv_wholeSaleNo"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginLeft="@dimen/margin5"-->
-                <!--android:layout_marginTop="@dimen/margin10"-->
-                <!--android:text="Number"-->
-                <!--android:textColor="@color/black"-->
-                <!--android:textSize="@dimen/textSize16" />-->
+            <!--android:id="@+id/tv_wholeSaleNo"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginLeft="@dimen/margin5"-->
+            <!--android:layout_marginTop="@dimen/margin10"-->
+            <!--android:text="Number"-->
+            <!--android:textColor="@color/black"-->
+            <!--android:textSize="@dimen/textSize16" />-->
 
             <TextView
                 android:layout_width="match_parent"
@@ -107,36 +107,101 @@
                 android:textColor="@color/purple"
                 android:textSize="@dimen/textSize16" />
 
-
-            <android.support.v7.widget.AppCompatSpinner
-                android:id="@+id/spinnerVariety"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_margin="@dimen/margin10"
-                android:spinnerMode="dropdown">
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-            </android.support.v7.widget.AppCompatSpinner>
+                <android.support.v7.widget.AppCompatSpinner
+                    android:id="@+id/spinnerVariety"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_margin="@dimen/margin5"
+                    android:layout_weight=".88"
+                    android:spinnerMode="dropdown">
+
+                </android.support.v7.widget.AppCompatSpinner>
+
+                <TextView
+                    android:id="@+id/tv_varietyRefersh"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="@dimen/margin5"
+                    android:layout_weight=".12"
+                    android:background="@drawable/ic_autorenew_black_24dp"
+                    android:textColor="@color/purple"
+                    android:textSize="@dimen/textSize16" />
+            </LinearLayout>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/margin5"
                 android:layout_marginTop="@dimen/margin10"
-                android:text="Quantity*"
+                android:text="Floor*"
                 android:textColor="@color/purple"
                 android:textSize="@dimen/textSize16" />
 
-            <EditText
-                android:id="@+id/edt_qty"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dimen_40_dp"
-                android:layout_margin="@dimen/margin5"
-                android:background="@drawable/done_corner_round"
-                android:hint="Enter Quantiry"
-                android:inputType="numberDecimal"
-                android:paddingLeft="@dimen/margin5"
-                android:textColor="@color/black"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <android.support.v7.widget.AppCompatSpinner
+                    android:id="@+id/spinnerFloor"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_margin="@dimen/margin5"
+                    android:layout_weight=".88"
+                    android:spinnerMode="dropdown">
+
+                </android.support.v7.widget.AppCompatSpinner>
+
+                <TextView
+                    android:id="@+id/tv_floorRefersh"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="@dimen/margin5"
+                    android:layout_weight=".12"
+                    android:background="@drawable/ic_autorenew_black_24dp"
+                    android:textColor="@color/purple"
+                    android:textSize="@dimen/textSize16" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin5"
+                android:layout_marginTop="@dimen/margin10"
+                android:text="Rack*"
+                android:textColor="@color/purple"
                 android:textSize="@dimen/textSize16" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <android.support.v7.widget.AppCompatSpinner
+                    android:id="@+id/spinnerRack"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_margin="@dimen/margin5"
+                    android:layout_weight=".88"
+                    android:spinnerMode="dropdown">
+
+                </android.support.v7.widget.AppCompatSpinner>
+
+                <TextView
+                    android:id="@+id/tv_rackRefersh"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="@dimen/margin5"
+                    android:layout_weight=".12"
+                    android:background="@drawable/ic_autorenew_black_24dp"
+                    android:textColor="@color/purple"
+                    android:textSize="@dimen/textSize16" />
+            </LinearLayout>
 
             <TextView
                 android:layout_width="match_parent"
@@ -164,38 +229,21 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/margin5"
                 android:layout_marginTop="@dimen/margin10"
-                android:text="Floor*"
+                android:text="Quantity*"
                 android:textColor="@color/purple"
                 android:textSize="@dimen/textSize16" />
 
-
-            <android.support.v7.widget.AppCompatSpinner
-                android:id="@+id/spinnerFloor"
+            <EditText
+                android:id="@+id/edt_qty"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_margin="@dimen/margin10"
-                android:spinnerMode="dropdown">
-
-            </android.support.v7.widget.AppCompatSpinner>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/margin5"
-                android:layout_marginTop="@dimen/margin10"
-                android:text="Rack*"
-                android:textColor="@color/purple"
+                android:layout_height="@dimen/dimen_40_dp"
+                android:layout_margin="@dimen/margin5"
+                android:background="@drawable/done_corner_round"
+                android:hint="Enter Quantiry"
+                android:inputType="numberDecimal"
+                android:paddingLeft="@dimen/margin5"
+                android:textColor="@color/black"
                 android:textSize="@dimen/textSize16" />
-
-
-            <android.support.v7.widget.AppCompatSpinner
-                android:id="@+id/spinnerRack"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_margin="@dimen/margin10"
-                android:spinnerMode="dropdown">
-
-            </android.support.v7.widget.AppCompatSpinner>
 
             <TextView
                 android:layout_width="match_parent"

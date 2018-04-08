@@ -26,6 +26,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.gson.Gson;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -36,6 +37,7 @@ import java.util.Map;
 import hacker.l.coldstore.R;
 import hacker.l.coldstore.activity.MainActivity;
 import hacker.l.coldstore.database.DbHelper;
+import hacker.l.coldstore.model.MyPojo;
 import hacker.l.coldstore.model.Result;
 import hacker.l.coldstore.utility.Contants;
 import hacker.l.coldstore.utility.Utility;
@@ -46,9 +48,9 @@ public class AccoutnFragment extends Fragment {
     private String empName;
     private String empFName, flag;
     private String phone, address, qty, rent, vareity, rack;
-    private int floor;
+    private int floor, inwardId;
 
-    public static AccoutnFragment newInstance(String flag, String empName, String empFName, String phone, String address, String qty, String rent, String vareity, String rack, int floor) {
+    public static AccoutnFragment newInstance(String flag, String empName, String empFName, String phone, String address, String qty, String rent, String vareity, String rack, int floor, int inwardId) {
         AccoutnFragment fragment = new AccoutnFragment();
         Bundle args = new Bundle();
         args.putString("empName", empName);
@@ -60,6 +62,7 @@ public class AccoutnFragment extends Fragment {
         args.putString("vareity", vareity);
         args.putString("rack", rack);
         args.putInt("floor", floor);
+        args.putInt("inwardId", inwardId);
         args.putString("flag", flag);
         fragment.setArguments(args);
         return fragment;
@@ -79,6 +82,7 @@ public class AccoutnFragment extends Fragment {
             rack = getArguments().getString("rack");
             flag = getArguments().getString("flag");
             floor = getArguments().getInt("floor");
+            inwardId = getArguments().getInt("inwardId");
         }
     }
 
@@ -105,7 +109,9 @@ public class AccoutnFragment extends Fragment {
 
     private void init() {
         decimalFormat = new DecimalFormat("#.00");
-        totalPrice = Double.parseDouble(decimalFormat.format(Double.parseDouble(rent) * Double.parseDouble(qty)));
+        if (rent != null && !rent.equalsIgnoreCase("") && qty != null && !qty.equalsIgnoreCase("")) {
+            totalPrice = Double.parseDouble(decimalFormat.format(Double.parseDouble(rent) * Double.parseDouble(qty)));
+        }
         MainActivity mainActivity = (MainActivity) context;
         mainActivity.setTitle("Accounts");
         btn_proced = view.findViewById(R.id.btn_proced);
@@ -140,12 +146,80 @@ public class AccoutnFragment extends Fragment {
             public void onClick(View v) {
                 if (flag.equalsIgnoreCase("inward")) {
                     AddInwardDataToServer();
-                } else {
-
+                }
+                if (flag.equalsIgnoreCase("payment")) {
+                    advanced = edt_advance.getText().toString();
+                    if (!advanced.equalsIgnoreCase("0")) {
+                        AddPaymentData();
+                    } else {
+                        Toast.makeText(context, "Enter Advanced ", Toast.LENGTH_SHORT).show();
+                    }
                 }
 //                Toast.makeText(context, "Print Report", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void AddPaymentData() {
+        if (Utility.isOnline(context)) {
+//            if (validation()) {
+            pd = new ProgressDialog(context);
+            pd.setMessage("Processing wait...");
+            pd.show();
+            pd.setCancelable(false);
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, Contants.SERVICE_BASE_URL + Contants.addPayment,
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            pd.dismiss();
+                            Toast.makeText(context, "Order Successful Done", Toast.LENGTH_SHORT).show();
+                            HomeFragment accoutnFragment = HomeFragment.newInstance("payment", "");
+                            moveragment(accoutnFragment);
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            pd.dismiss();
+                        }
+                    }) {
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    Map<String, String> params = new HashMap<String, String>();
+                    params.put("userName", empName);
+                    params.put("fatherName", empFName);
+                    params.put("userPhone", phone);
+                    params.put("quantity", qty);
+                    params.put("rent", rent);
+                    params.put("variety", vareity);
+                    params.put("inwardId", String.valueOf(inwardId));
+                    if (advanced.equalsIgnoreCase("")) {
+                        params.put("advanced", "0");
+                    } else {
+                        params.put("advanced", advanced);
+                    }
+                    params.put("caseType", strCaseType);
+                    params.put("grandTotal", String.valueOf(grandTotal));
+                    DbHelper dbHelper = new DbHelper(context);
+                    Result result = dbHelper.getAdminData();
+                    String byuser = null;
+                    if (result != null) {
+                        byuser = result.getAdminName();
+                    }
+                    Result uResult = dbHelper.getUserData();
+                    if (uResult != null) {
+                        byuser = uResult.getUserName();
+                    }
+                    params.put("byUser", byuser);
+                    return params;
+                }
+            };
+            RequestQueue requestQueue = Volley.newRequestQueue(context);
+            requestQueue.add(stringRequest);
+//            }
+        } else {
+            Toast.makeText(context, "You are Offline. Please check your Internet Connection.", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void setRemaingBalance() {
@@ -195,6 +269,28 @@ public class AccoutnFragment extends Fragment {
             tv_qty.setText(qty);
             tv_rent.setText(rent + "*" + qty + "=" + totalPrice);
         }
+        if (flag.equalsIgnoreCase("payment")) {
+            DbHelper dbHelper = new DbHelper(context);
+            Result result = dbHelper.getInwardDataByInwardId(inwardId);
+            empName = result.getUserName();
+            empFName = result.getFatherName();
+            phone = result.getUserPhone();
+            rent = result.getRent();
+            qty = result.getQuantity();
+            advanced = result.getAdvanced();
+            vareity = result.getVariety();
+            grandTotal = Double.parseDouble(result.getGrandTotal());
+            //case type..
+            tv_name.setText(empName);
+            tv_FName.setText(empFName);
+            tv_phone.setText(phone);
+            totalPrice = Double.parseDouble(decimalFormat.format(Double.parseDouble(rent) * Double.parseDouble(qty)));
+//            tv_wholeSaleNo.setText("pending");
+            tv_qty.setText(qty);
+            tv_rent.setText(rent + "*" + qty + "=" + totalPrice);
+            edt_advance.setText(advanced);
+            tv_rBalance.setText(grandTotal + "");
+        }
     }
 
     private void moveragment(Fragment fragment) {
@@ -217,9 +313,21 @@ public class AccoutnFragment extends Fragment {
                         @Override
                         public void onResponse(String response) {
                             pd.dismiss();
-                            Toast.makeText(context, "Order Successful Done", Toast.LENGTH_SHORT).show();
-                            HomeFragment accoutnFragment = HomeFragment.newInstance("inward", "");
-                            moveragment(accoutnFragment);
+                            if (!advanced.equalsIgnoreCase("0") && advanced.length() != 0) {
+                                MyPojo myPojo = new Gson().fromJson(response, MyPojo.class);
+                                for (Result result : myPojo.getResult()) {
+                                    List<Integer> resultList = new ArrayList<>();
+                                    resultList.add(result.getInwardId());
+                                    inwardId = resultList.get(resultList.size() - 1);
+//                                    inwardId = result.getInwardId();
+                                    Toast.makeText(context, ""+inwardId, Toast.LENGTH_SHORT).show();
+                                }
+                                AddPaymentData();
+                            } else {
+                                Toast.makeText(context, "Order Successful Done", Toast.LENGTH_SHORT).show();
+                                HomeFragment accoutnFragment = HomeFragment.newInstance("inward", "");
+                                moveragment(accoutnFragment);
+                            }
                         }
                     },
                     new Response.ErrorListener() {
@@ -240,7 +348,11 @@ public class AccoutnFragment extends Fragment {
                     params.put("variety", vareity);
                     params.put("floor", String.valueOf(floor));
                     params.put("rack", rack);
-                    params.put("advanced", advanced);
+                    if (advanced.equalsIgnoreCase("")) {
+                        params.put("advanced", "0");
+                    } else {
+                        params.put("advanced", advanced);
+                    }
                     params.put("caseType", strCaseType);
                     params.put("grandTotal", String.valueOf(grandTotal));
                     DbHelper dbHelper = new DbHelper(context);

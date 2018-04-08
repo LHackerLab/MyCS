@@ -1,0 +1,237 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="hacker.l.coldstore.fragments.SMSFragment">
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:fitsSystemWindows="true"
+        android:scrollbars="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:scrollbarSize="@dimen/margin1"
+                android:scrollbars="horizontal">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <RadioGroup
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <RadioButton
+                            android:id="@+id/rb_newyear"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/margin5"
+                            android:gravity="center"
+                            android:text="New Year"
+                            android:textColor="@color/purple"
+                            android:textSize="@dimen/textSize16" />
+
+                        <RadioButton
+                            android:id="@+id/rb_indepday"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/margin5"
+                            android:gravity="center"
+                            android:text="Independance Day"
+                            android:textColor="@color/purple"
+                            android:textSize="@dimen/textSize16" />
+
+                        <RadioButton
+                            android:id="@+id/rb_dussehra"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/margin5"
+                            android:gravity="center"
+                            android:text="Dussehra"
+                            android:textColor="@color/purple"
+                            android:textSize="@dimen/textSize16" />
+
+                        <RadioButton
+                            android:id="@+id/rb_holi"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/margin5"
+                            android:gravity="center"
+                            android:text="Holi"
+                            android:textColor="@color/purple"
+                            android:textSize="@dimen/textSize16" />
+
+                        <RadioButton
+                            android:id="@+id/rb_repubday"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/margin5"
+                            android:gravity="center"
+                            android:text="Republic Day"
+                            android:textColor="@color/purple"
+                            android:textSize="@dimen/textSize16" />
+
+                        <RadioButton
+                            android:id="@+id/rb__guru"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/margin5"
+                            android:gravity="center"
+                            android:text="Guru Nanak Jayanti"
+                            android:textColor="@color/purple"
+                            android:textSize="@dimen/textSize16" />
+
+                        <RadioButton
+                            android:id="@+id/rb_dewali"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/margin5"
+                            android:gravity="center"
+                            android:text="Diwali"
+                            android:textColor="@color/purple"
+                            android:textSize="@dimen/textSize16" />
+
+                        <RadioButton
+                            android:id="@+id/rb_eid"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/margin5"
+                            android:gravity="center"
+                            android:text="Eid"
+                            android:textColor="@color/purple"
+                            android:textSize="@dimen/textSize16" />
+
+                        <RadioButton
+                            android:id="@+id/rb_gandhi"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/margin5"
+                            android:gravity="center"
+                            android:text="Gandhi Jayanti"
+                            android:textColor="@color/purple"
+                            android:textSize="@dimen/textSize16" />
+
+                        <RadioButton
+                            android:id="@+id/rb_raksha"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/margin5"
+                            android:gravity="center"
+                            android:text="Raksha Bandhan"
+                            android:textColor="@color/purple"
+                            android:textSize="@dimen/textSize16" />
+
+                        <RadioButton
+                            android:id="@+id/rb_crismus"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/margin5"
+                            android:gravity="center"
+                            android:text="Christmas day"
+                            android:textColor="@color/purple"
+                            android:textSize="@dimen/textSize16" />
+
+                        <RadioButton
+                            android:id="@+id/rb_jaman"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/margin5"
+                            android:gravity="center"
+                            android:text="Janmasthmi"
+                            android:textColor="@color/purple"
+                            android:textSize="@dimen/textSize16" />
+                    </RadioGroup>
+                </LinearLayout>
+            </HorizontalScrollView>
+
+            <EditText
+                android:id="@+id/edt_phone"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_margin="@dimen/margin10"
+                android:background="@drawable/done_corner_round"
+                android:drawableLeft="@drawable/ic_phone_black_24dp"
+                android:drawablePadding="@dimen/margin10"
+                android:hint="Mobile Number"
+                android:inputType="number"
+                android:paddingLeft="@dimen/margin5" />
+
+            <EditText
+                android:id="@+id/edt_message"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:layout_margin="@dimen/margin10"
+                android:background="@drawable/done_corner_round"
+                android:drawableLeft="@drawable/ic_developer_board_black_24dp"
+                android:drawablePadding="@dimen/margin10"
+                android:hint="Message"
+                android:maxLines="10"
+                android:paddingLeft="@dimen/margin5" />
+
+            <Button
+                android:id="@+id/btn_send"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin10"
+                android:background="@drawable/capsule_button"
+                android:text="Send"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="@dimen/textSize16" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <RadioGroup
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/rb_emp"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin10"
+                        android:layout_weight=".5"
+                        android:text="All Employee"
+                        android:textColor="@color/blue" />
+
+                    <RadioButton
+                        android:id="@+id/rb_customer"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/margin10"
+                        android:layout_weight=".5"
+                        android:text="All Customers"
+                        android:textColor="@color/blue" />
+                </RadioGroup>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recycleView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                </android.support.v7.widget.RecyclerView>
+            </LinearLayout>
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+</FrameLayout>

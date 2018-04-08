@@ -1,10 +1,12 @@
 package hacker.l.coldstore.fragments;
 
+import android.app.FragmentManager;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -90,6 +92,15 @@ public class InwardDetailsFragment extends Fragment {
         recyclerView.setLayoutManager(linearLayoutManager);
         getAllInwardData();
         setInwardAdapter();
+
+    }
+
+    private void moveragment(Fragment fragment) {
+        android.support.v4.app.FragmentManager fragmentManager = ((FragmentActivity) context).getSupportFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.container, fragment)
+                .addToBackStack(null)
+                .commit();
     }
 
     private void getAllInwardData() {
@@ -129,8 +140,10 @@ public class InwardDetailsFragment extends Fragment {
 
     private void setInwardAdapter() {
         List<Result> resultList = dbHelper.getAllInwardData();
-        Collections.reverse(resultList);
-        InwardAdapter inwardAdapter = new InwardAdapter(context, resultList, InwardDetailsFragment.this);
-        recyclerView.setAdapter(inwardAdapter);
+        if (resultList != null && resultList.size() != 0) {
+            Collections.reverse(resultList);
+            InwardAdapter inwardAdapter = new InwardAdapter(context, resultList, InwardDetailsFragment.this);
+            recyclerView.setAdapter(inwardAdapter);
+        }
     }
 }

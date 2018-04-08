@@ -1,0 +1,103 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="hacker.l.coldstore.fragments.StoreRoomFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin10"
+            android:layout_marginRight="@dimen/margin10"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/edt_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin5"
+                android:drawableLeft="@drawable/ic_developer_board_black_24dp"
+                android:drawablePadding="@dimen/textSize16"
+                android:hint="Enter Name"
+                android:inputType="text"
+                android:textSize="@dimen/textSize16" />
+
+            <EditText
+                android:id="@+id/edt_phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin5"
+                android:drawableLeft="@drawable/ic_phone_black_24dp"
+                android:drawablePadding="@dimen/textSize16"
+                android:hint="Enter Phone"
+                android:inputType="number"
+                android:textSize="@dimen/textSize16" />
+
+            <EditText
+                android:id="@+id/edt_qty"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin5"
+                android:drawableLeft="@drawable/ic_developer_board_black_24dp"
+                android:drawablePadding="@dimen/textSize16"
+                android:hint="Enter Quantity"
+                android:inputType="number"
+                android:textSize="@dimen/textSize16" />
+
+            <EditText
+                android:id="@+id/edt_type"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin5"
+                android:drawableLeft="@drawable/ic_developer_board_black_24dp"
+                android:drawablePadding="@dimen/textSize16"
+                android:hint="Enter Marerial"
+                android:inputType="text"
+                android:textSize="@dimen/textSize16" />
+
+            <EditText
+                android:id="@+id/edt_amount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin5"
+                android:drawableLeft="@drawable/ic_developer_board_black_24dp"
+                android:drawablePadding="@dimen/textSize16"
+                android:hint="Enter Amount"
+                android:inputType="numberDecimal"
+                android:textSize="@dimen/textSize16">
+
+
+            </EditText>
+
+            <Button
+                android:id="@+id/btn_add"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="@dimen/margin10"
+                android:background="@drawable/capsule_button"
+                android:text="Add"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="@dimen/textSize16" />
+        </LinearLayout>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin10"
+            android:elevation="@dimen/margin10">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycleView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </android.support.v7.widget.RecyclerView>
+        </android.support.v7.widget.CardView>
+    </LinearLayout>
+</FrameLayout>

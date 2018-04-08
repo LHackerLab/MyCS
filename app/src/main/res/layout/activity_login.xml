@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/white">
+    android:background="@color/white"
+    android:orientation="vertical">
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
@@ -108,6 +108,7 @@
                     android:layout_height="@dimen/margin40"
                     android:layout_margin="@dimen/dimen_15_dp"
                     android:background="@drawable/done_corner_round"
+                    android:drawableLeft="@drawable/ic_phone_black_24dp"
                     android:drawablePadding="10dp"
                     android:hint="Phone Number"
                     android:imeOptions="actionNext"
@@ -128,6 +129,8 @@
                     android:layout_marginLeft="@dimen/dimen_15_dp"
                     android:layout_marginRight="@dimen/dimen_15_dp"
                     android:background="@drawable/done_corner_round"
+                    android:drawableLeft="@drawable/ic_vpn_key_black_24dp"
+                    android:drawablePadding="@dimen/margin10"
                     android:hint="Password"
                     android:imeOptions="actionDone"
                     android:inputType="textPassword"

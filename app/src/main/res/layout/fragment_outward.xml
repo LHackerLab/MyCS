@@ -20,69 +20,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/margin5"
                 android:layout_marginTop="@dimen/margin10"
-                android:text="Name*"
-                android:textColor="@color/purple"
-                android:textSize="@dimen/textSize16" />
-
-            <EditText
-                android:id="@+id/edt_empName"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dimen_40_dp"
-                android:layout_margin="@dimen/margin5"
-                android:background="@drawable/done_corner_round"
-                android:hint="Enter  Name"
-                android:inputType="text"
-                android:paddingLeft="@dimen/margin5"
-                android:textColor="@color/black"
-                android:textSize="@dimen/textSize16" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/margin5"
-                android:layout_marginTop="@dimen/margin10"
-                android:text="Father Name*"
-                android:textColor="@color/purple"
-                android:textSize="@dimen/textSize16" />
-
-            <EditText
-                android:id="@+id/edt_empFName"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dimen_40_dp"
-                android:layout_margin="@dimen/margin5"
-                android:background="@drawable/done_corner_round"
-                android:hint="Enter Father Name"
-                android:inputType="text"
-                android:paddingLeft="@dimen/margin5"
-                android:textColor="@color/black"
-                android:textSize="@dimen/textSize16" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/margin5"
-                android:layout_marginTop="@dimen/margin10"
-                android:text="Mobile Number*"
-                android:textColor="@color/purple"
-                android:textSize="@dimen/textSize16" />
-
-            <EditText
-                android:id="@+id/edt_phone"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dimen_40_dp"
-                android:layout_margin="@dimen/margin5"
-                android:background="@drawable/done_corner_round"
-                android:hint="Enter Mobile Number"
-                android:inputType="number"
-                android:paddingLeft="@dimen/margin5"
-                android:textColor="@color/black"
-                android:textSize="@dimen/textSize16" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/margin5"
-                android:layout_marginTop="@dimen/margin10"
                 android:text="Whole Sale Number*"
                 android:textColor="@color/purple"
                 android:textSize="@dimen/textSize16" />
@@ -104,6 +41,70 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/margin5"
                 android:layout_marginTop="@dimen/margin10"
+                android:text="Name*"
+                android:textColor="@color/purple"
+                android:textSize="@dimen/textSize16" />
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_40_dp"
+                android:layout_marginLeft="@dimen/margin5"
+                android:layout_marginTop="@dimen/margin10"
+                android:background="@drawable/done_corner_round"
+                android:gravity="center"
+                android:text=""
+                android:textColor="@color/black"
+                android:textSize="@dimen/textSize16" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin5"
+                android:layout_marginTop="@dimen/margin10"
+                android:text="Father Name*"
+                android:textColor="@color/purple"
+                android:textSize="@dimen/textSize16" />
+
+            <TextView
+                android:id="@+id/tv_Fname"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_40_dp"
+                android:layout_marginLeft="@dimen/margin5"
+                android:layout_marginTop="@dimen/margin10"
+                android:background="@drawable/done_corner_round"
+                android:gravity="center"
+                android:text=""
+                android:textColor="@color/black"
+                android:textSize="@dimen/textSize16" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin5"
+                android:layout_marginTop="@dimen/margin10"
+                android:text="Mobile Number*"
+                android:textColor="@color/purple"
+                android:textSize="@dimen/textSize16" />
+
+            <TextView
+                android:id="@+id/tv_phone"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_40_dp"
+                android:layout_marginLeft="@dimen/margin5"
+                android:layout_marginTop="@dimen/margin10"
+                android:background="@drawable/done_corner_round"
+                android:gravity="center"
+                android:text=""
+                android:textColor="@color/black"
+                android:textSize="@dimen/textSize16" />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin5"
+                android:layout_marginTop="@dimen/margin10"
                 android:text="Variety*"
                 android:textColor="@color/purple"
                 android:textSize="@dimen/textSize16" />
@@ -116,7 +117,7 @@
                 android:layout_marginTop="@dimen/margin10"
                 android:background="@drawable/done_corner_round"
                 android:gravity="center"
-                android:text="Variety"
+                android:text=""
                 android:textColor="@color/black"
                 android:textSize="@dimen/textSize16" />
 
@@ -137,7 +138,7 @@
                 android:layout_marginTop="@dimen/margin10"
                 android:background="@drawable/done_corner_round"
                 android:gravity="center"
-                android:text="floor"
+                android:text=""
                 android:textColor="@color/black"
                 android:textSize="@dimen/textSize16" />
 
@@ -158,7 +159,7 @@
                 android:layout_marginTop="@dimen/margin10"
                 android:background="@drawable/done_corner_round"
                 android:gravity="center"
-                android:text="rack"
+                android:text=""
                 android:textColor="@color/black"
                 android:textSize="@dimen/textSize16" />
 
@@ -179,7 +180,7 @@
                 android:layout_marginTop="@dimen/margin10"
                 android:background="@drawable/done_corner_round"
                 android:gravity="center"
-                android:text="20"
+                android:text=""
                 android:textColor="@color/black"
                 android:textSize="@dimen/textSize16" />
 
@@ -221,7 +222,7 @@
                 android:layout_marginTop="@dimen/margin10"
                 android:background="@drawable/done_corner_round"
                 android:gravity="center"
-                android:text="10"
+                android:text=""
                 android:textColor="@color/black"
                 android:textSize="@dimen/textSize16" />
 
@@ -234,15 +235,15 @@
                 android:textColor="@color/purple"
                 android:textSize="@dimen/textSize16" />
 
-            <EditText
-                android:id="@+id/edt_address"
+            <TextView
+                android:id="@+id/tv_address"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dimen_40_dp"
-                android:layout_margin="@dimen/margin5"
+                android:layout_marginLeft="@dimen/margin5"
+                android:layout_marginTop="@dimen/margin10"
                 android:background="@drawable/done_corner_round"
-                android:hint="Enter  Address"
-                android:inputType="text"
-                android:paddingLeft="@dimen/margin5"
+                android:gravity="center"
+                android:text=""
                 android:textColor="@color/black"
                 android:textSize="@dimen/textSize16" />
 

@@ -335,7 +335,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight=".5"
                     android:gravity="center|left"
-                    android:text="Grand Total :-"
+                    android:text="Remaining Amount :-"
                     android:textColor="@color/purple"
                     android:textSize="@dimen/textSize16" />
 
@@ -405,7 +405,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/dimen_40_dp"
             android:layout_margin="@dimen/margin10"
-            app:cardBackgroundColor="@color/card">
+            app:cardBackgroundColor="@color/white">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -417,45 +417,48 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight=".25"
-                    android:background="@drawable/done_corner_round"
+                    android:background="@drawable/capsule_button"
                     android:gravity="center"
+                    android:layout_marginRight="3dp"
                     android:text="Payment"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/textSize20" />
+                    android:textSize="@dimen/textSize18" />
 
                 <TextView
                     android:id="@+id/tv_report"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight=".25"
-                    android:background="@drawable/done_corner_round"
+                    android:background="@drawable/capsule_button"
                     android:gravity="center"
                     android:text="Report"
+                    android:layout_marginRight="3dp"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/textSize20" />
+                    android:textSize="@dimen/textSize18" />
 
                 <TextView
                     android:id="@+id/tv_edit"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight=".25"
-                    android:background="@drawable/done_corner_round"
+                    android:background="@drawable/capsule_button"
                     android:gravity="center"
                     android:text="Edit"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/textSize20" />
+                    android:textSize="@dimen/textSize18" />
 
                 <TextView
                     android:id="@+id/tv_delete"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight=".25"
-                    android:background="@drawable/done_corner_round"
+                    android:background="@drawable/capsule_button"
                     android:clickable="false"
                     android:gravity="center"
+                    android:layout_marginLeft="3dp"
                     android:text="Delete"
-                    android:textColor="@color/red"
-                    android:textSize="@dimen/textSize20" />
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/textSize18" />
 
             </LinearLayout>
         </android.support.v7.widget.CardView>

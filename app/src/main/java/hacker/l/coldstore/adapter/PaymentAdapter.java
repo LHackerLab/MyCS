@@ -7,7 +7,6 @@ import android.graphics.Typeface;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
-import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,9 +31,9 @@ import java.util.Map;
 
 import hacker.l.coldstore.R;
 import hacker.l.coldstore.database.DbHelper;
+import hacker.l.coldstore.fragments.AccountDetailsFragment;
 import hacker.l.coldstore.fragments.AccoutnFragment;
 import hacker.l.coldstore.fragments.InwardDetailsFragment;
-import hacker.l.coldstore.fragments.VarietyFragment;
 import hacker.l.coldstore.model.Result;
 import hacker.l.coldstore.utility.Contants;
 import hacker.l.coldstore.utility.FontManager;
@@ -44,14 +43,14 @@ import hacker.l.coldstore.utility.Utility;
  * Created by lalitsingh on 23/03/18.
  */
 
-public class InwardAdapter extends RecyclerView.Adapter<InwardAdapter.MyViewHolder> implements Filterable {
+public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.MyViewHolder> implements Filterable {
     private Typeface materialdesignicons_font, ProximaNovaRegular;
     private Context mContext;
     private List<Result> userList, FilteruserList;
-    InwardDetailsFragment fragment;
+    AccountDetailsFragment fragment;
     ProgressDialog pd;
 
-    public InwardAdapter(Context mContext, List<Result> userList, InwardDetailsFragment fragment) {
+    public PaymentAdapter(Context mContext, List<Result> userList, AccountDetailsFragment fragment) {
         this.mContext = mContext;
         this.userList = userList;
         this.FilteruserList = userList;
@@ -61,16 +60,16 @@ public class InwardAdapter extends RecyclerView.Adapter<InwardAdapter.MyViewHold
     }
 
     @Override
-    public InwardAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public PaymentAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_inward, parent, false);
+                .inflate(R.layout.item_payment, parent, false);
 
-        return new InwardAdapter.MyViewHolder(itemView);
+        return new PaymentAdapter.MyViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(InwardAdapter.MyViewHolder holder, final int position) {
+    public void onBindViewHolder(PaymentAdapter.MyViewHolder holder, final int position) {
         if (position % 2 == 1) {
             holder.linearLayout.setBackgroundColor(Color.parseColor("#44eebd82"));
         } else {
@@ -80,17 +79,14 @@ public class InwardAdapter extends RecyclerView.Adapter<InwardAdapter.MyViewHold
         holder.tv_name.setText(FilteruserList.get(position).getUserName());
         holder.tv_Fname.setText(FilteruserList.get(position).getFatherName());
         holder.tv_phone.setText(FilteruserList.get(position).getUserPhone());
-        holder.tv_address.setText(FilteruserList.get(position).getAddress());
         holder.tv_variety.setText(FilteruserList.get(position).getVarietyName());
         holder.tv_rent.setText(FilteruserList.get(position).getRent() + "(rs)");
-        holder.tv_rack.setText(FilteruserList.get(position).getRack());
         holder.tv_qty.setText(FilteruserList.get(position).getQuantity());
         holder.tv_advanced.setText(FilteruserList.get(position).getAdvanced() + "(rs)");
         holder.tv_casetype.setText(FilteruserList.get(position).getCaseType());
         holder.tv_grandotal.setText(FilteruserList.get(position).getGrandTotal() + "(rs)");
         holder.tv_time.setText(FilteruserList.get(position).getTime() + "/" + FilteruserList.get(position).getDay());
         holder.tv_byusr.setText(FilteruserList.get(position).getByUser());
-        holder.tv_floor.setText(String.valueOf(FilteruserList.get(position).getFloor()));
 
         holder.tv_payment.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -131,13 +127,13 @@ public class InwardAdapter extends RecyclerView.Adapter<InwardAdapter.MyViewHold
             final DbHelper dbHelper = new DbHelper(mContext);
 //            final Result result = dbHelper.getUserData();
 //            if (result != null) {
-            StringRequest stringRequest = new StringRequest(Request.Method.POST, Contants.SERVICE_BASE_URL + Contants.deleteInward,
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, Contants.SERVICE_BASE_URL + Contants.deletePayment,
                     new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
                             pd.dismiss();
 //                            fragment.setVarietyAdapter();
-                            dbHelper.deleteInwardData(FilteruserList.get(position).getInwardId());
+                            dbHelper.deletePaymentData(FilteruserList.get(position).getPaymentId());
                             FilteruserList.remove(position);
                             notifyDataSetChanged();
                             Toast.makeText(mContext, "Delete Successully", Toast.LENGTH_LONG).show();
@@ -152,7 +148,7 @@ public class InwardAdapter extends RecyclerView.Adapter<InwardAdapter.MyViewHold
                 @Override
                 protected Map<String, String> getParams() throws AuthFailureError {
                     Map<String, String> params = new HashMap<String, String>();
-                    params.put("inwardId", String.valueOf(FilteruserList.get(position).getInwardId()));
+                    params.put("paymentId", String.valueOf(FilteruserList.get(position).getPaymentId()));
                     return params;
                 }
             };
@@ -210,7 +206,7 @@ public class InwardAdapter extends RecyclerView.Adapter<InwardAdapter.MyViewHold
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView tv_saleno, tv_name, tv_Fname, tv_payment, tv_time, tv_phone, tv_grandotal, tv_byusr, tv_address, tv_casetype, tv_floor, tv_rack, tv_qty, tv_rent, tv_variety, tv_advanced, tv_edit, tv_delete;
+        TextView tv_saleno, tv_name, tv_Fname, tv_payment, tv_time, tv_phone, tv_grandotal, tv_byusr, tv_casetype, tv_qty, tv_rent, tv_variety, tv_advanced, tv_edit, tv_delete;
         LinearLayout linearLayout;
 
         public MyViewHolder(View itemView) {
@@ -219,10 +215,7 @@ public class InwardAdapter extends RecyclerView.Adapter<InwardAdapter.MyViewHold
             tv_name = (TextView) itemView.findViewById(R.id.tv_name);
             tv_Fname = (TextView) itemView.findViewById(R.id.tv_Fname);
             tv_phone = (TextView) itemView.findViewById(R.id.tv_phone);
-            tv_address = (TextView) itemView.findViewById(R.id.tv_address);
             tv_variety = (TextView) itemView.findViewById(R.id.tv_variety);
-            tv_floor = (TextView) itemView.findViewById(R.id.tv_floor);
-            tv_rack = (TextView) itemView.findViewById(R.id.tv_rack);
             tv_qty = (TextView) itemView.findViewById(R.id.tv_qty);
             tv_rent = (TextView) itemView.findViewById(R.id.tv_rent);
             tv_advanced = (TextView) itemView.findViewById(R.id.tv_advanced);

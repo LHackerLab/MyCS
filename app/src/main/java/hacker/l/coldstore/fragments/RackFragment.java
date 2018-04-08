@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.AppCompatSpinner;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,6 +37,7 @@ import hacker.l.coldstore.R;
 import hacker.l.coldstore.activity.MainActivity;
 import hacker.l.coldstore.adapter.RackAdapter;
 import hacker.l.coldstore.adapter.VarietyAdapter;
+import hacker.l.coldstore.database.DbHelper;
 import hacker.l.coldstore.model.MyPojo;
 import hacker.l.coldstore.model.Result;
 import hacker.l.coldstore.utility.Contants;
@@ -81,7 +83,7 @@ public class RackFragment extends Fragment {
     AppCompatSpinner spinner;
     ProgressDialog pd;
     int rackId;
-    String floor;
+    String floor = null;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -114,7 +116,9 @@ public class RackFragment extends Fragment {
                                 ArrayAdapter<Integer> integerArrayAdapter = new ArrayAdapter<Integer>(context, android.R.layout.simple_spinner_dropdown_item, spinnerList);
                                 spinner.setAdapter(integerArrayAdapter);
                                 integerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                                floor = spinner.getItemAtPosition(spinner.getSelectedItemPosition()).toString();
+                                if (spinner.getItemAtPosition(spinner.getSelectedItemPosition()) != null) {
+                                    floor = spinner.getItemAtPosition(spinner.getSelectedItemPosition()).toString();
+                                }
                             }
                         }
                     },
@@ -153,6 +157,7 @@ public class RackFragment extends Fragment {
         recyclerView.setLayoutManager(linearLayoutManager);
         resultList = new ArrayList<>();
         setRackAdapter();
+        setAdapter();
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -169,39 +174,49 @@ public class RackFragment extends Fragment {
     private void addRackDataServer() {
         final String rack = edt_rack.getText().toString();
         final String capacity = edt_capacity.getText().toString();
-        if (Utility.isOnline(context)) {
-            pd = new ProgressDialog(context);
-            pd.setMessage("Adding wait...");
-            pd.show();
-            pd.setCancelable(false);
-            StringRequest stringRequest = new StringRequest(Request.Method.POST, Contants.SERVICE_BASE_URL + Contants.addRack,
-                    new Response.Listener<String>() {
+        if (rack != null && !rack.equalsIgnoreCase("") && capacity != null && !capacity.equalsIgnoreCase("") && floor != null && !floor.equalsIgnoreCase("")) {
+            DbHelper dbHelper = new DbHelper(context);
+            Result result = dbHelper.getRackDataByRackFloor(rack, Integer.parseInt(floor));
+            if (result != null) {
+                Toast.makeText(context, "Already Exists This Rack", Toast.LENGTH_SHORT).show();
+            } else {
+                if (Utility.isOnline(context)) {
+                    pd = new ProgressDialog(context);
+                    pd.setMessage("Adding wait...");
+                    pd.show();
+                    pd.setCancelable(false);
+                    StringRequest stringRequest = new StringRequest(Request.Method.POST, Contants.SERVICE_BASE_URL + Contants.addRack,
+                            new Response.Listener<String>() {
+                                @Override
+                                public void onResponse(String response) {
+                                    pd.dismiss();
+                                    Toast.makeText(context, "Add Successfully", Toast.LENGTH_SHORT).show();
+                                    setRackAdapter();
+                                }
+                            },
+                            new Response.ErrorListener() {
+                                @Override
+                                public void onErrorResponse(VolleyError error) {
+                                    pd.dismiss();
+                                }
+                            }) {
                         @Override
-                        public void onResponse(String response) {
-                            pd.dismiss();
-                            Toast.makeText(context, "Add Successfully", Toast.LENGTH_SHORT).show();
-                            setRackAdapter();
+                        protected Map<String, String> getParams() throws AuthFailureError {
+                            Map<String, String> params = new HashMap<String, String>();
+                            params.put("floor", floor);
+                            params.put("rack", rack);
+                            params.put("capacity", capacity);
+                            return params;
                         }
-                    },
-                    new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            pd.dismiss();
-                        }
-                    }) {
-                @Override
-                protected Map<String, String> getParams() throws AuthFailureError {
-                    Map<String, String> params = new HashMap<String, String>();
-                    params.put("floor", floor);
-                    params.put("rack", rack);
-                    params.put("capacity", capacity);
-                    return params;
+                    };
+                    RequestQueue requestQueue = Volley.newRequestQueue(context);
+                    requestQueue.add(stringRequest);
+                } else {
+                    Toast.makeText(context, "You are Offline. Please check your Internet Connection.", Toast.LENGTH_SHORT).show();
                 }
-            };
-            RequestQueue requestQueue = Volley.newRequestQueue(context);
-            requestQueue.add(stringRequest);
+            }
         } else {
-            Toast.makeText(context, "You are Offline. Please check your Internet Connection.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Enter Values", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -255,6 +270,7 @@ public class RackFragment extends Fragment {
         edt_capacity.setSelection(edt_capacity.length());
         add.setText("Update");
     }
+
     public void setRackAdapter() {
         if (Utility.isOnline(context)) {
             pd = new ProgressDialog(context);
@@ -267,15 +283,11 @@ public class RackFragment extends Fragment {
                         public void onResponse(String response) {
                             pd.dismiss();
                             MyPojo myPojo = new Gson().fromJson(response, MyPojo.class);
-                            resultList.clear();
-                            resultList.addAll(Arrays.asList(myPojo.getResult()));
-                            if (resultList != null) {
-                                Collections.reverse(resultList);
-                                RackAdapter rackAdapter = new RackAdapter(context, resultList, RackFragment.this);
-                                recyclerView.setAdapter(rackAdapter);
-                                edt_rack.setText("");
-                                edt_capacity.setText("");
+                            for (Result result : myPojo.getResult()) {
+                                new DbHelper(context).upsertRackData(result);
                             }
+                            setAdapter();
+//                            resultList.addAll(Arrays.asList(myPojo.getResult()));
                         }
                     },
                     new Response.ErrorListener() {
@@ -294,6 +306,18 @@ public class RackFragment extends Fragment {
             requestQueue.add(stringRequest);
         } else {
             Toast.makeText(context, "You are Offline. Please check your Internet Connection.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void setAdapter() {
+        DbHelper dbHelper = new DbHelper(context);
+        resultList = dbHelper.getAllRackData();
+        if (resultList != null && resultList.size() != 0) {
+            Collections.reverse(resultList);
+            RackAdapter rackAdapter = new RackAdapter(context, resultList, RackFragment.this);
+            recyclerView.setAdapter(rackAdapter);
+            edt_rack.setText("");
+            edt_capacity.setText("");
         }
     }
 }

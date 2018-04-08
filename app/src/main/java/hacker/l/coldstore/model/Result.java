@@ -53,6 +53,100 @@ public class Result {
     private String date;
     private int inwardId;
 
+    public int getPaymentId() {
+        return paymentId;
+    }
+
+    public void setPaymentId(int paymentId) {
+        this.paymentId = paymentId;
+    }
+
+    private int paymentId;
+    //for vardana...
+    private int vardanaId;
+
+    public int getsRoomId() {
+        return sRoomId;
+    }
+
+    public void setsRoomId(int sRoomId) {
+        this.sRoomId = sRoomId;
+    }
+
+    private int sRoomId;
+    private String name;
+    private String phone;
+    private String qty;
+    private String type;
+
+    public String getAmount() {
+        return amount;
+    }
+
+    public void setAmount(String amount) {
+        this.amount = amount;
+    }
+
+    private String amount;
+
+
+    public String getVariety() {
+        return variety;
+    }
+
+    public void setVariety(String variety) {
+        this.variety = variety;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public int getVardanaId() {
+        return vardanaId;
+    }
+
+    public void setVardanaId(int vardanaId) {
+        this.vardanaId = vardanaId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getQty() {
+        return qty;
+    }
+
+    public void setQty(String qty) {
+        this.qty = qty;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+
     public String getAdvanced() {
         return advanced;
     }
@@ -159,9 +253,6 @@ public class Result {
     }
 
 
-
-
-
     public int getUserId() {
         return userId;
     }
@@ -171,7 +262,6 @@ public class Result {
     }
 
 
-
     public String getIsActive() {
         return isActive;
     }
@@ -179,7 +269,6 @@ public class Result {
     public void setIsActive(String isActive) {
         this.isActive = isActive;
     }
-
 
 
     public String getEmpPhone() {
@@ -256,7 +345,6 @@ public class Result {
     }
 
 
-
     public String getEmpPassword() {
         return empPassword;
     }
@@ -316,7 +404,6 @@ public class Result {
     }
 
 
-
     public String getEmpProfile() {
         return empProfile;
     }
@@ -333,7 +420,6 @@ public class Result {
     public void setEmpGender(String empGender) {
         this.empGender = empGender;
     }
-
 
 
     public String getVarietyName() {
@@ -376,7 +462,6 @@ public class Result {
     public void setVarietyId(int varietyId) {
         this.varietyId = varietyId;
     }
-
 
 
     public int getFloor() {

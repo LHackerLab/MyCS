@@ -78,10 +78,11 @@ public class InwardFragment extends Fragment {
     Context context;
     EditText edt_empName, edt_empFName, edt_phone, edt_qty, edt_rent, edt_address;
     Button btn_add;
-    TextView tv_wholeSaleNo;
+    TextView tv_floorRefersh, tv_varietyRefersh, tv_rackRefersh;
     AppCompatSpinner spinnerVariety, spinnerFloor, spinnerRack;
     ProgressDialog pd;
     int floor;
+    Double quantity, capacity, fillQuantity, remainQty;
     String empName, empFName, phone, qty, rent, address, vareity, rack;
 
     @Override
@@ -108,6 +109,9 @@ public class InwardFragment extends Fragment {
         spinnerRack = view.findViewById(R.id.spinnerRack);
         edt_address = view.findViewById(R.id.edt_address);
         btn_add = view.findViewById(R.id.btn_add);
+        tv_varietyRefersh = view.findViewById(R.id.tv_varietyRefersh);
+        tv_floorRefersh = view.findViewById(R.id.tv_floorRefersh);
+        tv_rackRefersh = view.findViewById(R.id.tv_rackRefersh);
 //        getVariety();
 //        getFloor();
 //        getRack();
@@ -117,13 +121,55 @@ public class InwardFragment extends Fragment {
                 uploadInwardData();
             }
         });
+        tv_varietyRefersh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getVariety();
+            }
+        });
+        tv_floorRefersh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getFloor();
+            }
+        });
+        tv_rackRefersh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getRack();
+            }
+        });
     }
 
     public boolean validation() {
+        DbHelper dbHelper = new DbHelper(context);
+        Result result = dbHelper.getRackDataByRackFloor(rack, floor);
+        if (result != null) {
+            Result resultRack = dbHelper.getRackDataByRackId(result.getRackId());
+            if (resultRack != null) {
+                capacity = Double.parseDouble(resultRack.getCapacity());
+            }
+        }
+        List<Result> resultInward = dbHelper.getAllInwardDataByRackFloor(rack, floor);
+        if (resultInward != null && resultInward.size() != 0) {
+            for (int i = 0; i < resultInward.size(); i++) {
+                String qty = resultInward.get(i).getQuantity();
+                if (qty != null && !qty.equalsIgnoreCase("")) {
+                    double fqty = Double.parseDouble(qty);
+                    fillQuantity = fillQuantity + fqty;
+                }
+            }
+        }
+        if (fillQuantity != null) {
+            remainQty = capacity - fillQuantity;
+        }
         empName = edt_empName.getText().toString();
         empFName = edt_empFName.getText().toString();
         phone = edt_phone.getText().toString();
         qty = edt_qty.getText().toString();
+        if (!qty.equalsIgnoreCase("")) {
+            quantity = Double.parseDouble(qty);
+        }
         rent = edt_rent.getText().toString();
         address = edt_address.getText().toString();
         if (empName.length() == 0) {
@@ -142,8 +188,21 @@ public class InwardFragment extends Fragment {
             requestFocus(edt_phone);
             edt_phone.setError("Enter valid Phone");
             return false;
+        } else if (vareity != null && vareity.length() == 0) {
+            Toast.makeText(context, "Select Vareity", Toast.LENGTH_SHORT).show();
+            return false;
+        } else if (floor == 0) {
+            Toast.makeText(context, "Select Floor", Toast.LENGTH_SHORT).show();
+            return false;
+        } else if (rack != null && rack.length() == 0) {
+            Toast.makeText(context, "Select Rack", Toast.LENGTH_SHORT).show();
+            return false;
         } else if (qty.length() == 0) {
             edt_qty.setError("Enter Quantity");
+            requestFocus(edt_qty);
+            return false;
+        } else if (quantity > remainQty) {
+            edt_qty.setError("Enter Less Then " + remainQty);
             requestFocus(edt_qty);
             return false;
         } else if (rent.length() == 0) {
@@ -153,15 +212,6 @@ public class InwardFragment extends Fragment {
         } else if (address.length() == 0) {
             requestFocus(edt_address);
             edt_address.setError("Enter Address");
-            return false;
-        } else if (vareity != null && vareity.length() == 0) {
-            Toast.makeText(context, "Select Vareity", Toast.LENGTH_SHORT).show();
-            return false;
-        } else if (floor == 0) {
-            Toast.makeText(context, "Select Floor", Toast.LENGTH_SHORT).show();
-            return false;
-        } else if (rack != null && rack.length() == 0) {
-            Toast.makeText(context, "Select Rack", Toast.LENGTH_SHORT).show();
             return false;
         }
         return true;
@@ -180,7 +230,7 @@ public class InwardFragment extends Fragment {
 //                            public void onResponse(String response) {
 //                                pd.dismiss();
 //                                Toast.makeText(context, "Add Successfully", Toast.LENGTH_SHORT).show();
-            AccoutnFragment accoutnFragment = AccoutnFragment.newInstance("inward", empName, empFName, phone, address, qty, rent, vareity, rack, floor);
+            AccoutnFragment accoutnFragment = AccoutnFragment.newInstance("inward", empName, empFName, phone, address, qty, rent, vareity, rack, floor, 0);
             moveragment(accoutnFragment);
         }
 //                        },
@@ -360,26 +410,57 @@ public class InwardFragment extends Fragment {
     }
 
     private void setRackSpinner() {
+        List<String> stringList = new ArrayList<>();
         DbHelper dbHelper = new DbHelper(context);
-        Result result = dbHelper.getRackDataByFloor(floor);
-        if (result != null) {
-            List<String> stringList = new ArrayList<>();
-            stringList.addAll(Arrays.asList(result.getRack()));
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_dropdown_item, stringList);
-            spinnerRack.setAdapter(adapter);
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            spinnerRack.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                @Override
-                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                    rack = parent.getSelectedItem().toString();
+        if (floor != 0) {
+            List<Result> resultList = dbHelper.getRackDataByFloor(floor);
+            if (resultList != null && resultList.size() != 0) {
+                for (int i = 0; i < resultList.size(); i++) {
+                    int rackId = resultList.get(i).getRackId();
+                    String racks = resultList.get(i).getRack();
+                    String capacity = resultList.get(i).getCapacity();
+                    Result result = dbHelper.getInwardDataByRackFloor(rack, floor);
+                    if (result != null) {
+//                    int inwardId = result.getInwardId();
+//                    Result outward = dbHelper.getoutwardData(inwardId, , , , ,\\\get remaing qty)
+//                    if (outward != null) {
+//                        String remainingQuantity = outward.getRemainingQty();
+//                        if (!capacity.equalsIgnoreCase("remaingQty")) {
+//                            stringList.addAll(Arrays.asList(racks));
+//                        }
+//                    } else {
+                        String qty = result.getQuantity();
+                        double quantity = Double.parseDouble(qty);
+                        double capty = Double.parseDouble(capacity);
+                        if (capty > quantity) {
+                            stringList.addAll(Arrays.asList(racks));
+//                        }
+                        }
+//
+                    } else {
+                        stringList.addAll(Arrays.asList(racks));
+                    }
                 }
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_dropdown_item, stringList);
+                spinnerRack.setAdapter(adapter);
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                spinnerRack.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                        rack = parent.getSelectedItem().toString();
+                    }
 
-                @Override
-                public void onNothingSelected(AdapterView<?> parent) {
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
 
-                }
-            });
+                    }
+                });
+            } else {
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_dropdown_item, stringList);
+                spinnerRack.setAdapter(adapter);
+                Toast.makeText(context, "Add Rack Please", Toast.LENGTH_SHORT).show();
+            }
+
         }
-
     }
 }
