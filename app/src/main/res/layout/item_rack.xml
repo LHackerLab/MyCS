@@ -8,8 +8,8 @@
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginLeft="@dimen/margin5">
+        android:layout_marginLeft="@dimen/margin5"
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -106,6 +106,7 @@
                 android:textColor="@color/black"
                 android:textSize="@dimen/textSize16" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -129,6 +130,7 @@
                 android:textColor="@color/black"
                 android:textSize="@dimen/textSize16" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="40dp"
@@ -150,8 +152,8 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight=".5"
-                android:gravity="center"
                 android:background="@drawable/done_corner_round"
+                android:gravity="center"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="@dimen/textSize22" />
         </LinearLayout>

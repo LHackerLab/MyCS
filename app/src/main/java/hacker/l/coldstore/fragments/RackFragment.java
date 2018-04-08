@@ -12,6 +12,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -116,9 +117,20 @@ public class RackFragment extends Fragment {
                                 ArrayAdapter<Integer> integerArrayAdapter = new ArrayAdapter<Integer>(context, android.R.layout.simple_spinner_dropdown_item, spinnerList);
                                 spinner.setAdapter(integerArrayAdapter);
                                 integerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                                if (spinner.getItemAtPosition(spinner.getSelectedItemPosition()) != null) {
-                                    floor = spinner.getItemAtPosition(spinner.getSelectedItemPosition()).toString();
-                                }
+//                                if (spinner.getItemAtPosition(spinner.getSelectedItemPosition()) != null) {
+
+//                                }
+                                spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                                    @Override
+                                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                                        floor = parent.getSelectedItem().toString();
+                                    }
+
+                                    @Override
+                                    public void onNothingSelected(AdapterView<?> parent) {
+
+                                    }
+                                });
                             }
                         }
                     },

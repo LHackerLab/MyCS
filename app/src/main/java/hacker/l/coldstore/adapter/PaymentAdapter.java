@@ -87,7 +87,13 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.MyViewHo
         holder.tv_grandotal.setText(FilteruserList.get(position).getGrandTotal() + "(rs)");
         holder.tv_time.setText(FilteruserList.get(position).getTime() + "/" + FilteruserList.get(position).getDay());
         holder.tv_byusr.setText(FilteruserList.get(position).getByUser());
-
+        if (Double.parseDouble(FilteruserList.get(position).getGrandTotal()) == 0.0) {
+            holder.linearLayout.setBackground(mContext.getResources().getDrawable(R.drawable.ic_check_black_24dp));
+            holder.tv_payment.setEnabled(false);
+            holder.tv_payment.setTextColor(mContext.getResources().getColor(R.color.grey_hard));
+            holder.tv_edit.setEnabled(false);
+            holder.tv_edit.setTextColor(mContext.getResources().getColor(R.color.grey_hard));
+        }
         holder.tv_payment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

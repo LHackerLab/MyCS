@@ -82,7 +82,7 @@ public class InwardFragment extends Fragment {
     AppCompatSpinner spinnerVariety, spinnerFloor, spinnerRack;
     ProgressDialog pd;
     int floor;
-    Double quantity, capacity, fillQuantity, remainQty;
+    Double quantity = 0.0, capacity = 0.0, fillQuantity = 0.0, remainQty, rackCapacity = 0.0;
     String empName, empFName, phone, qty, rent, address, vareity, rack;
 
     @Override
@@ -147,7 +147,9 @@ public class InwardFragment extends Fragment {
         if (result != null) {
             Result resultRack = dbHelper.getRackDataByRackId(result.getRackId());
             if (resultRack != null) {
-                capacity = Double.parseDouble(resultRack.getCapacity());
+                if (resultRack.getCapacity() != null) {
+                    capacity = Double.parseDouble(resultRack.getCapacity());
+                }
             }
         }
         List<Result> resultInward = dbHelper.getAllInwardDataByRackFloor(rack, floor);
@@ -159,10 +161,10 @@ public class InwardFragment extends Fragment {
                     fillQuantity = fillQuantity + fqty;
                 }
             }
+        } else {
+            fillQuantity = 0.0;
         }
-        if (fillQuantity != null) {
-            remainQty = capacity - fillQuantity;
-        }
+        remainQty = capacity - fillQuantity;
         empName = edt_empName.getText().toString();
         empFName = edt_empFName.getText().toString();
         phone = edt_phone.getText().toString();
@@ -204,6 +206,8 @@ public class InwardFragment extends Fragment {
         } else if (quantity > remainQty) {
             edt_qty.setError("Enter Less Then " + remainQty);
             requestFocus(edt_qty);
+            fillQuantity = 0.0;
+            remainQty = 0.0;
             return false;
         } else if (rent.length() == 0) {
             requestFocus(edt_rent);
@@ -419,8 +423,7 @@ public class InwardFragment extends Fragment {
                     int rackId = resultList.get(i).getRackId();
                     String racks = resultList.get(i).getRack();
                     String capacity = resultList.get(i).getCapacity();
-                    Result result = dbHelper.getInwardDataByRackFloor(rack, floor);
-                    if (result != null) {
+                    List<Result> result = dbHelper.getAllInwardDataByRackFloor(racks, floor);
 //                    int inwardId = result.getInwardId();
 //                    Result outward = dbHelper.getoutwardData(inwardId, , , , ,\\\get remaing qty)
 //                    if (outward != null) {
@@ -429,14 +432,18 @@ public class InwardFragment extends Fragment {
 //                            stringList.addAll(Arrays.asList(racks));
 //                        }
 //                    } else {
-                        String qty = result.getQuantity();
-                        double quantity = Double.parseDouble(qty);
-                        double capty = Double.parseDouble(capacity);
-                        if (capty > quantity) {
-                            stringList.addAll(Arrays.asList(racks));
-//                        }
+                    if (result != null && result.size() != 0) {
+                        for (int j = 0; j < result.size(); j++) {
+                            //get inward and send in outward data  and get remaing qty(fill capacity)
+                            String qty = result.get(j).getQuantity();
+                            if (qty != null && !qty.equalsIgnoreCase("")) {
+                                double fqty = Double.parseDouble(qty);
+                                rackCapacity = rackCapacity + fqty;
+                            }
                         }
-//
+                        if (Double.parseDouble(capacity) > rackCapacity) {
+                            stringList.addAll(Arrays.asList(racks));
+                        }
                     } else {
                         stringList.addAll(Arrays.asList(racks));
                     }

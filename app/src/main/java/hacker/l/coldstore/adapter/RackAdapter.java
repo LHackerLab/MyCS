@@ -44,6 +44,7 @@ public class RackAdapter extends RecyclerView.Adapter<RackAdapter.MyViewHolder> 
     private List<Result> userList, FilteruserList;
     RackFragment fragment;
     ProgressDialog pd;
+    double fillQuantity = 0.0, remainQty = 0.0;
 
     public RackAdapter(Context mContext, List<Result> userList, RackFragment fragment) {
         this.mContext = mContext;
@@ -78,14 +79,25 @@ public class RackAdapter extends RecyclerView.Adapter<RackAdapter.MyViewHolder> 
         holder.tv_floor.setText(String.valueOf(floor));
         holder.tv_capacity.setText(capacity);
         DbHelper dbHelper = new DbHelper(mContext);
-        Result result = dbHelper.getInwardDataByRackFloor(rack, floor);
-        if (result != null) {//get inward and send in outward data  and get remaing qty(fill capacity)
-            String qty = result.getQuantity();
-            holder.tv_Fillcapacity.setText(qty);
-            holder.tv_Freecapacity.setText(Integer.parseInt(capacity) - Integer.parseInt(qty) + "");
+        List<Result> result = dbHelper.getAllInwardDataByRackFloor(rack, floor);
+        if (result != null && result.size() != 0) {
+            for (int i = 0; i < result.size(); i++) {
+                //get inward and send in outward data  and get remaing qty(fill capacity)
+                String qty = result.get(i).getQuantity();
+                if (qty != null && !qty.equalsIgnoreCase("")) {
+                    double fqty = Double.parseDouble(qty);
+                    fillQuantity = fillQuantity + fqty;
+                }
+            }
+            remainQty = Double.parseDouble(capacity) - fillQuantity;
+            holder.tv_Fillcapacity.setText(fillQuantity + "");
+            holder.tv_Freecapacity.setText(remainQty + "");
         } else {
             holder.tv_Fillcapacity.setText("0");
             holder.tv_Freecapacity.setText(capacity);
+        }
+        if (Double.parseDouble(capacity) == fillQuantity) {
+            holder.linearLayout.setBackground(mContext.getResources().getDrawable(R.drawable.ic_check_black_24dp));
         }
         holder.tv_edit.setOnClickListener(new View.OnClickListener() {
             @Override
