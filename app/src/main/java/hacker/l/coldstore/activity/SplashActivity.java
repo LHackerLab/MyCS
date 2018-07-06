@@ -62,6 +62,7 @@ public class SplashActivity extends AppCompatActivity {
         }
     }
 
+
     private void splashImage() {
         progressBar = new ProgressDialog(this);
         progressBar.setCancelable(false);
