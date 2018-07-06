@@ -40,6 +40,8 @@ public class Contants {
     public static final String No_DATA_FOUND_MESSAGE = "No Record Found";
 
     public static final String Admin = "FetchAdmin.php";
+    public static final String getSplashImage = "getSplashImage.php";
+    public static final String setSplashImage = "setSplashImage.php";
     public static final String User = "FetchUser.php";
     public static final String AddUser = "addUser.php";
     public static final String AddInward = "addInward.php";
@@ -52,10 +54,12 @@ public class Contants {
     public static final String updateUser = "updateUser.php";
     public static final String getAllUsers = "getAllUsers.php";
     public static final String deleteUser = "deleteUser.php";
+
     public static final String addVariety = "addVariety.php";
     public static final String getAllVariety = "getAllVariety.php";
     public static final String updateVariety = "updateVariety.php";
     public static final String deleteVariety = "deleteVariety.php";
+
     public static final String addRack = "addRack.php";
     public static final String getAllRack = "getAllRack.php";
     public static final String updateRack = "updateRack.php";
@@ -74,4 +78,8 @@ public class Contants {
     public static final String addPayment = "addPayment.php";
     public static final String getAllPayment = "getAllPayment.php";
     public static final String deletePayment = "deletePayment.php";
+
+    public static final String addOutward = "addOutward.php";
+    public static final String getAllOutward = "getAllOutward.php";
+    public static final String deleteOutward = "deleteOutward.php";
 }

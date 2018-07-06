@@ -119,6 +119,26 @@
                 android:text="123"
                 android:textColor="@color/black"
                 android:textSize="@dimen/textSize16" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin5"
+                android:layout_marginTop="@dimen/margin10"
+                android:text="Departure"
+                android:textColor="@color/purple"
+                android:textSize="@dimen/textSize16" />
+
+            <TextView
+                android:id="@+id/tv_Departure"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_40_dp"
+                android:layout_marginLeft="@dimen/margin5"
+                android:layout_marginTop="@dimen/margin10"
+                android:background="@drawable/done_corner_round"
+                android:gravity="center"
+                android:text=""
+                android:textColor="@color/black"
+                android:textSize="@dimen/textSize16" />
 
             <TextView
                 android:layout_width="match_parent"

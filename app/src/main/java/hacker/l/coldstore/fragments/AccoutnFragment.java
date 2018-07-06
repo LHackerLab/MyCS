@@ -46,11 +46,11 @@ public class AccoutnFragment extends Fragment {
 
     // TODO: Rename and change types of parameters
     private String empName;
-    private String empFName, flag;
+    private String empFName, flag, departure;
     private String phone, address, qty, rent, vareity, rack;
     private int floor, inwardId;
 
-    public static AccoutnFragment newInstance(String flag, String empName, String empFName, String phone, String address, String qty, String rent, String vareity, String rack, int floor, int inwardId) {
+    public static AccoutnFragment newInstance(String flag, String empName, String empFName, String phone, String address, String qty, String rent, String vareity, String rack, int floor, int inwardId, String departure) {
         AccoutnFragment fragment = new AccoutnFragment();
         Bundle args = new Bundle();
         args.putString("empName", empName);
@@ -64,6 +64,7 @@ public class AccoutnFragment extends Fragment {
         args.putInt("floor", floor);
         args.putInt("inwardId", inwardId);
         args.putString("flag", flag);
+        args.putString("departure", departure);
         fragment.setArguments(args);
         return fragment;
     }
@@ -81,6 +82,7 @@ public class AccoutnFragment extends Fragment {
             vareity = getArguments().getString("vareity");
             rack = getArguments().getString("rack");
             flag = getArguments().getString("flag");
+            departure = getArguments().getString("departure");
             floor = getArguments().getInt("floor");
             inwardId = getArguments().getInt("inwardId");
         }
@@ -91,7 +93,7 @@ public class AccoutnFragment extends Fragment {
     Button btn_proced;
     AppCompatSpinner spinner_caseType;
     ProgressDialog pd;
-    TextView tv_name, tv_FName, tv_phone, tv_qty, tv_rent, tv_rBalance;
+    TextView tv_name, tv_FName, tv_phone, tv_qty, tv_rent, tv_rBalance, tv_Departure;
     EditText edt_advance;
     DecimalFormat decimalFormat;
     double totalPrice, grandTotal;
@@ -123,6 +125,7 @@ public class AccoutnFragment extends Fragment {
         tv_qty = view.findViewById(R.id.tv_qty);
         tv_rBalance = view.findViewById(R.id.tv_rBalance);
         edt_advance = view.findViewById(R.id.edt_advance);
+        tv_Departure = view.findViewById(R.id.tv_Departure);
         setValues();
         setCasetypeAdapter();
         edt_advance.addTextChangedListener(new TextWatcher() {
@@ -155,9 +158,98 @@ public class AccoutnFragment extends Fragment {
                         Toast.makeText(context, "Enter Advanced ", Toast.LENGTH_SHORT).show();
                     }
                 }
+                if (flag.equalsIgnoreCase("outward")) {
+                    if (qty.equalsIgnoreCase(departure)) {
+                        if (grandTotal == 0) {
+                            // AddOutwardData();
+                            Toast.makeText(context, "Done", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(context, "Complete Your Payment Amount", Toast.LENGTH_SHORT).show();
+                        }
+                    } else {
+                        Toast.makeText(context, "Done Pay", Toast.LENGTH_SHORT).show();
+                    }
 //                Toast.makeText(context, "Print Report", Toast.LENGTH_SHORT).show();
+                }
             }
         });
+    }
+
+    private void AddOutwardData() {
+        if (Utility.isOnline(context)) {
+//            if (validation()) {
+            pd = new ProgressDialog(context);
+            pd.setMessage("Processing wait...");
+            pd.show();
+            pd.setCancelable(false);
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, Contants.SERVICE_BASE_URL + Contants.addOutward,
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            pd.dismiss();
+                            if (!advanced.equalsIgnoreCase("0") && advanced.length() != 0) {
+//                                MyPojo myPojo = new Gson().fromJson(response, MyPojo.class);
+//                                for (Result result : myPojo.getResult()) {
+//                                    List<Integer> resultList = new ArrayList<>();
+//                                    resultList.add(result.getInwardId());
+//                                    inwardId = resultList.get(resultList.size() - 1);
+//                                    inwardId = result.getInwardId();
+//                                    Toast.makeText(context, ""+inwardId, Toast.LENGTH_SHORT).show();
+//                                }
+                                AddPaymentData();
+                            } else {
+                                Toast.makeText(context, "Order Successful Done", Toast.LENGTH_SHORT).show();
+                                HomeFragment accoutnFragment = HomeFragment.newInstance("inward", "");
+                                moveragment(accoutnFragment);
+                            }
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            pd.dismiss();
+                        }
+                    }) {
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    Map<String, String> params = new HashMap<String, String>();
+                    params.put("userName", empName);
+                    params.put("fatherName", empFName);
+                    params.put("userPhone", phone);
+                    params.put("address", address);
+                    params.put("quantity", qty);
+                    params.put("rent", rent);
+                    params.put("variety", vareity);
+                    params.put("floor", String.valueOf(floor));
+                    params.put("inwardId", String.valueOf(inwardId));
+                    params.put("rack", rack);
+                    if (advanced.equalsIgnoreCase("")) {
+                        params.put("advanced", "0");
+                    } else {
+                        params.put("advanced", advanced);
+                    }
+                    params.put("caseType", strCaseType);
+                    params.put("grandTotal", String.valueOf(grandTotal));
+                    DbHelper dbHelper = new DbHelper(context);
+                    Result result = dbHelper.getAdminData();
+                    String byuser = null;
+                    if (result != null) {
+                        byuser = result.getAdminName();
+                    }
+                    Result uResult = dbHelper.getUserData();
+                    if (uResult != null) {
+                        byuser = uResult.getUserName();
+                    }
+                    params.put("byUser", byuser);
+                    return params;
+                }
+            };
+            RequestQueue requestQueue = Volley.newRequestQueue(context);
+            requestQueue.add(stringRequest);
+//            }
+        } else {
+            Toast.makeText(context, "You are Offline. Please check your Internet Connection.", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void AddPaymentData() {
@@ -211,6 +303,10 @@ public class AccoutnFragment extends Fragment {
                         byuser = uResult.getUserName();
                     }
                     params.put("byUser", byuser);
+                    if (flag.equalsIgnoreCase("outward")) {
+                        params.put("departure", departure);
+                    }
+                    params.put("departure", "0");
                     return params;
                 }
             };
@@ -291,6 +387,15 @@ public class AccoutnFragment extends Fragment {
             edt_advance.setText(advanced);
             tv_rBalance.setText(grandTotal + "");
         }
+        if (flag.equalsIgnoreCase("outward")) {
+            tv_name.setText(empName);
+            tv_FName.setText(empFName);
+            tv_phone.setText(phone);
+//            tv_wholeSaleNo.setText("pending");
+            tv_qty.setText(qty);
+            tv_rent.setText(rent + "*" + qty + "=" + totalPrice);
+            tv_Departure.setText(departure);
+        }
     }
 
     private void moveragment(Fragment fragment) {
@@ -320,7 +425,7 @@ public class AccoutnFragment extends Fragment {
                                     resultList.add(result.getInwardId());
                                     inwardId = resultList.get(resultList.size() - 1);
 //                                    inwardId = result.getInwardId();
-                                    Toast.makeText(context, ""+inwardId, Toast.LENGTH_SHORT).show();
+//                                    Toast.makeText(context, ""+inwardId, Toast.LENGTH_SHORT).show();
                                 }
                                 AddPaymentData();
                             } else {

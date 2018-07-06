@@ -12,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,9 +31,9 @@ import java.util.Map;
 
 import hacker.l.coldstore.R;
 import hacker.l.coldstore.database.DbHelper;
-import hacker.l.coldstore.fragments.AccountDetailsFragment;
 import hacker.l.coldstore.fragments.AccoutnFragment;
 import hacker.l.coldstore.fragments.InwardDetailsFragment;
+import hacker.l.coldstore.fragments.OutwardDetailsFragment;
 import hacker.l.coldstore.model.Result;
 import hacker.l.coldstore.utility.Contants;
 import hacker.l.coldstore.utility.FontManager;
@@ -44,14 +43,14 @@ import hacker.l.coldstore.utility.Utility;
  * Created by lalitsingh on 23/03/18.
  */
 
-public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.MyViewHolder> implements Filterable {
+public class OutwardAdapter extends RecyclerView.Adapter<OutwardAdapter.MyViewHolder> implements Filterable {
     private Typeface materialdesignicons_font, ProximaNovaRegular;
     private Context mContext;
     private List<Result> userList, FilteruserList;
-    AccountDetailsFragment fragment;
+    OutwardDetailsFragment fragment;
     ProgressDialog pd;
 
-    public PaymentAdapter(Context mContext, List<Result> userList, AccountDetailsFragment fragment) {
+    public OutwardAdapter(Context mContext, List<Result> userList, OutwardDetailsFragment fragment) {
         this.mContext = mContext;
         this.userList = userList;
         this.FilteruserList = userList;
@@ -61,16 +60,16 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.MyViewHo
     }
 
     @Override
-    public PaymentAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public OutwardAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_payment, parent, false);
+                .inflate(R.layout.item_outward, parent, false);
 
-        return new PaymentAdapter.MyViewHolder(itemView);
+        return new OutwardAdapter.MyViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(PaymentAdapter.MyViewHolder holder, final int position) {
+    public void onBindViewHolder(OutwardAdapter.MyViewHolder holder, final int position) {
         if (position % 2 == 1) {
             holder.linearLayout.setBackgroundColor(Color.parseColor("#44eebd82"));
         } else {
@@ -80,25 +79,24 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.MyViewHo
         holder.tv_name.setText(FilteruserList.get(position).getUserName());
         holder.tv_Fname.setText(FilteruserList.get(position).getFatherName());
         holder.tv_phone.setText(FilteruserList.get(position).getUserPhone());
+        holder.tv_address.setText(FilteruserList.get(position).getAddress());
         holder.tv_variety.setText(FilteruserList.get(position).getVarietyName());
         holder.tv_rent.setText(FilteruserList.get(position).getRent() + "(rs)");
+        holder.tv_rack.setText(FilteruserList.get(position).getRack());
         holder.tv_qty.setText(FilteruserList.get(position).getQuantity());
+        holder.tv_Departure.setText(FilteruserList.get(position).getDeparture());
         holder.tv_advanced.setText(FilteruserList.get(position).getAdvanced() + "(rs)");
         holder.tv_casetype.setText(FilteruserList.get(position).getCaseType());
         holder.tv_grandotal.setText(FilteruserList.get(position).getGrandTotal() + "(rs)");
         holder.tv_time.setText(FilteruserList.get(position).getTime() + "/" + FilteruserList.get(position).getDay());
         holder.tv_byusr.setText(FilteruserList.get(position).getByUser());
-        if (Double.parseDouble(FilteruserList.get(position).getGrandTotal()) == 0.0) {
-            holder.image_done.setBackground(mContext.getResources().getDrawable(R.drawable.ic_check_black_24dp));
-            holder.tv_payment.setEnabled(false);
-            holder.tv_payment.setTextColor(mContext.getResources().getColor(R.color.grey_hard));
-            holder.tv_edit.setEnabled(false);
-            holder.tv_edit.setTextColor(mContext.getResources().getColor(R.color.grey_hard));
-        }
+        holder.tv_floor.setText(String.valueOf(FilteruserList.get(position).getFloor()));
+        holder.tv_Rqty.setText(Double.parseDouble(FilteruserList.get(position).getQuantity()) - (Double.parseDouble(FilteruserList.get(position).getDeparture())) + "");
+
         holder.tv_payment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AccoutnFragment fragment = AccoutnFragment.newInstance("payment", "", "", "", "", "", "", "", "", 0, FilteruserList.get(position).getInwardId(),"");
+                AccoutnFragment fragment = AccoutnFragment.newInstance("payment", "", "", "", "", "", "", "", "", 0, FilteruserList.get(position).getInwardId(), "");
                 moveragment(fragment);
             }
         });
@@ -134,13 +132,13 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.MyViewHo
             final DbHelper dbHelper = new DbHelper(mContext);
 //            final Result result = dbHelper.getUserData();
 //            if (result != null) {
-            StringRequest stringRequest = new StringRequest(Request.Method.POST, Contants.SERVICE_BASE_URL + Contants.deletePayment,
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, Contants.SERVICE_BASE_URL + Contants.deleteOutward,
                     new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
                             pd.dismiss();
 //                            fragment.setVarietyAdapter();
-                            dbHelper.deletePaymentData(FilteruserList.get(position).getPaymentId());
+                            dbHelper.deleteOutwardData(FilteruserList.get(position).getOutwardId());
                             FilteruserList.remove(position);
                             notifyDataSetChanged();
                             Toast.makeText(mContext, "Delete Successully", Toast.LENGTH_LONG).show();
@@ -155,7 +153,7 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.MyViewHo
                 @Override
                 protected Map<String, String> getParams() throws AuthFailureError {
                     Map<String, String> params = new HashMap<String, String>();
-                    params.put("paymentId", String.valueOf(FilteruserList.get(position).getPaymentId()));
+                    params.put("inwardId", String.valueOf(FilteruserList.get(position).getInwardId()));
                     return params;
                 }
             };
@@ -213,26 +211,29 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.MyViewHo
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView tv_saleno, tv_name, tv_Fname, tv_payment, tv_time, tv_phone, tv_grandotal, tv_byusr, tv_casetype, tv_qty, tv_rent, tv_variety, tv_advanced, tv_edit, tv_delete;
+        TextView tv_saleno, tv_name, tv_Fname, tv_Departure, tv_Rqty, tv_payment, tv_time, tv_phone, tv_grandotal, tv_byusr, tv_address, tv_casetype, tv_floor, tv_rack, tv_qty, tv_rent, tv_variety, tv_advanced, tv_edit, tv_delete;
         LinearLayout linearLayout;
-        ImageView image_done;
 
         public MyViewHolder(View itemView) {
             super(itemView);
             tv_saleno = (TextView) itemView.findViewById(R.id.tv_saleno);
             tv_name = (TextView) itemView.findViewById(R.id.tv_name);
+            tv_Departure = (TextView) itemView.findViewById(R.id.tv_Departure);
             tv_Fname = (TextView) itemView.findViewById(R.id.tv_Fname);
             tv_phone = (TextView) itemView.findViewById(R.id.tv_phone);
+            tv_address = (TextView) itemView.findViewById(R.id.tv_address);
             tv_variety = (TextView) itemView.findViewById(R.id.tv_variety);
+            tv_floor = (TextView) itemView.findViewById(R.id.tv_floor);
+            tv_rack = (TextView) itemView.findViewById(R.id.tv_rack);
             tv_qty = (TextView) itemView.findViewById(R.id.tv_qty);
             tv_rent = (TextView) itemView.findViewById(R.id.tv_rent);
             tv_advanced = (TextView) itemView.findViewById(R.id.tv_advanced);
             tv_casetype = (TextView) itemView.findViewById(R.id.tv_casetype);
             tv_grandotal = (TextView) itemView.findViewById(R.id.tv_grandotal);
+            tv_Rqty = (TextView) itemView.findViewById(R.id.tv_Rqty);
             tv_byusr = (TextView) itemView.findViewById(R.id.tv_byusr);
             tv_payment = (TextView) itemView.findViewById(R.id.tv_payment);
             tv_time = (TextView) itemView.findViewById(R.id.tv_time);
-            image_done = (ImageView) itemView.findViewById(R.id.image_done);
 
 
             tv_delete = (TextView) itemView.findViewById(R.id.tv_delete);

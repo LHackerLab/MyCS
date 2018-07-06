@@ -101,8 +101,7 @@ public class MainActivity extends AppCompatActivity
         layout_settings.setOnClickListener(this);
 //        layout_account.setOnClickListener(this);
         layout_profile.setOnClickListener(this);
-        HomeFragment homeFragment = HomeFragment.newInstance("", "");
-        moverHagment(homeFragment);
+       homeFrg();
         DbHelper dbHelper = new DbHelper(this);
         Result result = dbHelper.getAdminData();
         if (result != null) {
@@ -110,7 +109,10 @@ public class MainActivity extends AppCompatActivity
             tv_email.setText(result.getAdminEmail());
         }
     }
-
+public void homeFrg(){
+    HomeFragment homeFragment = HomeFragment.newInstance("", "");
+    moverHagment(homeFragment);
+}
     public void setTitle(String title) {
         tv_title.setText(title);
     }
@@ -123,6 +125,7 @@ public class MainActivity extends AppCompatActivity
         } else {
             super.onBackPressed();
         }
+       // homeFrg();
     }
 
     @Override
@@ -268,4 +271,5 @@ public class MainActivity extends AppCompatActivity
                 //.addToBackStack(null)
                 .commit();
     }
+
 }

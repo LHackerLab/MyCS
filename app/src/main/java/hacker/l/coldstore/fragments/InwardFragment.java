@@ -190,13 +190,13 @@ public class InwardFragment extends Fragment {
             requestFocus(edt_phone);
             edt_phone.setError("Enter valid Phone");
             return false;
-        } else if (vareity != null && vareity.length() == 0) {
+        } else if (spinnerVariety.getSelectedItem() == null) {
             Toast.makeText(context, "Select Vareity", Toast.LENGTH_SHORT).show();
             return false;
         } else if (floor == 0) {
             Toast.makeText(context, "Select Floor", Toast.LENGTH_SHORT).show();
             return false;
-        } else if (rack != null && rack.length() == 0) {
+        } else if (spinnerRack.getSelectedItem() == null) {
             Toast.makeText(context, "Select Rack", Toast.LENGTH_SHORT).show();
             return false;
         } else if (qty.length() == 0) {
@@ -234,7 +234,7 @@ public class InwardFragment extends Fragment {
 //                            public void onResponse(String response) {
 //                                pd.dismiss();
 //                                Toast.makeText(context, "Add Successfully", Toast.LENGTH_SHORT).show();
-            AccoutnFragment accoutnFragment = AccoutnFragment.newInstance("inward", empName, empFName, phone, address, qty, rent, vareity, rack, floor, 0);
+            AccoutnFragment accoutnFragment = AccoutnFragment.newInstance("inward", empName, empFName, phone, address, qty, rent, vareity, rack, floor, 0,"");
             moveragment(accoutnFragment);
         }
 //                        },

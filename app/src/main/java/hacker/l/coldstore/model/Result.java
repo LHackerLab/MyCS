@@ -53,6 +53,16 @@ public class Result {
     private String date;
     private int inwardId;
 
+    public int getOutwardId() {
+        return outwardId;
+    }
+
+    public void setOutwardId(int outwardId) {
+        this.outwardId = outwardId;
+    }
+
+    private int outwardId;
+
     public int getPaymentId() {
         return paymentId;
     }
@@ -79,6 +89,16 @@ public class Result {
     private String qty;
     private String type;
 
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    private String image;
+
     public String getAmount() {
         return amount;
     }
@@ -88,6 +108,16 @@ public class Result {
     }
 
     private String amount;
+
+    public String getDeparture() {
+        return departure;
+    }
+
+    public void setDeparture(String departure) {
+        this.departure = departure;
+    }
+
+    private String departure;
 
 
     public String getVariety() {

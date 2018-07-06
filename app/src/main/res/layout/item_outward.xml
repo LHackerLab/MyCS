@@ -76,7 +76,6 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:visibility="gone"
                     android:orientation="horizontal">
 
                     <TextView
@@ -128,7 +127,6 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:visibility="gone"
                     android:orientation="horizontal">
 
                     <TextView
@@ -155,7 +153,6 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:visibility="gone"
                     android:orientation="horizontal">
 
                     <TextView
@@ -181,7 +178,6 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:visibility="gone"
                     android:orientation="horizontal">
 
                     <TextView
@@ -208,7 +204,6 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:visibility="gone"
                     android:orientation="horizontal">
 
                     <TextView
@@ -231,10 +226,85 @@
                         android:textSize="@dimen/textSize16" />
                 </LinearLayout>
 
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:visibility="gone"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".5"
+                        android:gravity="center|left"
+                        android:text="Rent :-"
+                        android:textColor="@color/purple"
+                        android:textSize="@dimen/textSize16" />
+
+                    <TextView
+                        android:id="@+id/tv_rent"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".5"
+                        android:gravity="center|left"
+                        android:singleLine="true"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/textSize16" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".5"
+                        android:gravity="center|left"
+                        android:text="Advanced :-"
+                        android:textColor="@color/purple"
+                        android:textSize="@dimen/textSize16" />
+
+                    <TextView
+                        android:id="@+id/tv_advanced"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".5"
+                        android:gravity="center|left"
+                        android:singleLine="true"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/textSize16" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".5"
+                        android:gravity="center|left"
+                        android:text="Case type :-"
+                        android:textColor="@color/purple"
+                        android:textSize="@dimen/textSize16" />
+
+                    <TextView
+                        android:id="@+id/tv_casetype"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".5"
+                        android:gravity="center|left"
+                        android:singleLine="true"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/textSize16" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
                     <TextView
@@ -261,7 +331,6 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:visibility="gone"
                     android:orientation="horizontal">
 
                     <TextView
@@ -269,25 +338,24 @@
                         android:layout_height="wrap_content"
                         android:layout_weight=".5"
                         android:gravity="center|left"
-                        android:text="Rent :-"
+                        android:text="Departure :-"
                         android:textColor="@color/purple"
                         android:textSize="@dimen/textSize16" />
 
                     <TextView
-                        android:id="@+id/tv_rent"
+                        android:id="@+id/tv_Departure"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight=".5"
                         android:gravity="center|left"
                         android:singleLine="true"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/textSize16" />
+                        android:textColor="@color/red"
+                        android:textSize="@dimen/textSize20" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:visibility="gone"
                     android:orientation="horizontal">
 
                     <TextView
@@ -295,45 +363,19 @@
                         android:layout_height="wrap_content"
                         android:layout_weight=".5"
                         android:gravity="center|left"
-                        android:text="Advanced :-"
+                        android:text="Remaining Qty :-"
                         android:textColor="@color/purple"
                         android:textSize="@dimen/textSize16" />
 
                     <TextView
-                        android:id="@+id/tv_advanced"
+                        android:id="@+id/tv_Rqty"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight=".5"
                         android:gravity="center|left"
                         android:singleLine="true"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/textSize16" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:visibility="gone"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight=".5"
-                        android:gravity="center|left"
-                        android:text="Case type :-"
-                        android:textColor="@color/purple"
-                        android:textSize="@dimen/textSize16" />
-
-                    <TextView
-                        android:id="@+id/tv_casetype"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight=".5"
-                        android:gravity="center|left"
-                        android:singleLine="true"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/textSize16" />
+                        android:textColor="@color/red"
+                        android:textSize="@dimen/textSize20" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -389,7 +431,6 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:visibility="gone"
                     android:orientation="horizontal">
 
                     <TextView
@@ -397,7 +438,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight=".5"
                         android:gravity="center|left"
-                        android:text="Inward By :-"
+                        android:text="Outward By :-"
                         android:textColor="@color/purple"
                         android:textSize="@dimen/textSize16" />
 
@@ -413,88 +454,68 @@
                 </LinearLayout>
             </LinearLayout>
 
-
-            <LinearLayout
+            <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dimen_40_dp"
-                android:layout_margin="@dimen/margin5"
-                android:orientation="horizontal">
+                android:layout_margin="@dimen/margin10"
+                app:cardBackgroundColor="@color/summer">
 
-                <android.support.v7.widget.CardView
-                    android:layout_width="0dp"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_margin="3dp"
-                    android:layout_weight=".25"
-                    android:visibility="gone"
-                    app:cardBackgroundColor="@color/summer">
+                    android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/tv_payment"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="match_parent"
+                        android:layout_marginRight="3dp"
+                        android:layout_weight=".25"
                         android:background="@drawable/capsule_button"
                         android:gravity="center"
                         android:text="Payment"
                         android:textColor="@color/white"
-                        android:textSize="@dimen/textSize16"
+                        android:textSize="@dimen/textSize18"
                         android:visibility="visible" />
-                </android.support.v7.widget.CardView>
-
-                <android.support.v7.widget.CardView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_margin="3dp"
-                    android:layout_weight=".25"
-                    app:cardBackgroundColor="@color/summer">
 
                     <TextView
                         android:id="@+id/tv_report"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="match_parent"
+                        android:layout_marginRight="3dp"
+                        android:layout_weight=".25"
                         android:background="@drawable/capsule_button"
                         android:gravity="center"
                         android:text="Report"
                         android:textColor="@color/white"
-                        android:textSize="@dimen/textSize16" />
-                </android.support.v7.widget.CardView>
-
-                <android.support.v7.widget.CardView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_margin="3dp"
-                    android:layout_weight=".25"
-                    app:cardBackgroundColor="@color/summer">
+                        android:textSize="@dimen/textSize18" />
 
                     <TextView
                         android:id="@+id/tv_edit"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="match_parent"
+                        android:layout_weight=".25"
                         android:background="@drawable/capsule_button"
                         android:gravity="center"
                         android:text="Edit"
                         android:textColor="@color/white"
-                        android:textSize="@dimen/textSize16" />
-                </android.support.v7.widget.CardView>
-
-                <android.support.v7.widget.CardView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_margin="3dp"
-                    android:layout_weight=".25"
-                    app:cardBackgroundColor="@color/summer">
+                        android:textSize="@dimen/textSize18" />
 
                     <TextView
                         android:id="@+id/tv_delete"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="match_parent"
+                        android:layout_marginLeft="3dp"
+                        android:layout_weight=".25"
                         android:background="@drawable/capsule_button"
                         android:clickable="false"
                         android:gravity="center"
                         android:text="Delete"
                         android:textColor="@color/white"
-                        android:textSize="@dimen/textSize16" />
-                </android.support.v7.widget.CardView>
-            </LinearLayout>
+                        android:textSize="@dimen/textSize18" />
+
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
         </LinearLayout>
     </android.support.v7.widget.CardView>
 </LinearLayout>

@@ -20,7 +20,7 @@ import hacker.l.coldstore.utility.Contants;
 public class DbHelper extends SQLiteOpenHelper {
 
     // If you change the database schema, you must increment the database version.
-    public static final int DATABASE_VERSION = 4;
+    public static final int DATABASE_VERSION = 5;
     public static final String DATABASE_NAME = Contants.DATABASE_NAME;
 
     public DbHelper(Context context) {
@@ -33,7 +33,7 @@ public class DbHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS AdminData");
         db.execSQL("DROP TABLE IF EXISTS rackData");
         db.execSQL("DROP TABLE IF EXISTS inwardData");
-        db.execSQL("DROP TABLE IF EXISTS inwardData");
+        db.execSQL("DROP TABLE IF EXISTS outwardData");
         db.execSQL("DROP TABLE IF EXISTS paymentData");
         onCreate(db);
 
@@ -49,9 +49,11 @@ public class DbHelper extends SQLiteOpenHelper {
         String CREATE_AdminData_TABLE = "CREATE TABLE AdminData(AdminId INTEGER,AdminName TEXT,AdminPhone TEXT,AdminEmail TEXT,AdminPassword TEXT,AdminProfile TEXT)";
         String CREATE_surakshacavach_TABLE = "CREATE TABLE rackData(rackId INTEGER,floor TEXT,rack TEXT,capacity TEXT)";
         String CREATE_inwardData_TABLE = "CREATE TABLE inwardData(inwardId INTEGER,userName TEXT,fatherName TEXT,userPhone TEXT,address TEXT,quantity TEXT,rent TEXT,variety TEXT,floor INTEGER,rack TEXT,advanced TEXT,caseType TEXT,grandTotal TEXT,byUser TEXT,time TEXT,date TEXT)";
+        String CREATE_outwardData_TABLE = "CREATE TABLE outwardData(outwardId INTEGER,inwardId INTEGER,userName TEXT,fatherName TEXT,userPhone TEXT,address TEXT,quantity TEXT,rent TEXT,variety TEXT,floor INTEGER,rack TEXT,advanced TEXT,caseType TEXT,grandTotal TEXT,byUser TEXT,time TEXT,date TEXT,departure TEXt)";
         String CREATE_PaymentData_TABLE = "CREATE TABLE paymentData(paymentId INTEGER,inwardId INTEGER,userName TEXT,fatherName TEXT,userPhone TEXT,address TEXT,quantity TEXT,rent TEXT,variety TEXT,floor INTEGER,rack TEXT,advanced TEXT,caseType TEXT,grandTotal TEXT,byUser TEXT,time TEXT,date TEXT)";
         db.execSQL(CREATE_AdminData_TABLE);
         db.execSQL(CREATE_inwardData_TABLE);
+        db.execSQL(CREATE_outwardData_TABLE);
         db.execSQL(CREATE_PaymentData_TABLE);
         db.execSQL(CREATE_UserData_TABLE);
         db.execSQL(CREATE_surakshacavach_TABLE);
@@ -896,6 +898,226 @@ public class DbHelper extends SQLiteOpenHelper {
         boolean result = false;
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete("paymentData", "paymentId" + "=" + id, null);
+        db.close();
+        return result;
+    }
+
+
+    // --------------------------Outward Data-------------------------------------------------------
+    public boolean upsertOutwardData(Result ob) {
+        boolean done = false;
+        Result data = null;
+        if (ob.getOutwardId() != 0) {
+            data = getOutwardDataByOutwardId(ob.getOutwardId());
+            if (data == null) {
+                done = insertOutwardData(ob);
+            } else {
+                done = updateOutwardData(ob);
+            }
+        }
+        return done;
+    }
+
+
+    //    // for Outward data..........
+    private void populateOutwardData(Cursor cursor, Result ob) {
+        ob.setOutwardId(cursor.getInt(0));
+        ob.setInwardId(cursor.getInt(1));
+        ob.setUserName(cursor.getString(2));
+        ob.setFatherName(cursor.getString(3));
+        ob.setUserPhone(cursor.getString(4));
+        ob.setAddress(cursor.getString(5));
+        ob.setQuantity(cursor.getString(6));
+        ob.setRent(cursor.getString(7));
+        ob.setVarietyName(cursor.getString(8));
+        ob.setFloor(cursor.getInt(9));
+        ob.setRack(cursor.getString(10));
+        ob.setAdvanced(cursor.getString(11));
+        ob.setCaseType(cursor.getString(12));
+        ob.setGrandTotal(cursor.getString(13));
+        ob.setByUser(cursor.getString(14));
+        ob.setTime(cursor.getString(15));
+        ob.setDay(cursor.getString(16));
+        ob.setDeparture(cursor.getString(17));
+    }
+
+    // insert Outward data.............
+    public boolean insertOutwardData(Result ob) {
+        ContentValues values = new ContentValues();
+        values.put("outwardId", ob.getOutwardId());
+        values.put("inwardId", ob.getInwardId());
+        values.put("userName", ob.getUserName());
+        values.put("fatherName", ob.getFatherName());
+        values.put("userPhone", ob.getUserPhone());
+        values.put("address", ob.getAddress());
+        values.put("quantity", ob.getQuantity());
+        values.put("rent", ob.getRent());
+        values.put("variety", ob.getVarietyName());
+        values.put("floor", ob.getFloor());
+        values.put("rack", ob.getRack());
+        values.put("advanced", ob.getAdvanced());
+        values.put("caseType", ob.getCaseType());
+        values.put("grandTotal", ob.getGrandTotal());
+        values.put("byUser", ob.getByUser());
+        values.put("time", ob.getTime());
+        values.put("date", ob.getDay());
+        values.put("departure", ob.getDeparture());
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        long i = db.insert("outwardData", null, values);
+        db.close();
+        return i > 0;
+    }
+
+    //    Outward data
+    public Result getOutwardData() {
+
+        String query = "Select * FROM outwardData";
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+        Result data = new Result();
+
+        if (cursor.moveToFirst()) {
+            cursor.moveToFirst();
+            populateOutwardData(cursor, data);
+
+            cursor.close();
+        } else {
+            data = null;
+        }
+        db.close();
+        return data;
+    }
+
+    //
+//    //show  Outward list data
+    public List<Result> getAllOutwardData() {
+        ArrayList list = new ArrayList<>();
+        String query = "Select * FROM outwardData";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+        if (cursor.moveToFirst()) {
+
+            while (cursor.isAfterLast() == false) {
+                Result ob = new Result();
+                populateOutwardData(cursor, ob);
+                list.add(ob);
+                cursor.moveToNext();
+            }
+        }
+        db.close();
+        return list;
+    }
+
+
+    //  get Outward data
+    public Result getOutwardDataByOutwardId(int id) {
+
+        String query = "Select * FROM outwardData WHERE outwardId = " + id + " ";
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+        Result data = new Result();
+
+        if (cursor.moveToFirst()) {
+            cursor.moveToFirst();
+            populateOutwardData(cursor, data);
+
+            cursor.close();
+        } else {
+            data = null;
+        }
+        db.close();
+        return data;
+    }
+
+    //  get Outward data
+    public Result getOutwardDataByRackFloor(String rack, int floor) {
+
+        String query = "Select * FROM outwardData WHERE rack ='" + rack + "' AND floor= " + floor + "";
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+        Result data = new Result();
+
+        if (cursor.moveToFirst()) {
+            cursor.moveToFirst();
+            populateOutwardData(cursor, data);
+
+            cursor.close();
+        } else {
+            data = null;
+        }
+        db.close();
+        return data;
+    }
+
+    //  get Outward data
+    public List<Result> getAllOutwardDataByRackFloor(String rack, int floor) {
+        String query = "Select * FROM outwardData WHERE rack ='" + rack + "' AND floor= " + floor + "";
+        ArrayList list = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+        if (cursor.moveToFirst()) {
+
+            while (cursor.isAfterLast() == false) {
+                Result ob = new Result();
+                populateOutwardData(cursor, ob);
+                list.add(ob);
+                cursor.moveToNext();
+            }
+        }
+        db.close();
+        return list;
+    }
+
+
+    //    update  Outward data
+    public boolean updateOutwardData(Result ob) {
+        ContentValues values = new ContentValues();
+        values.put("outwardId", ob.getOutwardId());
+        values.put("inwardId", ob.getInwardId());
+        values.put("userName", ob.getUserName());
+        values.put("fatherName", ob.getFatherName());
+        values.put("userPhone", ob.getUserPhone());
+        values.put("address", ob.getAddress());
+        values.put("quantity", ob.getQuantity());
+        values.put("rent", ob.getRent());
+        values.put("variety", ob.getVarietyName());
+        values.put("floor", ob.getFloor());
+        values.put("rack", ob.getRack());
+        values.put("advanced", ob.getAdvanced());
+        values.put("caseType", ob.getCaseType());
+        values.put("grandTotal", ob.getGrandTotal());
+        values.put("byUser", ob.getByUser());
+        values.put("time", ob.getTime());
+        values.put("date", ob.getDay());
+        values.put("departure", ob.getDeparture());
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        long i = 0;
+        i = db.update("outwardData", values, "outwardId = " + ob.getOutwardId() + " ", null);
+
+        db.close();
+        return i > 0;
+    }
+
+    // delete Outward Data
+    public boolean deleteOutwardData() {
+        boolean result = false;
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete("outwardData", null, null);
+        db.close();
+        return result;
+    }
+
+    // delete Outward Data
+    public boolean deleteOutwardData(int id) {
+        boolean result = false;
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete("outwardData", "inwardId" + "=" + id, null);
         db.close();
         return result;
     }

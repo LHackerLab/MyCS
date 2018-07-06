@@ -95,7 +95,7 @@ public class InwardAdapter extends RecyclerView.Adapter<InwardAdapter.MyViewHold
         holder.tv_payment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AccoutnFragment fragment = AccoutnFragment.newInstance("payment", "", "", "", "", "", "", "", "", 0, FilteruserList.get(position).getInwardId());
+                AccoutnFragment fragment = AccoutnFragment.newInstance("payment", "", "", "", "", "", "", "", "", 0, FilteruserList.get(position).getInwardId(),"");
                 moveragment(fragment);
             }
         });
