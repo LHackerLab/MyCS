@@ -23,6 +23,7 @@
             android:layout_marginLeft="@dimen/margin5"
             android:layout_marginTop="@dimen/margin10"
             android:text="Name"
+            android:fontFamily="sans-serif-condensed"
             android:textColor="@color/purple"
             android:textSize="@dimen/textSize16" />
 
@@ -35,6 +36,7 @@
             android:background="@drawable/done_corner_round"
             android:gravity="center"
             android:text="lalit singh"
+            android:fontFamily="sans-serif-condensed"
             android:textColor="@color/black"
             android:textSize="@dimen/textSize16" />
 
@@ -44,6 +46,7 @@
             android:layout_marginLeft="@dimen/margin5"
             android:layout_marginTop="@dimen/margin10"
             android:text="Phone"
+            android:fontFamily="sans-serif-condensed"
             android:textColor="@color/purple"
             android:textSize="@dimen/textSize16" />
 
@@ -55,6 +58,7 @@
             android:layout_marginTop="@dimen/margin10"
             android:background="@drawable/done_corner_round"
             android:gravity="center"
+            android:fontFamily="sans-serif-condensed"
             android:text="9917218408"
             android:textColor="@color/black"
             android:textSize="@dimen/textSize16" />
@@ -65,6 +69,7 @@
             android:layout_marginLeft="@dimen/margin5"
             android:layout_marginTop="@dimen/margin10"
             android:text="Email"
+            android:fontFamily="sans-serif-condensed"
             android:textColor="@color/purple"
             android:textSize="@dimen/textSize16" />
 
@@ -76,6 +81,7 @@
             android:layout_marginTop="@dimen/margin10"
             android:background="@drawable/done_corner_round"
             android:gravity="center"
+            android:fontFamily="sans-serif-condensed"
             android:text="lalit@gmail.com"
             android:textColor="@color/black"
             android:textSize="@dimen/textSize16" />
@@ -92,6 +98,7 @@
                 android:layout_margin="@dimen/margin10"
                 android:background="@drawable/capsule_button"
                 android:text="Update Profile"
+                android:fontFamily="sans-serif-condensed"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
                 android:textSize="@dimen/textSize16" />

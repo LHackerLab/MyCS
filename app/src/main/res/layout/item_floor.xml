@@ -16,6 +16,7 @@
             android:layout_height="match_parent"
             android:layout_marginLeft="@dimen/margin5"
             android:layout_weight=".7"
+            android:fontFamily="sans-serif-condensed"
             android:gravity="center|left"
             android:textColor="@color/black"
             android:textSize="@dimen/textSize16" />
@@ -25,6 +26,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight=".15"
+            android:fontFamily="sans-serif-condensed"
             android:gravity="center"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="@dimen/textSize25" />
@@ -35,6 +37,7 @@
             android:layout_height="match_parent"
             android:layout_weight=".15"
             android:gravity="center"
+            android:fontFamily="sans-serif-condensed"
             android:textColor="@color/red"
             android:textSize="@dimen/textSize25" />
 

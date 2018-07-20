@@ -36,11 +36,14 @@
     <dimen name="textSize11">11sp</dimen>
     <dimen name="textSize12">12sp</dimen>
     <dimen name="textSize13">13sp</dimen>
-    <dimen name="textSize14">14sp</dimen>
+    <!--14 dp tp 12-->
+    <dimen name="textSize14">12sp</dimen>
     <dimen name="textSize15">15sp</dimen>
-    <dimen name="textSize16">16sp</dimen>
+    <dimen name="textSize16">14sp</dimen>
+     <!--16 sp to move 14 &ndash;&gt;-->
     <dimen name="textSize17">17sp</dimen>
-    <dimen name="textSize18">18sp</dimen>
+    <!--18 to 14-->
+    <dimen name="textSize18">14sp</dimen>
     <dimen name="textSize19">19sp</dimen>
     <dimen name="textSize20">20sp</dimen>
     <dimen name="textSize21">21sp</dimen>
@@ -102,4 +105,8 @@
     <dimen name="margin64">64dp</dimen>
     <dimen name="margin32">32dp</dimen>
 
+
+    <dimen name="alert_width">290dp</dimen>
+    <dimen name="common_circle_width">3dp</dimen>
+    <dimen name="progress_circle_radius">34dp</dimen>
 </resources>

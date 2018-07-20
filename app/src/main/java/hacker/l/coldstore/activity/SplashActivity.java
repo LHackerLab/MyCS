@@ -32,6 +32,7 @@ import hacker.l.coldstore.R;
 import hacker.l.coldstore.database.DbHelper;
 import hacker.l.coldstore.model.MyPojo;
 import hacker.l.coldstore.model.Result;
+import hacker.l.coldstore.myalert.SweetAlertDialog;
 import hacker.l.coldstore.utility.Contants;
 import hacker.l.coldstore.utility.Utility;
 
@@ -56,10 +57,10 @@ public class SplashActivity extends AppCompatActivity {
         splashImage();
         if (!Utility.isOnline(this)) {
             btn_tryagain.setVisibility(View.VISIBLE);
-            btn_tryagain.setOnClickListener(v -> {
-                splashImage();
-            });
         }
+        btn_tryagain.setOnClickListener(v -> {
+            splashImage();
+        });
     }
 
 
@@ -119,7 +120,9 @@ public class SplashActivity extends AppCompatActivity {
                     new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
+                            btn_tryagain.setVisibility(View.VISIBLE);
                             progressBar.dismiss();
+                            Toast.makeText(SplashActivity.this, "Poor Internet Connection Try Again", Toast.LENGTH_SHORT).show();
 
                         }
                     }) {
@@ -133,7 +136,10 @@ public class SplashActivity extends AppCompatActivity {
             requestQueue.add(stringRequest);
         } else {
             new Handler().postDelayed(() -> progressBar.dismiss(), 1000);
-            Toast.makeText(this, "You are Offline. Please check your Internet Connection.", Toast.LENGTH_SHORT).show();
+            new SweetAlertDialog(SplashActivity.this, SweetAlertDialog.ERROR_TYPE)
+                    .setTitleText("Sorry...")
+                    .setContentText("You are Offline. Please check your Internet Connection.Thank You ")
+                    .show();
         }
     }
 

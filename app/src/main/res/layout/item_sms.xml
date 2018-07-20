@@ -29,6 +29,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center|left"
+                android:fontFamily="sans-serif-condensed"
                 android:text="Floor No."
                 android:textColor="@color/black"
                 android:textSize="@dimen/textSize16" />
@@ -39,6 +40,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center|left"
                 android:textColor="@color/black"
+                android:fontFamily="sans-serif-condensed"
                 android:textSize="@dimen/textSize16" />
         </LinearLayout>
 

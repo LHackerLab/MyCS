@@ -8,6 +8,79 @@ public class Result {
     private String empPhone;
     private int userId;
     private String isActive;
+    private String storeprofileId;
+    private String storeName;
+    private String storePhone;
+    private String storeEmail;
+    private String storeAddress;
+    private String storeOwner;
+    private String storeTiming;
+
+    public String getStoreprofileId() {
+        return storeprofileId;
+    }
+
+    public void setStoreprofileId(String storeprofileId) {
+        this.storeprofileId = storeprofileId;
+    }
+
+    public String getStoreName() {
+        return storeName;
+    }
+
+    public void setStoreName(String storeName) {
+        this.storeName = storeName;
+    }
+
+    public String getStorePhone() {
+        return storePhone;
+    }
+
+    public void setStorePhone(String storePhone) {
+        this.storePhone = storePhone;
+    }
+
+    public String getStoreEmail() {
+        return storeEmail;
+    }
+
+    public void setStoreEmail(String storeEmail) {
+        this.storeEmail = storeEmail;
+    }
+
+    public String getStoreAddress() {
+        return storeAddress;
+    }
+
+    public void setStoreAddress(String storeAddress) {
+        this.storeAddress = storeAddress;
+    }
+
+    public String getStoreOwner() {
+        return storeOwner;
+    }
+
+    public void setStoreOwner(String storeOwner) {
+        this.storeOwner = storeOwner;
+    }
+
+    public String getStoreTiming() {
+        return storeTiming;
+    }
+
+    public void setStoreTiming(String storeTiming) {
+        this.storeTiming = storeTiming;
+    }
+
+    public String getStoreProfile() {
+        return storeProfile;
+    }
+
+    public void setStoreProfile(String storeProfile) {
+        this.storeProfile = storeProfile;
+    }
+
+    private String storeProfile;
 
     private String empName;
     private String empFName;

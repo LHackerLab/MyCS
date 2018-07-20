@@ -21,6 +21,7 @@
                 android:layout_marginLeft="@dimen/margin5"
                 android:layout_marginTop="@dimen/margin10"
                 android:text="Name*"
+                android:fontFamily="sans-serif-condensed"
                 android:textColor="@color/purple"
                 android:textSize="@dimen/textSize16" />
 
@@ -32,6 +33,7 @@
                 android:background="@drawable/done_corner_round"
                 android:hint="Enter  Name"
                 android:inputType="text"
+                android:fontFamily="sans-serif-condensed"
                 android:paddingLeft="@dimen/margin5"
                 android:textColor="@color/black"
                 android:textSize="@dimen/textSize16" />
@@ -42,6 +44,7 @@
                 android:layout_marginLeft="@dimen/margin5"
                 android:layout_marginTop="@dimen/margin10"
                 android:text="Father Name*"
+                android:fontFamily="sans-serif-condensed"
                 android:textColor="@color/purple"
                 android:textSize="@dimen/textSize16" />
 
@@ -53,6 +56,7 @@
                 android:background="@drawable/done_corner_round"
                 android:hint="Enter Father Name"
                 android:inputType="text"
+                android:fontFamily="sans-serif-condensed"
                 android:paddingLeft="@dimen/margin5"
                 android:textColor="@color/black"
                 android:textSize="@dimen/textSize16" />
@@ -63,6 +67,7 @@
                 android:layout_marginLeft="@dimen/margin5"
                 android:layout_marginTop="@dimen/margin10"
                 android:text="Mobile Number*"
+                android:fontFamily="sans-serif-condensed"
                 android:textColor="@color/purple"
                 android:textSize="@dimen/textSize16" />
 
@@ -75,6 +80,7 @@
                 android:hint="Enter Mobile Number"
                 android:inputType="number"
                 android:maxLength="10"
+                android:fontFamily="sans-serif-condensed"
                 android:paddingLeft="@dimen/margin5"
                 android:textColor="@color/black"
                 android:textSize="@dimen/textSize16" />
@@ -104,6 +110,7 @@
                 android:layout_marginLeft="@dimen/margin5"
                 android:layout_marginTop="@dimen/margin10"
                 android:text="Variety*"
+                android:fontFamily="sans-serif-condensed"
                 android:textColor="@color/purple"
                 android:textSize="@dimen/textSize16" />
 
@@ -128,6 +135,7 @@
                     android:layout_height="match_parent"
                     android:layout_margin="@dimen/margin5"
                     android:layout_weight=".12"
+                    android:fontFamily="sans-serif-condensed"
                     android:background="@drawable/ic_autorenew_black_24dp"
                     android:textColor="@color/purple"
                     android:textSize="@dimen/textSize16" />
@@ -138,6 +146,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/margin5"
                 android:layout_marginTop="@dimen/margin10"
+                android:fontFamily="sans-serif-condensed"
                 android:text="Floor*"
                 android:textColor="@color/purple"
                 android:textSize="@dimen/textSize16" />
@@ -163,6 +172,7 @@
                     android:layout_height="match_parent"
                     android:layout_margin="@dimen/margin5"
                     android:layout_weight=".12"
+                    android:fontFamily="sans-serif-condensed"
                     android:background="@drawable/ic_autorenew_black_24dp"
                     android:textColor="@color/purple"
                     android:textSize="@dimen/textSize16" />
@@ -174,6 +184,7 @@
                 android:layout_marginLeft="@dimen/margin5"
                 android:layout_marginTop="@dimen/margin10"
                 android:text="Rack*"
+                android:fontFamily="sans-serif-condensed"
                 android:textColor="@color/purple"
                 android:textSize="@dimen/textSize16" />
 
@@ -198,6 +209,7 @@
                     android:layout_height="match_parent"
                     android:layout_margin="@dimen/margin5"
                     android:layout_weight=".12"
+                    android:fontFamily="sans-serif-condensed"
                     android:background="@drawable/ic_autorenew_black_24dp"
                     android:textColor="@color/purple"
                     android:textSize="@dimen/textSize16" />
@@ -209,6 +221,7 @@
                 android:layout_marginLeft="@dimen/margin5"
                 android:layout_marginTop="@dimen/margin10"
                 android:text="Rent Per unit*"
+                android:fontFamily="sans-serif-condensed"
                 android:textColor="@color/purple"
                 android:textSize="@dimen/textSize16" />
 
@@ -220,6 +233,7 @@
                 android:background="@drawable/done_corner_round"
                 android:hint="Enter Rent"
                 android:inputType="numberDecimal"
+                android:fontFamily="sans-serif-condensed"
                 android:paddingLeft="@dimen/margin5"
                 android:textColor="@color/black"
                 android:textSize="@dimen/textSize16" />
@@ -230,6 +244,7 @@
                 android:layout_marginLeft="@dimen/margin5"
                 android:layout_marginTop="@dimen/margin10"
                 android:text="Quantity*"
+                android:fontFamily="sans-serif-condensed"
                 android:textColor="@color/purple"
                 android:textSize="@dimen/textSize16" />
 
@@ -240,6 +255,7 @@
                 android:layout_margin="@dimen/margin5"
                 android:background="@drawable/done_corner_round"
                 android:hint="Enter Quantiry"
+                android:fontFamily="sans-serif-condensed"
                 android:inputType="numberDecimal"
                 android:paddingLeft="@dimen/margin5"
                 android:textColor="@color/black"
@@ -251,6 +267,7 @@
                 android:layout_marginLeft="@dimen/margin5"
                 android:layout_marginTop="@dimen/margin10"
                 android:text="Address"
+                android:fontFamily="sans-serif-condensed"
                 android:textColor="@color/purple"
                 android:textSize="@dimen/textSize16" />
 
@@ -261,6 +278,7 @@
                 android:layout_margin="@dimen/margin5"
                 android:background="@drawable/done_corner_round"
                 android:hint="Enter Address"
+                android:fontFamily="sans-serif-condensed"
                 android:inputType="text"
                 android:paddingLeft="@dimen/margin5"
                 android:textColor="@color/black"
@@ -274,6 +292,7 @@
                 android:background="@drawable/capsule_button"
                 android:text="Submit Inward"
                 android:textAllCaps="false"
+                android:fontFamily="sans-serif-condensed"
                 android:textColor="@color/white"
                 android:textSize="@dimen/textSize16" />
         </LinearLayout>

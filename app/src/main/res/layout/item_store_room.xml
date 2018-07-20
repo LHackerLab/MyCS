@@ -16,6 +16,7 @@
             android:layout_marginLeft="@dimen/margin5"
             android:layout_weight=".5"
             android:gravity="center|left"
+            android:fontFamily="sans-serif-condensed"
             android:text="Name"
             android:textColor="@color/grey_hard"
             android:textSize="@dimen/textSize16" />
@@ -27,6 +28,7 @@
             android:layout_weight=".5"
             android:gravity="center|left"
             android:text="Phone"
+            android:fontFamily="sans-serif-condensed"
             android:textColor="@color/grey_hard"
             android:textSize="@dimen/textSize16" />
     </LinearLayout>
@@ -43,6 +45,7 @@
             android:layout_marginLeft="@dimen/margin5"
             android:layout_weight=".5"
             android:gravity="center|left"
+            android:fontFamily="sans-serif-condensed"
             android:textColor="@color/purple"
             android:textSize="@dimen/textSize16" />
 
@@ -52,6 +55,7 @@
             android:layout_height="match_parent"
             android:layout_marginLeft="@dimen/margin5"
             android:layout_weight=".5"
+            android:fontFamily="sans-serif-condensed"
             android:gravity="center|left"
             android:textColor="@color/black"
             android:textSize="@dimen/textSize16" />
@@ -69,6 +73,7 @@
             android:layout_weight=".33"
             android:gravity="center|left"
             android:text="Amount"
+            android:fontFamily="sans-serif-condensed"
             android:textColor="@color/grey_hard"
             android:textSize="@dimen/textSize16" />
 
@@ -78,6 +83,7 @@
             android:layout_marginLeft="@dimen/margin5"
             android:layout_weight=".33"
             android:gravity="center|left"
+            android:fontFamily="sans-serif-condensed"
             android:text="Quantity"
             android:textColor="@color/grey_hard"
             android:textSize="@dimen/textSize16" />
@@ -88,6 +94,7 @@
             android:layout_marginLeft="@dimen/margin5"
             android:layout_weight=".34"
             android:gravity="center|left"
+            android:fontFamily="sans-serif-condensed"
             android:text="Material"
             android:textColor="@color/grey_hard"
             android:textSize="@dimen/textSize16" />
@@ -104,6 +111,7 @@
             android:layout_height="match_parent"
             android:layout_marginLeft="@dimen/margin5"
             android:layout_weight=".33"
+            android:fontFamily="sans-serif-condensed"
             android:gravity="center|left"
             android:textColor="@color/purple"
             android:textSize="@dimen/textSize16" />
@@ -115,6 +123,7 @@
             android:layout_marginLeft="@dimen/margin5"
             android:layout_weight=".33"
             android:gravity="center|left"
+            android:fontFamily="sans-serif-condensed"
             android:textColor="@color/purple"
             android:textSize="@dimen/textSize16" />
 
@@ -123,6 +132,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginLeft="@dimen/margin5"
+            android:fontFamily="sans-serif-condensed"
             android:layout_weight=".34"
             android:gravity="center|left"
             android:textColor="@color/black"
@@ -140,6 +150,7 @@
             android:layout_height="match_parent"
             android:layout_weight=".34"
             android:gravity="center"
+            android:fontFamily="sans-serif-condensed"
             android:singleLine="true"
             android:textColor="@color/black"
             android:textSize="@dimen/textSize16" />
@@ -151,6 +162,7 @@
             android:layout_weight=".33"
             android:background="@drawable/done_corner_round"
             android:gravity="center"
+            android:fontFamily="sans-serif-condensed"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="@dimen/textSize25" />
 
@@ -159,6 +171,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight=".33"
+            android:fontFamily="sans-serif-condensed"
             android:background="@drawable/done_corner_round"
             android:gravity="center"
             android:textColor="@color/red"

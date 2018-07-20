@@ -36,6 +36,7 @@ import hacker.l.coldstore.fragments.AccoutnFragment;
 import hacker.l.coldstore.fragments.InwardDetailsFragment;
 import hacker.l.coldstore.fragments.VarietyFragment;
 import hacker.l.coldstore.model.Result;
+import hacker.l.coldstore.myalert.SweetAlertDialog;
 import hacker.l.coldstore.utility.Contants;
 import hacker.l.coldstore.utility.FontManager;
 import hacker.l.coldstore.utility.Utility;
@@ -85,9 +86,9 @@ public class InwardAdapter extends RecyclerView.Adapter<InwardAdapter.MyViewHold
         holder.tv_rent.setText(FilteruserList.get(position).getRent() + "(rs)");
         holder.tv_rack.setText(FilteruserList.get(position).getRack());
         holder.tv_qty.setText(FilteruserList.get(position).getQuantity());
-        holder.tv_advanced.setText(FilteruserList.get(position).getAdvanced() + "(rs)");
+        holder.tv_advanced.setText(FilteruserList.get(position).getAdvanced() + "(Rs)");
         holder.tv_casetype.setText(FilteruserList.get(position).getCaseType());
-        holder.tv_grandotal.setText(FilteruserList.get(position).getGrandTotal() + "(rs)");
+        holder.tv_grandotal.setText(FilteruserList.get(position).getGrandTotal() + "(Rs)");
         holder.tv_time.setText(FilteruserList.get(position).getTime() + "/" + FilteruserList.get(position).getDay());
         holder.tv_byusr.setText(FilteruserList.get(position).getByUser());
         holder.tv_floor.setText(String.valueOf(FilteruserList.get(position).getFloor()));
@@ -95,7 +96,7 @@ public class InwardAdapter extends RecyclerView.Adapter<InwardAdapter.MyViewHold
         holder.tv_payment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AccoutnFragment fragment = AccoutnFragment.newInstance("payment", "", "", "", "", "", "", "", "", 0, FilteruserList.get(position).getInwardId(),"");
+                AccoutnFragment fragment = AccoutnFragment.newInstance("payment", "", "", "", "", "", "", "", "", 0, FilteruserList.get(position).getInwardId(), "");
                 moveragment(fragment);
             }
         });
@@ -109,7 +110,25 @@ public class InwardAdapter extends RecyclerView.Adapter<InwardAdapter.MyViewHold
         holder.tv_delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                deleteVariety(position);
+                new SweetAlertDialog(mContext, SweetAlertDialog.WARNING_TYPE)
+                        .setTitleText("Are you sure?")
+                        .setContentText("Won't be able to recover this file!")
+                        .setConfirmText("Yes,delete it!")
+                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                            @Override
+                            public void onClick(SweetAlertDialog sDialog) {
+                                deleteVariety(position, sDialog);
+                            }
+                        })
+                        .setCancelText("No,cancel plx!")
+                        .showCancelButton(true)
+                        .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                            @Override
+                            public void onClick(SweetAlertDialog sDialog) {
+                                sDialog.cancel();
+                            }
+                        })
+                        .show();
             }
         });
     }
@@ -122,7 +141,7 @@ public class InwardAdapter extends RecyclerView.Adapter<InwardAdapter.MyViewHold
                 .commit();
     }
 
-    private void deleteVariety(final int position) {
+    private void deleteVariety(final int position, SweetAlertDialog sDialog) {
         if (Utility.isOnline(mContext)) {
             pd = new ProgressDialog(mContext);
             pd.setMessage("Deleting wait......");
@@ -135,6 +154,17 @@ public class InwardAdapter extends RecyclerView.Adapter<InwardAdapter.MyViewHold
                     new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
+                            sDialog
+                                    .setTitleText("Deleted!")
+                                    .setContentText("Your imaginary file has been deleted!")
+                                    .setConfirmText("OK")
+                                    .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                        @Override
+                                        public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                            sweetAlertDialog.dismiss();
+                                        }
+                                    })
+                                    .changeAlertType(SweetAlertDialog.SUCCESS_TYPE);
                             pd.dismiss();
 //                            fragment.setVarietyAdapter();
                             dbHelper.deleteInwardData(FilteruserList.get(position).getInwardId());
@@ -160,7 +190,10 @@ public class InwardAdapter extends RecyclerView.Adapter<InwardAdapter.MyViewHold
             requestQueue.add(stringRequest);
 //            }
         } else {
-            Toast.makeText(mContext, "Enable Internet Connection.", Toast.LENGTH_SHORT).show();
+            new SweetAlertDialog(mContext, SweetAlertDialog.ERROR_TYPE)
+                    .setTitleText("Sorry...")
+                    .setContentText("You are Offline. Please check your Internet Connection.Thank You ")
+                    .show();
         }
     }
 

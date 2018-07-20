@@ -18,16 +18,19 @@
             android:layout_margin="@dimen/margin10"
             android:background="@drawable/capsule_button"
             android:text="Sms"
+            android:fontFamily="sans-serif-condensed"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="@dimen/textSize16" />
 
         <Button
+            android:id="@+id/btn_storeprofile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin10"
             android:background="@drawable/capsule_button"
             android:text="Store Profile"
+            android:fontFamily="sans-serif-condensed"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="@dimen/textSize16" />
@@ -39,6 +42,7 @@
             android:background="@drawable/capsule_button"
             android:text="Permisstions"
             android:textAllCaps="false"
+            android:fontFamily="sans-serif-condensed"
             android:textColor="@color/white"
             android:textSize="@dimen/textSize16" />
 

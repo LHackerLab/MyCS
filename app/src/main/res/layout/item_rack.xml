@@ -20,6 +20,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight=".5"
+                android:fontFamily="sans-serif-condensed"
                 android:gravity="center|left"
                 android:text="Floor No."
                 android:textColor="@color/black"
@@ -32,6 +33,7 @@
                 android:layout_weight=".5"
                 android:gravity="center|left"
                 android:textColor="@color/black"
+                android:fontFamily="sans-serif-condensed"
                 android:textSize="@dimen/textSize16" />
         </LinearLayout>
 
@@ -45,6 +47,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight=".5"
                 android:gravity="center|left"
+                android:fontFamily="sans-serif-condensed"
                 android:text="Rack No."
                 android:textColor="@color/black"
                 android:textSize="@dimen/textSize16" />
@@ -56,6 +59,7 @@
                 android:layout_weight=".5"
                 android:gravity="center|left"
                 android:textColor="@color/black"
+                android:fontFamily="sans-serif-condensed"
                 android:textSize="@dimen/textSize16" />
         </LinearLayout>
 
@@ -68,6 +72,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight=".5"
+                android:fontFamily="sans-serif-condensed"
                 android:gravity="center|left"
                 android:text="Capacity"
                 android:textColor="@color/black"
@@ -78,6 +83,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight=".5"
+                android:fontFamily="sans-serif-condensed"
                 android:gravity="center|left"
                 android:textColor="@color/black"
                 android:textSize="@dimen/textSize16" />
@@ -93,6 +99,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight=".5"
                 android:gravity="center|left"
+                android:fontFamily="sans-serif-condensed"
                 android:text="Fill Capacity"
                 android:textColor="@color/black"
                 android:textSize="@dimen/textSize16" />
@@ -103,6 +110,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight=".5"
                 android:gravity="center|left"
+                android:fontFamily="sans-serif-condensed"
                 android:textColor="@color/black"
                 android:textSize="@dimen/textSize16" />
         </LinearLayout>
@@ -119,6 +127,7 @@
                 android:gravity="center|left"
                 android:text="Free Capacity"
                 android:textColor="@color/black"
+                android:fontFamily="sans-serif-condensed"
                 android:textSize="@dimen/textSize16" />
 
             <TextView
@@ -126,6 +135,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight=".5"
+                android:fontFamily="sans-serif-condensed"
                 android:gravity="center|left"
                 android:textColor="@color/black"
                 android:textSize="@dimen/textSize16" />
@@ -142,6 +152,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight=".5"
+                android:fontFamily="sans-serif-condensed"
                 android:background="@drawable/done_corner_round"
                 android:gravity="center"
                 android:textColor="@color/red"
@@ -151,6 +162,7 @@
                 android:id="@+id/tv_edit"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:fontFamily="sans-serif-condensed"
                 android:layout_weight=".5"
                 android:background="@drawable/done_corner_round"
                 android:gravity="center"

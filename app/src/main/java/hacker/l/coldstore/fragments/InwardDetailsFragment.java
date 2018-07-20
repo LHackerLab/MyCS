@@ -3,6 +3,7 @@ package hacker.l.coldstore.fragments;
 import android.app.FragmentManager;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -12,6 +13,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -36,6 +38,7 @@ import hacker.l.coldstore.adapter.InwardAdapter;
 import hacker.l.coldstore.database.DbHelper;
 import hacker.l.coldstore.model.MyPojo;
 import hacker.l.coldstore.model.Result;
+import hacker.l.coldstore.myalert.SweetAlertDialog;
 import hacker.l.coldstore.utility.Contants;
 import hacker.l.coldstore.utility.Utility;
 
@@ -73,6 +76,7 @@ public class InwardDetailsFragment extends Fragment {
     RecyclerView recyclerView;
     List<Result> resultList;
     DbHelper dbHelper;
+    ProgressDialog pd;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -105,6 +109,12 @@ public class InwardDetailsFragment extends Fragment {
 
     private void getAllInwardData() {
         if (Utility.isOnline(context)) {
+            pd = new ProgressDialog(context);
+            pd.setCancelable(false);
+            pd.show();
+            pd.getWindow()
+                    .setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+            pd.setContentView(new ProgressBar(context));
             StringRequest stringRequest = new StringRequest(Request.Method.POST, Contants.SERVICE_BASE_URL + Contants.getAlInward,
                     new Response.Listener<String>() {
                         @Override
@@ -115,6 +125,7 @@ public class InwardDetailsFragment extends Fragment {
                                 dbHelper.upsertInwardData(result);
                             }
                             setInwardAdapter();
+                            pd.dismiss();
 //                                Toast.makeText(context, "Add Successfully", Toast.LENGTH_SHORT).show();
 //                                AccoutnFragment accoutnFragment = AccoutnFragment.newInstance("", "");
 //                                moveragment(accoutnFragment);
@@ -123,6 +134,7 @@ public class InwardDetailsFragment extends Fragment {
                     new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
+                            pd.dismiss();
                         }
                     }) {
                 @Override
@@ -133,8 +145,10 @@ public class InwardDetailsFragment extends Fragment {
             };
             RequestQueue requestQueue = Volley.newRequestQueue(context);
             requestQueue.add(stringRequest);
-        } else {
-            Toast.makeText(context, "You are Offline. Please check your Internet Connection.", Toast.LENGTH_SHORT).show();
+        } else { new SweetAlertDialog(context, SweetAlertDialog.ERROR_TYPE)
+                .setTitleText("Sorry...")
+                .setContentText("You are Offline. Please check your Internet Connection.Thank You ")
+                .show();
         }
     }
 

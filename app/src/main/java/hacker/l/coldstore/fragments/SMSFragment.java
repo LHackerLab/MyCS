@@ -1,8 +1,10 @@
 package hacker.l.coldstore.fragments;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -17,6 +19,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
@@ -41,6 +44,7 @@ import hacker.l.coldstore.adapter.GetUserAdapter;
 import hacker.l.coldstore.adapter.SMSAdapter;
 import hacker.l.coldstore.model.MyPojo;
 import hacker.l.coldstore.model.Result;
+import hacker.l.coldstore.myalert.SweetAlertDialog;
 import hacker.l.coldstore.utility.Contants;
 
 public class SMSFragment extends Fragment implements CompoundButton.OnCheckedChangeListener {
@@ -79,6 +83,7 @@ public class SMSFragment extends Fragment implements CompoundButton.OnCheckedCha
     Button btn_send;
     RecyclerView recycleView;
     List<Result> resultList;
+    ProgressDialog pd;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -139,6 +144,10 @@ public class SMSFragment extends Fragment implements CompoundButton.OnCheckedCha
                         Toast.makeText(context, "SMS sent.On" + phone,
                                 Toast.LENGTH_LONG).show();
                     } catch (Exception e) {
+                        new SweetAlertDialog(context, SweetAlertDialog.ERROR_TYPE)
+                                .setTitleText("Sorry...")
+                                .setContentText("SMS Send faild,please try again. ")
+                                .show();
                         Toast.makeText(context,
                                 "SMS faild, Please try Again.",
                                 Toast.LENGTH_LONG).show();
@@ -244,6 +253,12 @@ public class SMSFragment extends Fragment implements CompoundButton.OnCheckedCha
     }
 
     private void getAllCustomers() {
+        pd = new ProgressDialog(context);
+        pd.setCancelable(false);
+        pd.show();
+        pd.getWindow()
+                .setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        pd.setContentView(new ProgressBar(context));
         StringRequest stringRequest = new StringRequest(Request.Method.POST, Contants.SERVICE_BASE_URL + Contants.getAlInward,
                 new Response.Listener<String>() {
                     @Override
@@ -255,11 +270,13 @@ public class SMSFragment extends Fragment implements CompoundButton.OnCheckedCha
                             SMSAdapter smsAdapter = new SMSAdapter(context, resultList, Type.Cus);
                             recycleView.setAdapter(smsAdapter);
                         }
+                        pd.dismiss();
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        pd.dismiss();
                     }
                 }) {
             @Override
@@ -273,6 +290,12 @@ public class SMSFragment extends Fragment implements CompoundButton.OnCheckedCha
     }
 
     private void getAllEmployee() {
+        pd = new ProgressDialog(context);
+        pd.setCancelable(false);
+        pd.show();
+        pd.getWindow()
+                .setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        pd.setContentView(new ProgressBar(context));
         StringRequest stringRequest = new StringRequest(Request.Method.POST, Contants.SERVICE_BASE_URL + Contants.getAllUsers,
                 new Response.Listener<String>() {
                     @Override
@@ -284,11 +307,13 @@ public class SMSFragment extends Fragment implements CompoundButton.OnCheckedCha
                             SMSAdapter smsAdapter = new SMSAdapter(context, resultList, Type.Emp);
                             recycleView.setAdapter(smsAdapter);
                         }
+                        pd.dismiss();
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        pd.dismiss();
                     }
                 }) {
             @Override

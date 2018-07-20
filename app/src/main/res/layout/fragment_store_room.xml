@@ -24,6 +24,7 @@
                 android:drawableLeft="@drawable/ic_developer_board_black_24dp"
                 android:drawablePadding="@dimen/textSize16"
                 android:hint="Enter Name"
+                android:fontFamily="sans-serif-condensed"
                 android:inputType="text"
                 android:textSize="@dimen/textSize16" />
 
@@ -35,6 +36,7 @@
                 android:drawableLeft="@drawable/ic_phone_black_24dp"
                 android:drawablePadding="@dimen/textSize16"
                 android:hint="Enter Phone"
+                android:fontFamily="sans-serif-condensed"
                 android:inputType="number"
                 android:textSize="@dimen/textSize16" />
 
@@ -43,6 +45,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin5"
+                android:fontFamily="sans-serif-condensed"
                 android:drawableLeft="@drawable/ic_developer_board_black_24dp"
                 android:drawablePadding="@dimen/textSize16"
                 android:hint="Enter Quantity"
@@ -58,6 +61,7 @@
                 android:drawablePadding="@dimen/textSize16"
                 android:hint="Enter Marerial"
                 android:inputType="text"
+                android:fontFamily="sans-serif-condensed"
                 android:textSize="@dimen/textSize16" />
 
             <EditText
@@ -68,6 +72,7 @@
                 android:drawableLeft="@drawable/ic_developer_board_black_24dp"
                 android:drawablePadding="@dimen/textSize16"
                 android:hint="Enter Amount"
+                android:fontFamily="sans-serif-condensed"
                 android:inputType="numberDecimal"
                 android:textSize="@dimen/textSize16">
 
@@ -81,6 +86,7 @@
                 android:layout_marginTop="@dimen/margin10"
                 android:background="@drawable/capsule_button"
                 android:text="Add"
+                android:fontFamily="sans-serif-condensed"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
                 android:textSize="@dimen/textSize16" />

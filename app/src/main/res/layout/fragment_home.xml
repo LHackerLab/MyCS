@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin5"
-        android:elevation="@dimen/margin10">
+        app:cardElevation="@dimen/margin10">
 
 
         <android.support.design.widget.TabLayout

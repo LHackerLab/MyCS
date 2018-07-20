@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Rect;
 import android.graphics.Typeface;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
@@ -18,6 +19,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,6 +39,7 @@ import hacker.l.coldstore.R;
 import hacker.l.coldstore.database.DbHelper;
 import hacker.l.coldstore.model.MyPojo;
 import hacker.l.coldstore.model.Result;
+import hacker.l.coldstore.myalert.SweetAlertDialog;
 import hacker.l.coldstore.utility.Contants;
 import hacker.l.coldstore.utility.FontManager;
 import hacker.l.coldstore.utility.Utility;
@@ -146,10 +149,12 @@ public class LoginActivity extends AppCompatActivity {
         if (role == 1) {
             //admin login
             if (Utility.isOnline(this)) {
-                pd = new ProgressDialog(LoginActivity.this);
-                pd.setMessage("Checking wait...");
-                pd.show();
+                pd = new ProgressDialog(this);
                 pd.setCancelable(false);
+                pd.show();
+                pd.getWindow()
+                        .setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+                pd.setContentView(new ProgressBar(this));
                 StringRequest stringRequest = new StringRequest(Request.Method.POST, Contants.SERVICE_BASE_URL + Contants.Admin,
                         new Response.Listener<String>() {
                             @Override
@@ -167,7 +172,10 @@ public class LoginActivity extends AppCompatActivity {
                                     }
 
                                 } else {
-                                    Toast.makeText(LoginActivity.this, "Invalid Information", Toast.LENGTH_SHORT).show();
+                                    new SweetAlertDialog(LoginActivity.this, SweetAlertDialog.ERROR_TYPE)
+                                            .setTitleText("Sorry...")
+                                            .setContentText("Invalid Information")
+                                            .show();
                                     id_et_username.setError("Invalid Information");
                                 }
                             }
@@ -187,15 +195,21 @@ public class LoginActivity extends AppCompatActivity {
                 RequestQueue requestQueue = Volley.newRequestQueue(this);
                 requestQueue.add(stringRequest);
             } else {
-                Toast.makeText(this, "You are Offline. Please check your Internet Connection.", Toast.LENGTH_SHORT).show();
+
+                new SweetAlertDialog(LoginActivity.this, SweetAlertDialog.ERROR_TYPE)
+                        .setTitleText("Sorry...")
+                        .setContentText("You are Offline. Please check your Internet Connection.Thank You ")
+                        .show();
             }
 
         } else {
             if (Utility.isOnline(this)) {
-                pd = new ProgressDialog(LoginActivity.this);
-                pd.setMessage("Checking wait...");
-                pd.show();
+                pd = new ProgressDialog(this);
                 pd.setCancelable(false);
+                pd.show();
+                pd.getWindow()
+                        .setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+                pd.setContentView(new ProgressBar(this));
                 StringRequest stringRequest = new StringRequest(Request.Method.POST, Contants.SERVICE_BASE_URL + Contants.User,
                         new Response.Listener<String>() {
                             @Override
@@ -216,7 +230,10 @@ public class LoginActivity extends AppCompatActivity {
                                     }
 
                                 } else {
-                                    Toast.makeText(LoginActivity.this, "Invalid Information", Toast.LENGTH_SHORT).show();
+                                    new SweetAlertDialog(LoginActivity.this, SweetAlertDialog.ERROR_TYPE)
+                                            .setTitleText("Sorry...")
+                                            .setContentText("Invalid Information")
+                                            .show();
                                     id_et_username.setError("Invalid Information");
                                 }
                             }
@@ -238,9 +255,11 @@ public class LoginActivity extends AppCompatActivity {
                 RequestQueue requestQueue = Volley.newRequestQueue(this);
                 requestQueue.add(stringRequest);
             } else {
-                Toast.makeText(this, "You are Offline. Please check your Internet Connection.", Toast.LENGTH_SHORT).show();
+                new SweetAlertDialog(LoginActivity.this, SweetAlertDialog.ERROR_TYPE)
+                        .setTitleText("Sorry...")
+                        .setContentText("You are Offline. Please check your Internet Connection.Thank You ")
+                        .show();
             }
-            Toast.makeText(this, "empoloyyee", Toast.LENGTH_SHORT).show();
         }
     }
 

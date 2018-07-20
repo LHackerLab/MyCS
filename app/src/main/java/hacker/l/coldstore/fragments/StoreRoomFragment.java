@@ -2,6 +2,7 @@ package hacker.l.coldstore.fragments;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -36,6 +38,7 @@ import hacker.l.coldstore.adapter.StoreRoomAdapter;
 import hacker.l.coldstore.adapter.VardanaAdapter;
 import hacker.l.coldstore.model.MyPojo;
 import hacker.l.coldstore.model.Result;
+import hacker.l.coldstore.myalert.SweetAlertDialog;
 import hacker.l.coldstore.utility.Contants;
 import hacker.l.coldstore.utility.Utility;
 
@@ -124,9 +127,11 @@ public class StoreRoomFragment extends Fragment {
         if (validation()) {
             if (Utility.isOnline(context)) {
                 pd = new ProgressDialog(context);
-                pd.setMessage("Adding wait...");
-                pd.show();
                 pd.setCancelable(false);
+                pd.show();
+                pd.getWindow()
+                        .setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+                pd.setContentView(new ProgressBar(context));
                 StringRequest stringRequest = new StringRequest(Request.Method.POST, Contants.SERVICE_BASE_URL + Contants.addStoreRoom,
                         new Response.Listener<String>() {
                             @Override
@@ -156,7 +161,10 @@ public class StoreRoomFragment extends Fragment {
                 RequestQueue requestQueue = Volley.newRequestQueue(context);
                 requestQueue.add(stringRequest);
             } else {
-                Toast.makeText(context, "You are Offline. Please check your Internet Connection.", Toast.LENGTH_SHORT).show();
+                new SweetAlertDialog(context, SweetAlertDialog.ERROR_TYPE)
+                        .setTitleText("Sorry...")
+                        .setContentText("You are Offline. Please check your Internet Connection.Thank You ")
+                        .show();
             }
 
         }
@@ -204,9 +212,11 @@ public class StoreRoomFragment extends Fragment {
         if (validation()) {
             if (Utility.isOnline(context)) {
                 pd = new ProgressDialog(context);
-                pd.setMessage("Uploading wait...");
-                pd.show();
                 pd.setCancelable(false);
+                pd.show();
+                pd.getWindow()
+                        .setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+                pd.setContentView(new ProgressBar(context));
                 StringRequest stringRequest = new StringRequest(Request.Method.POST, Contants.SERVICE_BASE_URL + Contants.updateStoreRoom,
                         new Response.Listener<String>() {
                             @Override
@@ -238,7 +248,10 @@ public class StoreRoomFragment extends Fragment {
                 RequestQueue requestQueue = Volley.newRequestQueue(context);
                 requestQueue.add(stringRequest);
             } else {
-                Toast.makeText(context, "You are Offline. Please check your Internet Connection.", Toast.LENGTH_SHORT).show();
+                new SweetAlertDialog(context, SweetAlertDialog.ERROR_TYPE)
+                        .setTitleText("Sorry...")
+                        .setContentText("You are Offline. Please check your Internet Connection.Thank You ")
+                        .show();
             }
         }
     }
@@ -246,9 +259,11 @@ public class StoreRoomFragment extends Fragment {
     public void setAdapter() {
         if (Utility.isOnline(context)) {
             pd = new ProgressDialog(context);
-            pd.setMessage("Getting Vardana wait...");
-            pd.show();
             pd.setCancelable(false);
+            pd.show();
+            pd.getWindow()
+                    .setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+            pd.setContentView(new ProgressBar(context));
             StringRequest stringRequest = new StringRequest(Request.Method.POST, Contants.SERVICE_BASE_URL + Contants.getAllStoreRoom,
                     new Response.Listener<String>() {
                         @Override
@@ -284,7 +299,10 @@ public class StoreRoomFragment extends Fragment {
             RequestQueue requestQueue = Volley.newRequestQueue(context);
             requestQueue.add(stringRequest);
         } else {
-            Toast.makeText(context, "You are Offline. Please check your Internet Connection.", Toast.LENGTH_SHORT).show();
+            new SweetAlertDialog(context, SweetAlertDialog.ERROR_TYPE)
+                    .setTitleText("Sorry...")
+                    .setContentText("You are Offline. Please check your Internet Connection.Thank You ")
+                    .show();
         }
     }
 

@@ -29,6 +29,7 @@
         android:drawableStart="@drawable/ic_portable_wifi_off_black_24dp"
         android:paddingLeft="@dimen/margin10"
         android:paddingRight="@dimen/margin10"
+        android:fontFamily="sans-serif-condensed"
         android:text="Try Again"
         android:textAllCaps="false"
         android:textColor="@color/white"

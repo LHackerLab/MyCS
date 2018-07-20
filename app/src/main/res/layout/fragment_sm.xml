@@ -39,6 +39,7 @@
                             android:layout_margin="@dimen/margin5"
                             android:gravity="center"
                             android:text="New Year"
+                            android:fontFamily="sans-serif-condensed"
                             android:textColor="@color/purple"
                             android:textSize="@dimen/textSize16" />
 
@@ -47,6 +48,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="@dimen/margin5"
+                            android:fontFamily="sans-serif-condensed"
                             android:gravity="center"
                             android:text="Independance Day"
                             android:textColor="@color/purple"
@@ -59,6 +61,7 @@
                             android:layout_margin="@dimen/margin5"
                             android:gravity="center"
                             android:text="Dussehra"
+                            android:fontFamily="sans-serif-condensed"
                             android:textColor="@color/purple"
                             android:textSize="@dimen/textSize16" />
 
@@ -69,6 +72,7 @@
                             android:layout_margin="@dimen/margin5"
                             android:gravity="center"
                             android:text="Holi"
+                            android:fontFamily="sans-serif-condensed"
                             android:textColor="@color/purple"
                             android:textSize="@dimen/textSize16" />
 
@@ -79,6 +83,7 @@
                             android:layout_margin="@dimen/margin5"
                             android:gravity="center"
                             android:text="Republic Day"
+                            android:fontFamily="sans-serif-condensed"
                             android:textColor="@color/purple"
                             android:textSize="@dimen/textSize16" />
 
@@ -88,6 +93,7 @@
                             android:layout_height="wrap_content"
                             android:layout_margin="@dimen/margin5"
                             android:gravity="center"
+                            android:fontFamily="sans-serif-condensed"
                             android:text="Guru Nanak Jayanti"
                             android:textColor="@color/purple"
                             android:textSize="@dimen/textSize16" />
@@ -99,6 +105,7 @@
                             android:layout_margin="@dimen/margin5"
                             android:gravity="center"
                             android:text="Diwali"
+                            android:fontFamily="sans-serif-condensed"
                             android:textColor="@color/purple"
                             android:textSize="@dimen/textSize16" />
 
@@ -109,6 +116,7 @@
                             android:layout_margin="@dimen/margin5"
                             android:gravity="center"
                             android:text="Eid"
+                            android:fontFamily="sans-serif-condensed"
                             android:textColor="@color/purple"
                             android:textSize="@dimen/textSize16" />
 
@@ -118,6 +126,7 @@
                             android:layout_height="wrap_content"
                             android:layout_margin="@dimen/margin5"
                             android:gravity="center"
+                            android:fontFamily="sans-serif-condensed"
                             android:text="Gandhi Jayanti"
                             android:textColor="@color/purple"
                             android:textSize="@dimen/textSize16" />
@@ -129,6 +138,7 @@
                             android:layout_margin="@dimen/margin5"
                             android:gravity="center"
                             android:text="Raksha Bandhan"
+                            android:fontFamily="sans-serif-condensed"
                             android:textColor="@color/purple"
                             android:textSize="@dimen/textSize16" />
 
@@ -138,6 +148,7 @@
                             android:layout_height="wrap_content"
                             android:layout_margin="@dimen/margin5"
                             android:gravity="center"
+                            android:fontFamily="sans-serif-condensed"
                             android:text="Christmas day"
                             android:textColor="@color/purple"
                             android:textSize="@dimen/textSize16" />
@@ -148,6 +159,7 @@
                             android:layout_height="wrap_content"
                             android:layout_margin="@dimen/margin5"
                             android:gravity="center"
+                            android:fontFamily="sans-serif-condensed"
                             android:text="Janmasthmi"
                             android:textColor="@color/purple"
                             android:textSize="@dimen/textSize16" />
@@ -163,6 +175,7 @@
                 android:background="@drawable/done_corner_round"
                 android:drawableLeft="@drawable/ic_phone_black_24dp"
                 android:drawablePadding="@dimen/margin10"
+                android:fontFamily="sans-serif-condensed"
                 android:hint="Mobile Number"
                 android:inputType="number"
                 android:paddingLeft="@dimen/margin5" />
@@ -177,6 +190,7 @@
                 android:drawablePadding="@dimen/margin10"
                 android:hint="Message"
                 android:maxLines="10"
+                android:fontFamily="sans-serif-condensed"
                 android:paddingLeft="@dimen/margin5" />
 
             <Button
@@ -188,6 +202,7 @@
                 android:text="Send"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
+                android:fontFamily="sans-serif-condensed"
                 android:textSize="@dimen/textSize16" />
 
             <LinearLayout
@@ -206,6 +221,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/margin10"
                         android:layout_weight=".5"
+                        android:fontFamily="sans-serif-condensed"
                         android:text="All Employee"
                         android:textColor="@color/blue" />
 
@@ -215,6 +231,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginRight="@dimen/margin10"
                         android:layout_weight=".5"
+                        android:fontFamily="sans-serif-condensed"
                         android:text="All Customers"
                         android:textColor="@color/blue" />
                 </RadioGroup>

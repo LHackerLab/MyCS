@@ -20,6 +20,7 @@
             android:background="@drawable/capsule_button"
             android:text="Add New User"
             android:textAllCaps="false"
+            android:fontFamily="sans-serif-condensed"
             android:textColor="@color/white"
             android:textSize="@dimen/textSize16" />
 
@@ -31,6 +32,7 @@
             android:background="@drawable/capsule_button"
             android:text="Show All Users"
             android:textAllCaps="false"
+            android:fontFamily="sans-serif-condensed"
             android:textColor="@color/white"
             android:textSize="@dimen/textSize16" />
     </LinearLayout>

@@ -33,6 +33,7 @@ import hacker.l.coldstore.database.DbHelper;
 import hacker.l.coldstore.fragments.FloorFragment;
 import hacker.l.coldstore.fragments.VarietyFragment;
 import hacker.l.coldstore.model.Result;
+import hacker.l.coldstore.myalert.SweetAlertDialog;
 import hacker.l.coldstore.utility.Contants;
 import hacker.l.coldstore.utility.FontManager;
 import hacker.l.coldstore.utility.Utility;
@@ -126,7 +127,10 @@ public class FloorAdapter extends RecyclerView.Adapter<FloorAdapter.MyViewHolder
                 requestQueue.add(stringRequest);
 //            }
         } else {
-            Toast.makeText(mContext, "Enable Internet Connection.", Toast.LENGTH_SHORT).show();
+            new SweetAlertDialog(mContext, SweetAlertDialog.ERROR_TYPE)
+                    .setTitleText("Sorry...")
+                    .setContentText("You are Offline. Please check your Internet Connection.Thank You ")
+                    .show();
         }
     }
 

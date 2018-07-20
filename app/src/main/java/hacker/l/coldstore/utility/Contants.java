@@ -42,6 +42,8 @@ public class Contants {
     public static final String Admin = "FetchAdmin.php";
     public static final String getSplashImage = "getSplashImage.php";
     public static final String setSplashImage = "setSplashImage.php";
+    public static final String getStoreProfile = "getStoreProfile.php";
+    public static final String setStoreProfile = "setStoreProfile.php";
     public static final String User = "FetchUser.php";
     public static final String AddUser = "addUser.php";
     public static final String AddInward = "addInward.php";

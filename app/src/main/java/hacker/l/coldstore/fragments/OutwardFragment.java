@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -53,9 +54,9 @@ public class OutwardFragment extends Fragment {
     Context context;
     Button btn_proced;
     EditText edt_wholeSaleNo, edt_departure;
-    TextView tv_name, tv_address, tv_Rqty, tv_qty, tv_rack, tv_floor, tv_variety, tv_phone, tv_Fname,tv_rent;
+    TextView tv_name, tv_address, tv_Rqty, tv_qty, tv_rack, tv_floor, tv_variety, tv_phone, tv_Fname, tv_rent;
     double quantity = 0.0;
-    String name, fName, address, rack, qty, departure, phone, variety,rent;
+    String name, fName, address, rack, qty, departure, phone, variety, rent;
     int floor, inwardId;
 
     @Override
@@ -88,7 +89,7 @@ public class OutwardFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (validation()) {
-                    AccoutnFragment accoutnFragment = AccoutnFragment.newInstance("outward", name, fName, phone, address, qty, rent, variety, rack, floor, inwardId,departure);
+                    AccoutnFragment accoutnFragment = AccoutnFragment.newInstance("outward", name, fName, phone, address, qty, rent, variety, rack, floor, inwardId, departure);
                     moveragment(accoutnFragment);
                 }
             }
@@ -175,8 +176,9 @@ public class OutwardFragment extends Fragment {
 
     private void moveragment(Fragment fragment) {
         android.support.v4.app.FragmentManager fragmentManager = ((FragmentActivity) context).getSupportFragmentManager();
-        fragmentManager.beginTransaction()
-                .replace(R.id.container, fragment)
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.setCustomAnimations(R.anim.enter, R.anim.exit);
+                transaction.replace(R.id.container, fragment)
                 .addToBackStack(null)
                 .commit();
     }

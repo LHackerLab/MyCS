@@ -7,6 +7,8 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
+import android.view.Gravity;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -16,6 +18,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -26,6 +30,7 @@ import hacker.l.coldstore.fragments.AboutUsFragment;
 import hacker.l.coldstore.fragments.AccoutnFragment;
 import hacker.l.coldstore.fragments.EmployeeFragment;
 import hacker.l.coldstore.fragments.FloorFragment;
+import hacker.l.coldstore.fragments.HelpFragment;
 import hacker.l.coldstore.fragments.HomeFragment;
 import hacker.l.coldstore.fragments.InwardFragment;
 import hacker.l.coldstore.fragments.OutwardFragment;
@@ -51,7 +56,6 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
 //        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 //        fab.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -60,7 +64,7 @@ public class MainActivity extends AppCompatActivity
 //                        .setAction("Action", null).show();
 //            }
 //        });
-
+        // getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -101,7 +105,7 @@ public class MainActivity extends AppCompatActivity
         layout_settings.setOnClickListener(this);
 //        layout_account.setOnClickListener(this);
         layout_profile.setOnClickListener(this);
-       homeFrg();
+        homeFrg();
         DbHelper dbHelper = new DbHelper(this);
         Result result = dbHelper.getAdminData();
         if (result != null) {
@@ -109,10 +113,12 @@ public class MainActivity extends AppCompatActivity
             tv_email.setText(result.getAdminEmail());
         }
     }
-public void homeFrg(){
-    HomeFragment homeFragment = HomeFragment.newInstance("", "");
-    moverHagment(homeFragment);
-}
+
+    public void homeFrg() {
+        HomeFragment homeFragment = HomeFragment.newInstance("", "");
+        moverHagment(homeFragment);
+    }
+
     public void setTitle(String title) {
         tv_title.setText(title);
     }
@@ -120,12 +126,12 @@ public void homeFrg(){
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
+        if (drawer.isDrawerOpen(Gravity.START)) {
+            drawer.closeDrawer(Gravity.START);
         } else {
             super.onBackPressed();
         }
-       // homeFrg();
+        // homeFrg();
     }
 
     @Override
@@ -154,9 +160,13 @@ public void homeFrg(){
             return true;
         }
         if (id == R.id.action_aboutus) {
-            AboutUsFragment aboutUsFragment = AboutUsFragment.newInstance("", "");
+            AboutUsFragment aboutUsFragment = AboutUsFragment.newInstance(false, "");
             moveragment(aboutUsFragment);
             return true;
+        }
+        if (id==R.id.action_help){
+            HelpFragment aboutUsFragment = HelpFragment.newInstance("", "");
+            moveragment(aboutUsFragment);
         }
         return super.onOptionsItemSelected(item);
     }
@@ -182,12 +192,12 @@ public void homeFrg(){
 //        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
+        drawer.closeDrawer(Gravity.START);
         return true;
     }
 
     public void navHide() {
-        drawer.closeDrawer(GravityCompat.START);
+        drawer.closeDrawer(Gravity.START);
     }
 
     @Override
@@ -195,7 +205,7 @@ public void homeFrg(){
         switch (v.getId()) {
             case R.id.layout_home:
                 HomeFragment homeFragment = HomeFragment.newInstance("", "");
-                moveragment(homeFragment);
+                moverHagment(homeFragment);
                 navHide();
                 break;
             case R.id.layout_inward:
@@ -257,17 +267,19 @@ public void homeFrg(){
     }
 
     private void moveragment(Fragment fragment) {
-        android.support.v4.app.FragmentManager fragmentManager = ((FragmentActivity) this).getSupportFragmentManager();
-        fragmentManager.beginTransaction()
-                .replace(R.id.container, fragment)
+        android.support.v4.app.FragmentManager fragmentManager =  this.getSupportFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.setCustomAnimations(R.anim.pop_enter, R.anim.pop_exit);
+        transaction.replace(R.id.container, fragment)
                 .addToBackStack(null)
                 .commit();
     }
 
     private void moverHagment(Fragment fragment) {
-        android.support.v4.app.FragmentManager fragmentManager = ((FragmentActivity) this).getSupportFragmentManager();
-        fragmentManager.beginTransaction()
-                .replace(R.id.container, fragment)
+        android.support.v4.app.FragmentManager fragmentManager = this.getSupportFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.setCustomAnimations(R.anim.enter, R.anim.exit);
+        transaction.replace(R.id.container, fragment)
                 //.addToBackStack(null)
                 .commit();
     }

@@ -1,6 +1,8 @@
 package hacker.l.coldstore.fragments;
 
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -33,6 +36,7 @@ import hacker.l.coldstore.adapter.PaymentAdapter;
 import hacker.l.coldstore.database.DbHelper;
 import hacker.l.coldstore.model.MyPojo;
 import hacker.l.coldstore.model.Result;
+import hacker.l.coldstore.myalert.SweetAlertDialog;
 import hacker.l.coldstore.utility.Contants;
 import hacker.l.coldstore.utility.Utility;
 
@@ -72,6 +76,7 @@ public class AccountDetailsFragment extends Fragment {
     RecyclerView recyclerView;
     List<Result> resultList;
     DbHelper dbHelper;
+    ProgressDialog pd;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -95,6 +100,12 @@ public class AccountDetailsFragment extends Fragment {
 
     private void getAllPaymentData() {
         if (Utility.isOnline(context)) {
+            pd = new ProgressDialog(context);
+            pd.setCancelable(false);
+            pd.show();
+            pd.getWindow()
+                    .setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+            pd.setContentView(new ProgressBar(context));
             StringRequest stringRequest = new StringRequest(Request.Method.POST, Contants.SERVICE_BASE_URL + Contants.getAllPayment,
                     new Response.Listener<String>() {
                         @Override
@@ -104,11 +115,13 @@ public class AccountDetailsFragment extends Fragment {
                                 dbHelper.upsertPaymentData(result);
                             }
                             setPaymentAdapter();
+                            pd.dismiss();
                         }
                     },
                     new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
+                            pd.dismiss();
                         }
                     }) {
                 @Override
@@ -119,8 +132,11 @@ public class AccountDetailsFragment extends Fragment {
             };
             RequestQueue requestQueue = Volley.newRequestQueue(context);
             requestQueue.add(stringRequest);
-        } else {
-            Toast.makeText(context, "You are Offline. Please check your Internet Connection.", Toast.LENGTH_SHORT).show();
+//        } else {
+//            new SweetAlertDialog(context, SweetAlertDialog.ERROR_TYPE)
+//                    .setTitleText("Sorry...")
+//                    .setContentText("You are Offline. Please check your Internet Connection.Thank You ")
+//                    .show();
         }
     }
 

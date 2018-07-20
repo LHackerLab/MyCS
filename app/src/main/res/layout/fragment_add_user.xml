@@ -21,6 +21,7 @@
                 android:layout_marginLeft="@dimen/margin5"
                 android:layout_marginTop="@dimen/margin5"
                 android:text="Employee Type*"
+                android:fontFamily="sans-serif-condensed"
                 android:textColor="@color/purple"
                 android:textSize="@dimen/textSize16" />
 
@@ -43,6 +44,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginRight="@dimen/margin30"
                         android:text="Admin"
+                        android:fontFamily="sans-serif-condensed"
                         android:textColor="@color/black"
                         android:textSize="@dimen/textSize16" />
 
@@ -52,6 +54,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/margin30"
                         android:checked="true"
+                        android:fontFamily="sans-serif-condensed"
                         android:text="User"
                         android:textColor="@color/black"
                         android:textSize="@dimen/textSize16" />
@@ -69,6 +72,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/margin5"
                     android:layout_weight=".5"
+                    android:fontFamily="sans-serif-condensed"
                     android:text="Joining Date*"
                     android:textColor="@color/purple"
                     android:textSize="@dimen/textSize16" />
@@ -79,6 +83,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight=".5"
                     android:gravity="center"
+                    android:fontFamily="sans-serif-condensed"
                     android:textColor="@color/black"
                     android:textSize="@dimen/textSize16">
 
@@ -91,6 +96,7 @@
                 android:layout_marginLeft="@dimen/margin5"
                 android:layout_marginTop="@dimen/margin10"
                 android:text="Name*"
+                android:fontFamily="sans-serif-condensed"
                 android:textColor="@color/purple"
                 android:textSize="@dimen/textSize16" />
 
@@ -103,6 +109,7 @@
                 android:hint="Enter Employee Name"
                 android:inputType="text"
                 android:paddingLeft="@dimen/margin5"
+                android:fontFamily="sans-serif-condensed"
                 android:textColor="@color/black"
                 android:textSize="@dimen/textSize16" />
 
@@ -112,6 +119,7 @@
                 android:layout_marginLeft="@dimen/margin5"
                 android:layout_marginTop="@dimen/margin10"
                 android:text="Father Name*"
+                android:fontFamily="sans-serif-condensed"
                 android:textColor="@color/purple"
                 android:textSize="@dimen/textSize16" />
 
@@ -123,6 +131,7 @@
                 android:background="@drawable/done_corner_round"
                 android:hint="Enter Employee Father Name"
                 android:inputType="text"
+                android:fontFamily="sans-serif-condensed"
                 android:paddingLeft="@dimen/margin5"
                 android:textColor="@color/black"
                 android:textSize="@dimen/textSize16" />
@@ -133,6 +142,7 @@
                 android:layout_marginLeft="@dimen/margin5"
                 android:layout_marginTop="@dimen/margin5"
                 android:text="Gender*"
+                android:fontFamily="sans-serif-condensed"
                 android:textColor="@color/purple"
                 android:textSize="@dimen/textSize16" />
 
@@ -156,6 +166,7 @@
                         android:layout_marginRight="@dimen/margin30"
                         android:checked="true"
                         android:text="Male"
+                        android:fontFamily="sans-serif-condensed"
                         android:textColor="@color/black"
                         android:textSize="@dimen/textSize16" />
 
@@ -165,6 +176,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/margin30"
                         android:text="Female"
+                        android:fontFamily="sans-serif-condensed"
                         android:textColor="@color/black"
                         android:textSize="@dimen/textSize16" />
                 </RadioGroup>
@@ -176,6 +188,7 @@
                 android:layout_marginLeft="@dimen/margin5"
                 android:layout_marginTop="@dimen/margin5"
                 android:text="Active*"
+                android:fontFamily="sans-serif-condensed"
                 android:textColor="@color/purple"
                 android:textSize="@dimen/textSize16" />
 
@@ -199,6 +212,7 @@
                         android:layout_marginRight="@dimen/margin30"
                         android:checked="true"
                         android:text="true"
+                        android:fontFamily="sans-serif-condensed"
                         android:textColor="@color/black"
                         android:textSize="@dimen/textSize16" />
 
@@ -208,6 +222,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/margin30"
                         android:text="False"
+                        android:fontFamily="sans-serif-condensed"
                         android:textColor="@color/black"
                         android:textSize="@dimen/textSize16" />
                 </RadioGroup>
@@ -225,6 +240,7 @@
                     android:layout_marginLeft="@dimen/margin5"
                     android:layout_weight=".5"
                     android:text="Date Of Birth*"
+                    android:fontFamily="sans-serif-condensed"
                     android:textColor="@color/purple"
                     android:textSize="@dimen/textSize16" />
 
@@ -234,6 +250,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight=".5"
                     android:gravity="center"
+                    android:fontFamily="sans-serif-condensed"
                     android:textColor="@color/black"
                     android:textSize="@dimen/textSize16">
 
@@ -247,6 +264,7 @@
                 android:layout_marginTop="@dimen/margin10"
                 android:text="Mobile Number*"
                 android:textColor="@color/purple"
+                android:fontFamily="sans-serif-condensed"
                 android:textSize="@dimen/textSize16" />
 
             <EditText
@@ -258,6 +276,7 @@
                 android:hint="Enter Mobile Number"
                 android:inputType="number"
                 android:maxLength="10"
+                android:fontFamily="sans-serif-condensed"
                 android:paddingLeft="@dimen/margin5"
                 android:textColor="@color/black"
                 android:textSize="@dimen/textSize16" />
@@ -268,6 +287,7 @@
                 android:layout_marginLeft="@dimen/margin5"
                 android:layout_marginTop="@dimen/margin10"
                 android:text="Qualification"
+                android:fontFamily="sans-serif-condensed"
                 android:textColor="@color/purple"
                 android:textSize="@dimen/textSize16" />
 
@@ -279,6 +299,7 @@
                 android:background="@drawable/done_corner_round"
                 android:hint="Enter Qualification"
                 android:inputType="text"
+                android:fontFamily="sans-serif-condensed"
                 android:paddingLeft="@dimen/margin5"
                 android:textColor="@color/black"
                 android:textSize="@dimen/textSize16" />
@@ -289,6 +310,7 @@
                 android:layout_marginLeft="@dimen/margin5"
                 android:layout_marginTop="@dimen/margin10"
                 android:text="Salary"
+                android:fontFamily="sans-serif-condensed"
                 android:textColor="@color/purple"
                 android:textSize="@dimen/textSize16" />
 
@@ -301,6 +323,7 @@
                 android:hint="Enter Salary"
                 android:inputType="numberDecimal"
                 android:paddingLeft="@dimen/margin5"
+                android:fontFamily="sans-serif-condensed"
                 android:textColor="@color/black"
                 android:textSize="@dimen/textSize16" />
 
@@ -310,6 +333,7 @@
                 android:layout_marginLeft="@dimen/margin5"
                 android:layout_marginTop="@dimen/margin10"
                 android:text="Address"
+                android:fontFamily="sans-serif-condensed"
                 android:textColor="@color/purple"
                 android:textSize="@dimen/textSize16" />
 
@@ -322,6 +346,7 @@
                 android:hint="Enter Address"
                 android:inputType="text"
                 android:paddingLeft="@dimen/margin5"
+                android:fontFamily="sans-serif-condensed"
                 android:textColor="@color/black"
                 android:textSize="@dimen/textSize16" />
 
@@ -331,6 +356,7 @@
                 android:layout_marginLeft="@dimen/margin5"
                 android:layout_marginTop="@dimen/margin10"
                 android:text="Password*"
+                android:fontFamily="sans-serif-condensed"
                 android:textColor="@color/purple"
                 android:textSize="@dimen/textSize16" />
 
@@ -342,6 +368,7 @@
                 android:background="@drawable/done_corner_round"
                 android:hint="Enter Password"
                 android:inputType="text"
+                android:fontFamily="sans-serif-condensed"
                 android:paddingLeft="@dimen/margin5"
                 android:textColor="@color/black"
                 android:textSize="@dimen/textSize16" />
@@ -351,6 +378,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/margin5"
                 android:layout_marginTop="@dimen/margin10"
+                android:fontFamily="sans-serif-condensed"
                 android:text="Comfirm Paaword"
                 android:textColor="@color/purple"
                 android:textSize="@dimen/textSize16" />
@@ -363,6 +391,7 @@
                 android:background="@drawable/done_corner_round"
                 android:hint="Enter Comfirm Paaword"
                 android:inputType="text"
+                android:fontFamily="sans-serif-condensed"
                 android:paddingLeft="@dimen/margin5"
                 android:textColor="@color/black"
                 android:textSize="@dimen/textSize16" />
@@ -375,6 +404,7 @@
                 android:background="@drawable/capsule_button"
                 android:text="Add User"
                 android:textAllCaps="false"
+                android:fontFamily="sans-serif-condensed"
                 android:textColor="@color/white"
                 android:textSize="@dimen/textSize16" />
         </LinearLayout>

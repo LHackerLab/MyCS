@@ -3,6 +3,7 @@ package hacker.l.coldstore.fragments;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -18,6 +19,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -44,6 +46,7 @@ import hacker.l.coldstore.activity.MainActivity;
 import hacker.l.coldstore.database.DbHelper;
 import hacker.l.coldstore.model.MyPojo;
 import hacker.l.coldstore.model.Result;
+import hacker.l.coldstore.myalert.SweetAlertDialog;
 import hacker.l.coldstore.utility.Contants;
 import hacker.l.coldstore.utility.Utility;
 
@@ -285,9 +288,11 @@ public class AddUserFragment extends Fragment {
         if (Utility.isOnline(context)) {
             if (validation()) {
                 pd = new ProgressDialog(context);
-                pd.setMessage("Add wait...");
-                pd.show();
                 pd.setCancelable(false);
+                pd.show();
+                pd.getWindow()
+                        .setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+                pd.setContentView(new ProgressBar(context));
                 StringRequest stringRequest = new StringRequest(Request.Method.POST, Contants.SERVICE_BASE_URL + Contants.AddUser,
                         new Response.Listener<String>() {
                             @Override
@@ -326,7 +331,10 @@ public class AddUserFragment extends Fragment {
                 requestQueue.add(stringRequest);
             }
         } else {
-            Toast.makeText(context, "You are Offline. Please check your Internet Connection.", Toast.LENGTH_SHORT).show();
+            new SweetAlertDialog(context, SweetAlertDialog.ERROR_TYPE)
+                    .setTitleText("Sorry...")
+                    .setContentText("You are Offline. Please check your Internet Connection.Thank You ")
+                    .show();
         }
     }
 
@@ -334,9 +342,11 @@ public class AddUserFragment extends Fragment {
         if (Utility.isOnline(context)) {
             if (validation()) {
                 pd = new ProgressDialog(context);
-                pd.setMessage("Update wait...");
-                pd.show();
                 pd.setCancelable(false);
+                pd.show();
+                pd.getWindow()
+                        .setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+                pd.setContentView(new ProgressBar(context));
                 StringRequest stringRequest = new StringRequest(Request.Method.POST, Contants.SERVICE_BASE_URL + Contants.updateUser,
                         new Response.Listener<String>() {
                             @Override
@@ -375,7 +385,10 @@ public class AddUserFragment extends Fragment {
                 requestQueue.add(stringRequest);
             }
         } else {
-            Toast.makeText(context, "You are Offline. Please check your Internet Connection.", Toast.LENGTH_SHORT).show();
+            new SweetAlertDialog(context, SweetAlertDialog.ERROR_TYPE)
+                    .setTitleText("Sorry...")
+                    .setContentText("You are Offline. Please check your Internet Connection.Thank You ")
+                    .show();
         }
     }
 

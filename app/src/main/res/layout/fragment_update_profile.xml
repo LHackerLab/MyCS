@@ -16,6 +16,7 @@
             android:layout_marginLeft="@dimen/margin5"
             android:layout_marginTop="@dimen/margin10"
             android:text="Name"
+            android:fontFamily="sans-serif-condensed"
             android:textColor="@color/purple"
             android:textSize="@dimen/textSize16" />
 
@@ -26,6 +27,7 @@
             android:layout_margin="@dimen/margin5"
             android:background="@drawable/done_corner_round"
             android:hint="lalit singh"
+            android:fontFamily="sans-serif-condensed"
             android:inputType="text"
             android:paddingLeft="@dimen/margin5"
             android:textColor="@color/black"
@@ -37,6 +39,7 @@
             android:layout_marginLeft="@dimen/margin5"
             android:layout_marginTop="@dimen/margin10"
             android:text="Phone"
+            android:fontFamily="sans-serif-condensed"
             android:textColor="@color/purple"
             android:textSize="@dimen/textSize16" />
 
@@ -48,6 +51,7 @@
             android:background="@drawable/done_corner_round"
             android:hint="9917218407"
             android:inputType="number"
+            android:fontFamily="sans-serif-condensed"
             android:paddingLeft="@dimen/margin5"
             android:textColor="@color/black"
             android:textSize="@dimen/textSize16" />
@@ -58,6 +62,7 @@
             android:layout_marginLeft="@dimen/margin5"
             android:layout_marginTop="@dimen/margin10"
             android:text="Email"
+            android:fontFamily="sans-serif-condensed"
             android:textColor="@color/purple"
             android:textSize="@dimen/textSize16" />
 
@@ -70,6 +75,7 @@
             android:hint="lalit@gmail.com"
             android:inputType="text"
             android:paddingLeft="@dimen/margin5"
+            android:fontFamily="sans-serif-condensed"
             android:textColor="@color/black"
             android:textSize="@dimen/textSize16" />
 
@@ -78,6 +84,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/margin5"
             android:layout_marginTop="@dimen/margin10"
+            android:fontFamily="sans-serif-condensed"
             android:text="Change Password"
             android:textColor="@color/purple"
             android:textSize="@dimen/textSize16" />
@@ -90,6 +97,7 @@
             android:background="@drawable/done_corner_round"
             android:hint="Enter New Password"
             android:inputType="text"
+            android:fontFamily="sans-serif-condensed"
             android:paddingLeft="@dimen/margin5"
             android:textColor="@color/black"
             android:textSize="@dimen/textSize16" />
@@ -103,6 +111,7 @@
             android:hint="Enter Confirm Password"
             android:inputType="text"
             android:paddingLeft="@dimen/margin5"
+            android:fontFamily="sans-serif-condensed"
             android:textColor="@color/black"
             android:textSize="@dimen/textSize16" />
 
@@ -116,6 +125,7 @@
                 android:layout_height="40dp"
                 android:layout_alignParentBottom="true"
                 android:layout_margin="@dimen/margin10"
+                android:fontFamily="sans-serif-condensed"
                 android:background="@drawable/capsule_button"
                 android:text="Save"
                 android:textAllCaps="false"

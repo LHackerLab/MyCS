@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,7 +45,7 @@ public class SettingsFragment extends Fragment {
 
     View view;
     Context context;
-    Button btn_sms;
+    Button btn_sms, btn_storeprofile;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -60,11 +61,16 @@ public class SettingsFragment extends Fragment {
         MainActivity mainActivity = (MainActivity) context;
         mainActivity.setTitle("Settings");
         btn_sms = view.findViewById(R.id.btn_sms);
+        btn_storeprofile = view.findViewById(R.id.btn_storeprofile);
         btn_sms.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 smsClick();
             }
+        });
+        btn_storeprofile.setOnClickListener(v -> {
+            AboutUsFragment smsFragment = AboutUsFragment.newInstance(true, "");
+            moveragment(smsFragment);
         });
     }
 
@@ -75,8 +81,9 @@ public class SettingsFragment extends Fragment {
 
     private void moveragment(Fragment fragment) {
         android.support.v4.app.FragmentManager fragmentManager = ((FragmentActivity) context).getSupportFragmentManager();
-        fragmentManager.beginTransaction()
-                .replace(R.id.container, fragment)
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.setCustomAnimations(R.anim.enter, R.anim.exit);
+        transaction.replace(R.id.container, fragment)
                 .addToBackStack(null)
                 .commit();
     }

@@ -23,6 +23,7 @@
                 android:layout_marginTop="@dimen/margin10"
                 android:drawableLeft="@drawable/ic_developer_board_black_24dp"
                 android:drawablePadding="@dimen/textSize16"
+                android:fontFamily="sans-serif-condensed"
                 android:hint="Enter Name"
                 android:inputType="text"
                 android:textSize="@dimen/textSize16" />
@@ -34,6 +35,7 @@
                 android:layout_marginTop="@dimen/margin10"
                 android:drawableLeft="@drawable/ic_phone_black_24dp"
                 android:drawablePadding="@dimen/textSize16"
+                android:fontFamily="sans-serif-condensed"
                 android:hint="Enter Phone"
                 android:inputType="number"
                 android:textSize="@dimen/textSize16" />
@@ -46,6 +48,7 @@
                 android:drawableLeft="@drawable/ic_developer_board_black_24dp"
                 android:drawablePadding="@dimen/textSize16"
                 android:hint="Enter Quantity"
+                android:fontFamily="sans-serif-condensed"
                 android:inputType="number"
                 android:textSize="@dimen/textSize16" />
 
@@ -56,6 +59,7 @@
                 android:layout_marginTop="@dimen/margin10"
                 android:drawableLeft="@drawable/ic_developer_board_black_24dp"
                 android:drawablePadding="@dimen/textSize16"
+                android:fontFamily="sans-serif-condensed"
                 android:hint="Enter Type"
                 android:inputType="text"
                 android:textSize="@dimen/textSize16">
@@ -70,6 +74,7 @@
                 android:layout_marginTop="@dimen/margin10"
                 android:background="@drawable/capsule_button"
                 android:text="Add"
+                android:fontFamily="sans-serif-condensed"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
                 android:textSize="@dimen/textSize16" />

@@ -36,6 +36,7 @@ import hacker.l.coldstore.fragments.AccountDetailsFragment;
 import hacker.l.coldstore.fragments.AccoutnFragment;
 import hacker.l.coldstore.fragments.InwardDetailsFragment;
 import hacker.l.coldstore.model.Result;
+import hacker.l.coldstore.myalert.SweetAlertDialog;
 import hacker.l.coldstore.utility.Contants;
 import hacker.l.coldstore.utility.FontManager;
 import hacker.l.coldstore.utility.Utility;
@@ -83,22 +84,23 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.MyViewHo
         holder.tv_variety.setText(FilteruserList.get(position).getVarietyName());
         holder.tv_rent.setText(FilteruserList.get(position).getRent() + "(rs)");
         holder.tv_qty.setText(FilteruserList.get(position).getQuantity());
-        holder.tv_advanced.setText(FilteruserList.get(position).getAdvanced() + "(rs)");
+        holder.tv_advanced.setText(FilteruserList.get(position).getAdvanced() + "(Rs)");
         holder.tv_casetype.setText(FilteruserList.get(position).getCaseType());
-        holder.tv_grandotal.setText(FilteruserList.get(position).getGrandTotal() + "(rs)");
+        holder.tv_grandotal.setText(FilteruserList.get(position).getGrandTotal() + "(Rs)");
         holder.tv_time.setText(FilteruserList.get(position).getTime() + "/" + FilteruserList.get(position).getDay());
         holder.tv_byusr.setText(FilteruserList.get(position).getByUser());
         if (Double.parseDouble(FilteruserList.get(position).getGrandTotal()) == 0.0) {
             holder.image_done.setBackground(mContext.getResources().getDrawable(R.drawable.ic_check_black_24dp));
             holder.tv_payment.setEnabled(false);
             holder.tv_payment.setTextColor(mContext.getResources().getColor(R.color.grey_hard));
+            holder.tv_grandotal.setTextColor(mContext.getResources().getColor(R.color.green));
             holder.tv_edit.setEnabled(false);
             holder.tv_edit.setTextColor(mContext.getResources().getColor(R.color.grey_hard));
         }
         holder.tv_payment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AccoutnFragment fragment = AccoutnFragment.newInstance("payment", "", "", "", "", "", "", "", "", 0, FilteruserList.get(position).getInwardId(),"");
+                AccoutnFragment fragment = AccoutnFragment.newInstance("payment", "", "", "", "", "", "", "", "", 0, FilteruserList.get(position).getInwardId(), "");
                 moveragment(fragment);
             }
         });
@@ -163,7 +165,10 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.MyViewHo
             requestQueue.add(stringRequest);
 //            }
         } else {
-            Toast.makeText(mContext, "Enable Internet Connection.", Toast.LENGTH_SHORT).show();
+            new SweetAlertDialog(mContext, SweetAlertDialog.ERROR_TYPE)
+                    .setTitleText("Sorry...")
+                    .setContentText("You are Offline. Please check your Internet Connection.Thank You ")
+                    .show();
         }
     }
 

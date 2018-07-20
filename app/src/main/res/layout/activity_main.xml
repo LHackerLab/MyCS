@@ -30,7 +30,9 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
-                <include layout="@layout/nav_header_main"></include>
+                <include layout="@layout/nav_header_main">
+
+                </include>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -56,6 +58,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight=".8"
                             android:text="Home"
+                            android:fontFamily="sans-serif-condensed"
                             android:textColor="@color/black"
                             android:textSize="@dimen/textSize16" />
                     </LinearLayout>
@@ -79,6 +82,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight=".8"
                             android:text="Inward Management"
+                            android:fontFamily="sans-serif-condensed"
                             android:textColor="@color/black"
                             android:textSize="@dimen/textSize16" />
                     </LinearLayout>
@@ -102,6 +106,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight=".8"
                             android:text="Outward Management"
+                            android:fontFamily="sans-serif-condensed"
                             android:textColor="@color/black"
                             android:textSize="@dimen/textSize16" />
                     </LinearLayout>
@@ -125,6 +130,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight=".8"
                             android:text="Employees Management"
+                            android:fontFamily="sans-serif-condensed"
                             android:textColor="@color/black"
                             android:textSize="@dimen/textSize16" />
                     </LinearLayout>
@@ -149,6 +155,7 @@
                             android:layout_weight=".8"
                             android:text="Floor Management"
                             android:textColor="@color/black"
+                            android:fontFamily="sans-serif-condensed"
                             android:textSize="@dimen/textSize16" />
                     </LinearLayout>
 
@@ -171,6 +178,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight=".8"
                             android:text="Rack Management"
+                            android:fontFamily="sans-serif-condensed"
                             android:textColor="@color/black"
                             android:textSize="@dimen/textSize16" />
                     </LinearLayout>
@@ -194,6 +202,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight=".8"
                             android:text="Variety Management"
+                            android:fontFamily="sans-serif-condensed"
                             android:textColor="@color/black"
                             android:textSize="@dimen/textSize16" />
                     </LinearLayout>
@@ -218,6 +227,7 @@
                             android:layout_weight=".8"
                             android:text="Store Room Management"
                             android:textColor="@color/black"
+                            android:fontFamily="sans-serif-condensed"
                             android:textSize="@dimen/textSize16" />
                     </LinearLayout>
 
@@ -240,6 +250,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight=".8"
                             android:text="Vardana Management"
+                            android:fontFamily="sans-serif-condensed"
                             android:textColor="@color/black"
                             android:textSize="@dimen/textSize16" />
                     </LinearLayout>
@@ -262,6 +273,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight=".8"
+                            android:fontFamily="sans-serif-condensed"
                             android:text="Settings"
                             android:textColor="@color/black"
                             android:textSize="@dimen/textSize16" />
@@ -286,9 +298,21 @@
                             android:layout_height="wrap_content"
                             android:layout_weight=".8"
                             android:text="My Profile"
+                            android:fontFamily="sans-serif-condensed"
                             android:textColor="@color/black"
                             android:textSize="@dimen/textSize16" />
                     </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/margin10"
+                        android:layout_marginTop="@dimen/margin10"
+                        android:gravity="end"
+                        android:fontFamily="sans-serif-condensed"
+                        android:text="Powered by Loop Fusion Software Pvt Ltd."
+                        android:textColor="@color/header"
+                        android:textSize="@dimen/textSize10" />
                 </LinearLayout>
             </LinearLayout>
 

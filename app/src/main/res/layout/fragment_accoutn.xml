@@ -21,6 +21,7 @@
                 android:layout_marginLeft="@dimen/margin5"
                 android:layout_marginTop="@dimen/margin10"
                 android:text="Name"
+                android:fontFamily="sans-serif-condensed"
                 android:textColor="@color/purple"
                 android:textSize="@dimen/textSize16" />
 
@@ -33,6 +34,7 @@
                 android:background="@drawable/done_corner_round"
                 android:gravity="center"
                 android:text="name"
+                android:fontFamily="sans-serif-condensed"
                 android:textColor="@color/black"
                 android:textSize="@dimen/textSize16" />
 
@@ -42,6 +44,7 @@
                 android:layout_marginLeft="@dimen/margin5"
                 android:layout_marginTop="@dimen/margin10"
                 android:text="Father Name"
+                android:fontFamily="sans-serif-condensed"
                 android:textColor="@color/purple"
                 android:textSize="@dimen/textSize16" />
 
@@ -54,6 +57,7 @@
                 android:background="@drawable/done_corner_round"
                 android:gravity="center"
                 android:text="F name"
+                android:fontFamily="sans-serif-condensed"
                 android:textColor="@color/black"
                 android:textSize="@dimen/textSize16" />
 
@@ -63,6 +67,7 @@
                 android:layout_marginLeft="@dimen/margin5"
                 android:layout_marginTop="@dimen/margin10"
                 android:text="Mobile Number"
+                android:fontFamily="sans-serif-condensed"
                 android:textColor="@color/purple"
                 android:textSize="@dimen/textSize16" />
 
@@ -75,6 +80,7 @@
                 android:background="@drawable/done_corner_round"
                 android:gravity="center"
                 android:text="9917218408"
+                android:fontFamily="sans-serif-condensed"
                 android:textColor="@color/black"
                 android:textSize="@dimen/textSize16" />
 
@@ -105,6 +111,7 @@
                 android:layout_marginLeft="@dimen/margin5"
                 android:layout_marginTop="@dimen/margin10"
                 android:text="Quantity"
+                android:fontFamily="sans-serif-condensed"
                 android:textColor="@color/purple"
                 android:textSize="@dimen/textSize16" />
 
@@ -117,6 +124,7 @@
                 android:background="@drawable/done_corner_round"
                 android:gravity="center"
                 android:text="123"
+                android:fontFamily="sans-serif-condensed"
                 android:textColor="@color/black"
                 android:textSize="@dimen/textSize16" />
             <TextView
@@ -124,6 +132,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/margin5"
                 android:layout_marginTop="@dimen/margin10"
+                android:fontFamily="sans-serif-condensed"
                 android:text="Departure"
                 android:textColor="@color/purple"
                 android:textSize="@dimen/textSize16" />
@@ -137,6 +146,7 @@
                 android:background="@drawable/done_corner_round"
                 android:gravity="center"
                 android:text=""
+                android:fontFamily="sans-serif-condensed"
                 android:textColor="@color/black"
                 android:textSize="@dimen/textSize16" />
 
@@ -146,6 +156,7 @@
                 android:layout_marginLeft="@dimen/margin5"
                 android:layout_marginTop="@dimen/margin10"
                 android:text="Total Rent"
+                android:fontFamily="sans-serif-condensed"
                 android:textColor="@color/purple"
                 android:textSize="@dimen/textSize16" />
 
@@ -157,6 +168,7 @@
                 android:layout_marginTop="@dimen/margin10"
                 android:background="@drawable/done_corner_round"
                 android:gravity="center"
+                android:fontFamily="sans-serif-condensed"
                 android:text="2300"
                 android:textColor="@color/black"
                 android:textSize="@dimen/textSize16" />
@@ -167,6 +179,7 @@
                 android:layout_marginLeft="@dimen/margin5"
                 android:layout_marginTop="@dimen/margin10"
                 android:text="Advance"
+                android:fontFamily="sans-serif-condensed"
                 android:textColor="@color/purple"
                 android:textSize="@dimen/textSize16" />
 
@@ -181,6 +194,7 @@
                     android:layout_height="@dimen/dimen_40_dp"
                     android:layout_margin="@dimen/margin5"
                     android:layout_weight=".7"
+                    android:fontFamily="sans-serif-condensed"
                     android:background="@drawable/done_corner_round"
                     android:hint="Enter Advance"
                     android:inputType="numberDecimal"
@@ -204,6 +218,7 @@
                 android:layout_marginLeft="@dimen/margin5"
                 android:layout_marginTop="@dimen/margin10"
                 android:text="Remaining Balance"
+                android:fontFamily="sans-serif-condensed"
                 android:textColor="@color/purple"
                 android:textSize="@dimen/textSize16" />
 
@@ -215,6 +230,7 @@
                 android:layout_marginTop="@dimen/margin10"
                 android:background="@drawable/done_corner_round"
                 android:gravity="center"
+                android:fontFamily="sans-serif-condensed"
                 android:text="200"
                 android:textColor="@color/black"
                 android:textSize="@dimen/textSize16" />
@@ -226,6 +242,7 @@
                 android:layout_margin="@dimen/margin10"
                 android:background="@drawable/capsule_button"
                 android:text="Proced"
+                android:fontFamily="sans-serif-condensed"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
                 android:textSize="@dimen/textSize16" />

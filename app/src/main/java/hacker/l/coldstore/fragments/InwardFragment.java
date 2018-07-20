@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.AppCompatSpinner;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,6 +43,7 @@ import hacker.l.coldstore.adapter.VarietyAdapter;
 import hacker.l.coldstore.database.DbHelper;
 import hacker.l.coldstore.model.MyPojo;
 import hacker.l.coldstore.model.Result;
+import hacker.l.coldstore.myalert.SweetAlertDialog;
 import hacker.l.coldstore.utility.Contants;
 import hacker.l.coldstore.utility.Utility;
 
@@ -234,7 +236,7 @@ public class InwardFragment extends Fragment {
 //                            public void onResponse(String response) {
 //                                pd.dismiss();
 //                                Toast.makeText(context, "Add Successfully", Toast.LENGTH_SHORT).show();
-            AccoutnFragment accoutnFragment = AccoutnFragment.newInstance("inward", empName, empFName, phone, address, qty, rent, vareity, rack, floor, 0,"");
+            AccoutnFragment accoutnFragment = AccoutnFragment.newInstance("inward", empName, empFName, phone, address, qty, rent, vareity, rack, floor, 0, "");
             moveragment(accoutnFragment);
         }
 //                        },
@@ -278,8 +280,9 @@ public class InwardFragment extends Fragment {
 
     private void moveragment(Fragment fragment) {
         android.support.v4.app.FragmentManager fragmentManager = ((FragmentActivity) context).getSupportFragmentManager();
-        fragmentManager.beginTransaction()
-                .replace(R.id.container, fragment)
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.setCustomAnimations(R.anim.enter, R.anim.exit);
+        transaction.replace(R.id.container, fragment)
                 .addToBackStack(null)
                 .commit();
     }
@@ -465,7 +468,10 @@ public class InwardFragment extends Fragment {
             } else {
                 ArrayAdapter<String> adapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_dropdown_item, stringList);
                 spinnerRack.setAdapter(adapter);
-                Toast.makeText(context, "Add Rack Please", Toast.LENGTH_SHORT).show();
+                new SweetAlertDialog(context, SweetAlertDialog.ERROR_TYPE)
+                        .setTitleText("Sorry...")
+                        .setContentText("Add Rack First Please ")
+                        .show();
             }
 
         }
