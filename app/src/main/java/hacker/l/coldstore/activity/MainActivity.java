@@ -43,6 +43,7 @@ import hacker.l.coldstore.fragments.VardanaFragment;
 import hacker.l.coldstore.fragments.VarietyFragment;
 import hacker.l.coldstore.model.Result;
 
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
     LinearLayout layout_home, layout_inward, layout_vardana, layout_storeRoom, layout_outward, layout_settings, layout_employee, layout_floor, layout_rack, layout_vareity, layout_profile;
